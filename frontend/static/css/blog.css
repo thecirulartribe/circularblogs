@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+*{
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    background-color: whitesmoke;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar{
+        width: 10px;
+    }
+::-webkit-scrollbar-track {
+        background: #ffffff;
+      }
+::-webkit-scrollbar-thumb {
+        background: green;
+    }
+.blogs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Wittgenstein", serif;
+}
+.blog{
+    position: relative;
+    top: 100px;
+    width: 70%;
+    height: auto;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.title{
+    text-align: justify;
+}
+.content{
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: justify;
+}
+ol{
+    padding-left: 30px;
+}
+ul{
+    padding-left: 30px;
+}
+.blogimage{
+    background-repeat: no-repeat;
+    width: 100%;
+    max-height: 300px;
+    background-size: cover;
+    background-position: center;
+}
+img{
+width: 100%;
+max-height: 300px;
+}
+@media screen and (max-width: 760px){
+.blogs{
+padding: 10px;
+justify-content: center;
+}
+.blog{
+width: auto;
+padding: 10px;
+}
+.content{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+}
