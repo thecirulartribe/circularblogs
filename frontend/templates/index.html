@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Circular Blog</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/social.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% static 'css/social.css' %}" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <meta name="description" content="At The Circular Tribe, we're on a mission to promote sustainability, eco-friendly practices, and social responsibility. Our platform is a vibrant community where like-minded individuals, businesses, and startups come together to drive positive change.">
+    <meta name="keywords" content="Circular Tribe, Blogs, Circular Blog, Sustainability, Green revolution, education">
+    <meta name="author" content="The Circular Tribe">
 </head>
 <body>
     <header>
@@ -31,7 +35,7 @@
                     <li><a href="/offer">What we offer</a></li>
                     <li><a href="/suggestions">Any Suggestions</a></li>
                 </ul>
-                    <button onclick="openform()" class="subscribe">Subscribe</button>
+                    <button onclick="openform()" class="subscribe"  name="Subscribe">Subscribe</button>
             </div>
         </navbar>
     </header>
@@ -46,36 +50,65 @@
             </a>
             <input type="text" name="Name" class="Name Subin" id="Name" placeholder="Enter your Name" required/>
             <input type="email" name="Email" class="Email Subin" id="Email" placeholder="Enter your email id" required/>
-            <button class="Subbtn" type="submit">Submit</button>
+            <button class="Subbtn" type="submit" name="Submit">Submit</button>
         </div>
     </form>
+    {% if submission %}
+    <div class="subscribing" id="Popupclose">
+        <div class="form-container">
+            {% if subscribed %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="Green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            <h2>Thank you for Subscribing</h2>
+            {% else %}
+            <h2>Already Subscribed</h2>
+            {% endif %}
+            <a class="Subclose Subhide" onclick="closepopup()" name="refresh" value="True">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg subcl" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    {% endif %}
     <main id="main">
         <div class="logotext" id="logotext">
             <h1>Circular</h1><h2>Blog</h2>
         </div>
-        <div class="searchbar">
-            <input class="search" type="text" name="search" id="search">
-            <button class="searchbutton" type="submit" id="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>
-            </button>
-        </div>
+        <form class="searchbar" id="autocomplete" method="GET">
+            <div class="row1">
+                <input class="search" type="text" name="search" id="search"/>
+                <button class="searchbutton" type="submit" id="submit" name="Search"  aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="row2">
+                <ul class="autolist"></ul>
+            </div>
+        </form>
         <div class="categories">
-            <ul>
-                <li class="active"><a>Recent</a></li>
-                <li><a>Recycling</a></li>
-                <li><a>Upcycling</a></li>
-                <li><a>Technology</a></li>
-                <li><a>Products</a></li>
-                <li><a>Everyday</a></li>
-                <li><a>Waste</a></li>
-                <li><a>News</a></li>
+            <ul id="categories">
+                <li><a class="active" id="Recent" href="/">Recent</a></li>
+                <li><a id="Environment" href="/category/Environment">Environment</a></li>
+                <li><a id="Technology" href="/category/Technology">Technology</a></li>
+                <li><a id="Agriculture" href="/category/Agriculture">Agriculture</a></li>
+                <li><a id="Life-style" href="/category/Life-style">Life style</a></li>
+                <li><a id="Fashion" href="/category/Fashion">Fashion</a></li>
+                <li><a id="Food" href="/category/Food">Food</a></li>
+                <li><a id="Education" href="/category/Education">Education</a></li>
+                <li><a id="News" href="/category/News">News</a></li>
+                <li><a id="DIY" href="/category/DIY">DIY</a></li>
+                <li><a id="Travel" href="/category/Travel">Travel</a></li>
+                <li><a id="Case-Studies" href="/category/Case-Studies">Case Studies</a></li>
+                <li><a id="Others" href="/category/Others">Others</a></li>
             </ul>
         </div>
         <div class="content">
             <div class="mainblog" style="background-image: url('{{main.image.url}}')">
-                <a href="blog/{{ main.Title }}">
+                <a href="/blog/{{ main.Title }}">
                     <div class="heading">
                         <h1>{{ main.Title }}</h1>
                     </div>
@@ -84,7 +117,7 @@
             <div class="recentblog">
                 {% for blog in recent %}
                 <div class="blog" style="background: url('{{blog.image.url}}')">
-                    <a href="blog/{{ blog.Title }}">
+                    <a href="/blog/{{ blog.Title }}">
                         <div class="bloghead">
                             <span><b>{{ blog.Title }}</b></span>
                         </div>
@@ -96,7 +129,7 @@
             <div class="moreblog" id="moreblog">
                 {% for blog in blogs %}
                 <div class="blog" style="background: url('{{blog.image.url}}')">
-                    <a href="blog/{{ blog.Title }}">
+                    <a href="/blog/{{ blog.Title }}">
                         <div class="bloghead">
                             <span><b>{{ blog.Title }}</b></span>
                         </div>
@@ -107,9 +140,10 @@
         </div>
     </main>
     <div class="social">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+        <a href="https://www.instagram.com/circular_blog/" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
             <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
         </svg>
+        </a>
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
             <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
         </svg>
@@ -121,8 +155,14 @@
           </svg>
     </div>
 </body>
-<script type="text/javascript" src="{% static 'js/index.js' %}">
+<script type="text/javascript" src="{% static 'js/index.js' %}" defer>
 </script>
-<script type="text/javascript" src="{% static 'js/nav.js' %}">
+<script type="text/javascript" src="{% static 'js/nav.js' %}" defer>
 </script>
+{% if category %}
+<script type="text/javascript" src="{% static 'js/category.js' %}" defer>
+</script>
+{% endif %}
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js" defer></script>
+<script type="text/javascript" src="{% static 'js/autocomplete.js' %}" defer></script>
 </html>

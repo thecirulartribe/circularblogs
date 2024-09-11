@@ -3,6 +3,7 @@ var closeid = document.getElementById("close");
 var navid = document.getElementById("navigation");
 var mainid = document.getElementById("main");
 var Sub = document.getElementById("subscribing");
+var popup = document.getElementById("Popupclose");
 function opennav() {
     openid.classList.add("navhide");
     closeid.classList.remove("navhide");
@@ -22,4 +23,8 @@ function closeform(){
 };
 function openform(){
     Sub.classList.remove("hide");
+};
+function closepopup(){
+    popup.classList.add("hide");
+    location.replace(location.href);
 }
