@@ -19,9 +19,6 @@ class Blog(models.Model):
     show_blog_at = models.CharField(default=('None', 'None'), max_length=20, choices=[('None', 'None'), ('Main', 'Main'), ('Side', 'Side')])
     author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
 
-    def __str__(self):
-        return self.Title + " | " + self.author
-
 
 class Subscribe(models.Model):
     name = models.CharField(default="No Name", max_length=100)
