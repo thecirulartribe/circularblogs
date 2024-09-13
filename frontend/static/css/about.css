@@ -1,113 +1,100 @@
-@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
 
-700&family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap);* {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth
+*{
+    margin: 0%;
+    padding: 0%;
+    scroll-behavior: smooth;
 }
-
-body {
-    background-color: #f5f5f5;
-    overflow-x: hidden
+body{
+    background-color: whitesmoke;
+    overflow-x: hidden;
 }
-
-::-webkit-scrollbar {
-    width: 10px
+::-webkit-scrollbar{
+    width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-    background: #fff
-}
-
+    background: #ffffff;
+  }
 ::-webkit-scrollbar-thumb {
-    background: green
+    background: green;
 }
-
-main {
+main{
     position: relative;
     top: 100px;
     width: 100vw;
     height: 100%;
-    font-family: "Roboto",sans-serif;
-    margin-bottom: 150px
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 150px;
 }
-
-.hero,h2 {
-    text-align: center
-}
-
 .hero {
-    background: url(/frontend/static/images/back2.webp)no-repeat center center/cover;
+    background: url("/static/images/back2.webp") no-repeat center center/cover;
     color: #fff;
     height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center
-}
-
-.hero h1,.hero p {
-    text-shadow: 5px 5px 10px #000
+    align-items: center;
+    text-align: center;
 }
 
 .hero h1 {
     font-size: 3rem;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    text-shadow: 5px 5px 10px black;
 }
 
 .hero p {
-    font-size: 1.2rem
+    font-size: 1.2rem;
+    text-shadow: 5px 5px 10px black;
 }
 
 .hero .btn {
     background: #fff;
-    color: #4caf50;
+    color: #4CAF50;
     padding: 10px 20px;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: bold;
     border-radius: 5px;
-    margin-top: 10px
+    margin-top: 10px;
 }
-
-.hero .btn:hover {
+.hero .btn:hover{
     color: #fff;
-    background: #4caf50
+    background: #4CAF50;
 }
 
 .container {
     padding: 20px;
     max-width: 1200px;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 h2 {
+    text-align: center;
     margin: 20px 0;
-    color: #4caf50;
-    font-size: 2rem
+    color: #4CAF50;
+    font-size: 2rem;
 }
-
-.mission p,.vision p {
-    font-size: 1.5rem
+.mission p, .vision p{
+    font-size: 1.5rem;
 }
-
-.contact,.future-plans,.offerings,.values {
+.values, .offerings, .future-plans, .contact{
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
-.contact div,.future-plans div,.offerings div,.values div {
+.values div, .offerings div, .future-plans div, .contact div{
     flex: 1;
     margin: 10px;
     padding: 20px;
     background: #f4f4f4;
     border-radius: 8px;
     text-align: center;
-    box-shadow: rgba(0,0,0,.24)0 3px 8px
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.future-plans div img,.offerings div img,.values div img {
+.values div img, .offerings div img, .future-plans div img {
     max-width: 100px;
-    margin-bottom: 15px
+    margin-bottom: 15px;
 }

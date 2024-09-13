@@ -1,262 +1,238 @@
-@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;
-
-700&family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap);navbar {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+/* Navbar */
+navbar{
     position: fixed;
-    top: 0;
-    right: 0;
+    top:0%;
+    right: 0%;
+    width: 100vw;
     height: 100px;
     color: #18392b;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    font-family: "Roboto",sans-serif;
+    font-family: "Roboto", sans-serif;
     cursor: pointer;
-    background-color: #f5f5f5;
-    z-index: 9999
+    background-color: whitesmoke;
+    z-index: 9999;
 }
-
-.navbuttons {
-    display: none
+.navbuttons{
+    display: none;
 }
-
-.navigation,.navigation ul,navbar {
+.navigation{
     width: 100vw;
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    justify-content: space-around;
 }
-
-.navigation ul {
+.navigation ul{
     list-style: none;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-around;
     width: 70vw;
-    height: 50px
+    height: 50px;
 }
-
-.navigation,.navigation ul {
-    justify-content: space-around
+.navigation ul li{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease-in-out;
+    font-size: 1.3rem;
 }
-
-.navigation ul li,.subscribe {
+.navigation ul li a{
+text-decoration: none;
+color: #18392b;;
+}
+.navigation ul li a:hover{
+    color: tomato;
+    font-size: 1.5rem;
+}
+.subscribe{
+    width: 200px;
+    background-color: tomato;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: .2s ease-in-out;
-    font-size: 1.3rem
-}
-
-.navigation ul li {
-    width: 100%;
-    flex-direction: column
-}
-
-.navigation ul li a {
-    text-decoration: none;
-    color: #18392b
-}
-
-.navigation ul li a:hover {
-    color: tomato;
-    font-size: 1.5rem
-}
-
-.subscribe {
-    width: 200px;
-    background-color: tomato;
-    color: #000;
-    border: 0;
+    color: #000000;
+    transition: 0.2s ease-in-out;
+    font-size: 1.3rem;
+    border: none;
     border-radius: 10px;
-    cursor: pointer
+    cursor: pointer;
 }
-
-.subscribe:hover {
+.subscribe:hover{
     color: #1b5f4f;
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid tomato;
-    font-size: 1.5rem
+    font-size: 1.5rem;
 }
-
-.hide {
-    display: none!important
+.hide{
+    display: none !important;
 }
-
-.form-container,.subscribing {
-    display: flex;
-    justify-content: center;
-    align-items: center
-}
-
-.subscribing {
+.subscribing{
     position: fixed;
     z-index: 999999;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,128,0,.25)
+    background-color: rgba(0, 128, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.form-container {
+.form-container{
     position: absolute;
-    background-color: #f0f8ff;
+    display: flex;
+    background-color: aliceblue;
     height: 200px;
     width: 500px;
     flex-direction: column;
+    justify-content: center;
     gap: 10px;
-    text-align: center
+    align-items: center;
+    text-align: center;
 }
-
-.Subin {
-    background-color: #fff;
-    color: #000;
+.Subin{
+    background-color: #ffffff;
+    color: #000000;
     width: 300px;
     height: 25px;
-    padding: 5px 5px 5px 10px;
+    padding: 5px;
+    padding-left: 10px;
     font-size: 20px;
     border-radius: 5px;
-    border: 3px solid #588b76
+    border: 3px solid #588b76;
 }
-
-.Subin::placeholder {
-    color: #588b76
+.Subin::placeholder{
+    color: #588b76;
 }
-
-.Subbtn {
+.Subbtn{
     width: 130px;
     height: 40px;
     font-size: 20px;
-    border: 0;
+    border: 0px;
     background-color: tomato;
     cursor: pointer;
     border-radius: 5px;
-    color: #fff
+    color: #ffffff;
 }
-
-.Subbtn:hover {
+.Subbtn:hover{
     color: #1b5f4f;
-    background-color: #fff;
-    border: 1px solid tomato
+    background-color: #ffffff;
+    border: 1px solid tomato;
 }
-
-.Subclose {
+.Subclose{
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 0%;
+    top: 0%;
     margin-top: 5px;
     margin-right: 5px;
-    cursor: pointer
+    cursor: pointer;
 }
-
-.subcl:hover {
+.subcl:hover{
     width: 25px;
-    height: 25px
+    height: 25px;
 }
-
-@media screen and (max-width:520px) {
-    .form-container {
+@media screen and (max-width: 520px){
+    .form-container{
         width: auto;
         height: 300px;
-        margin: 10px
+        margin: 10px;
     }
-
-    .form-container h1 {
-        margin: 10px
-    }
-}
-
-@media screen and (max-width:400px) {
-    .navshow {
-        width: 100%
-    }
-
-    .navshow ul li,.subscribe {
-        height: 50px
-    }
-
-    .navshown {
-        top: 300px
+    .form-container h1{
+        margin: 10px;
     }
 }
-
-@media screen and (max-width:940px) {
-    navbar {
-        justify-content: flex-end;
-        height: 50px
-    }
-
-    main {
-        top: 50px
-    }
-
-    .name {
-        width: auto
-    }
-
-    .navigation {
-        display: none
-    }
-
-    .navbuttons {
-        display: flex;
-        padding-right: 10px;
-        z-index: 99999;
-        overflow: hidden
-    }
-
-    .navhide {
-        display: none
-    }
-
-    .navshow,.navshow ul {
-        display: flex;
-        flex-direction: column;
-        height: auto
-    }
-
-    .navshow {
-        position: fixed;
-        top: 50px;
-        right: 0;
-        width: 50%;
-        background-color: #85aa9b;
-        color: #fff;
-        justify-content: flex-start;
-        align-items: center
-    }
-
-    .mainshift {
-        z-index: -10
-    }
-
-    .subscribe {
+@media screen and (max-width: 400px){
+    .navshow{
         width: 100%;
-        background-color: #588b76;
-        border-radius: 0
     }
-
-    .navshow ul {
-        width: 100%;
-        padding: 0;
-        text-align: center
+    .navshow ul li{
+        height: 50px;
     }
-
-    .navshow ul li a {
-        color: #fff
+    .subscribe{
+        height: 50px;
     }
-
-    .navshow ul li:hover a {
-        color: #18392b
-    }
-}
-
-@media screen and (max-width:400px) {
-    .navshow {
-        width: 100%
-    }
-
-    .navshow ul li,.subscribe {
-        height: 50px
-    }
-
-    .navshown {
+    .navshown{
         top: 300px;
-        text-align: center
+    }
+}
+@media screen and (max-width: 940px){
+navbar{
+    justify-content: flex-end;
+    height: 50px;
+}
+main{
+    top: 50px;
+}
+.name{
+    width: auto;
+}
+.navigation{
+    display: none;
+}
+.navbuttons{
+    display: flex;
+    padding-right: 10px;
+    z-index: 99999;
+    overflow: hidden;
+}
+.navhide{
+    display: none;
+}
+.navshow{
+    position: fixed;
+    top: 50px;
+    right: 0%;
+    width: 50%;
+    height: auto;
+    background-color: #85aa9b;
+    display: flex;
+    color: #ffffff;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.mainshift{
+    z-index: -10;
+}
+.subscribe{
+    width: 100%;
+    background-color: #588b76;
+    border-radius: 0px;
+}
+.navshow ul{
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+}
+.navshow ul li a{
+color: #ffffff;
+}
+.navshow ul li:hover a{
+    color: #18392b;
+}
+}
+@media screen and (max-width: 400px){
+    .navshow{
+        width: 100%;
+    }
+    .navshow ul li{
+        height: 50px;
+    }
+    .subscribe{
+        height: 50px;
+    }
+    .navshown{
+        top: 300px;
+        text-align: center;
     }
 }
