@@ -25,6 +25,7 @@ cd .\circularblog\
 
 #### Check if you are on the root
 ```
+git pull origin main
 git status
 ```
 
