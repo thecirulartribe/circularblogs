@@ -1,0 +1,4 @@
+Django==4.2.16
+django-ckeditor-5==0.2.13
+django-import-export==4.1.1
+whitenoise==6.7.0
