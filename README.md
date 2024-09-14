@@ -30,7 +30,7 @@ git status
 ```
 
 #### If you are on the main branch then create a new branch
->Add any custom branch name place of '<branch-name>' 
+>Add any custom branch name place of `<branch-name>` 
 ```
 git checkout -b <branch-name>
 git status
