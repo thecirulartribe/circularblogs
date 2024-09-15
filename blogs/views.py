@@ -3,7 +3,7 @@ from .models import Blog, Subscribe, service, suggestions
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from serializer import BlogSerializer
+from .serializers import BlogSerializer
 import random
 
 # Create your views here.
