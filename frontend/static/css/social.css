@@ -21,3 +21,10 @@
     color: #000000;
     transform: scale(1.2);
 }
+@media screen and (max-width: 500px) {
+.social {
+    left: auto;
+    right: 0%;
+    border-radius: 15px 0% 0% 15px;
+}
+}
