@@ -200,6 +200,7 @@ main{
     display: flex;
     flex-direction: row;
     gap: 20px;
+    padding-bottom: 10px;
     transform: rotateX(180deg);
     overflow-y: hidden;
     overflow-x: scroll;

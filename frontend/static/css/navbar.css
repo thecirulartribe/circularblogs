@@ -96,6 +96,7 @@ color: #18392b;;
     gap: 10px;
     align-items: center;
     text-align: center;
+    border-radius: 15px;
 }
 .Subin{
     background-color: #ffffff;
@@ -130,8 +131,8 @@ color: #18392b;;
     position: absolute;
     right: 0%;
     top: 0%;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin-top: 10px;
+    margin-right: 10px;
     cursor: pointer;
 }
 .subcl:hover{
