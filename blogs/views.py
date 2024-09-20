@@ -236,3 +236,12 @@ def blog_list(request):
     blogs = Blog.objects.all()
     serializer = BlogSerializer(blogs, many=True)
     return Response(serializer.data)
+
+def category_wise_count(request):
+    category_list = ['Environment','Technology','Agriculture','Life-style', 'Fashion', 'Food', 'Education', 'DIY', 
+                     'News', 'Travel', 'Case-Studies', 'Others']
+    count = {}
+    for category in category_list:
+        blogs = Blog.objects.filter(category=category)
+        count[category] = blogs.count()
+    return render(request, 'category_list.html', {'count': count})
