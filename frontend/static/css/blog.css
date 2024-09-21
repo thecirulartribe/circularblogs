@@ -124,17 +124,24 @@ max-height: 300px;
     list-style: none;
     padding: 0px;
     font-family: "Roboto", sans-serif;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 .breadcrumbs li{
     display: inline-block;
 }
-.breadcrumbs li:after{
+.breadcrumbs li:not(:last-of-type)::after{
     content: "/";
-    color: black;
+    color: grey;
     padding: 0 5px 0 5px;
 }
-.breadcrumbs li:last-child:after{
-    content: '';
+.less{
+   width: calc(100vw/1.5);
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 }
 .breadcrumbs li a{
     color: grey;
