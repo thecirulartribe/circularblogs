@@ -145,6 +145,7 @@ max-height: 300px;
 }
 .breadcrumbs li a{
     color: grey;
+    text-wrap: nowrap;
 }
 .breadcrumbs li a:hover{
     color: black;
