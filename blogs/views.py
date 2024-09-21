@@ -87,7 +87,7 @@ def blog(request, title):
         Email = request.POST.get('Email')
         submission = True
         subscribed = subscribe(Name, Email)
-    return render(request, 'Blogs.html', {'content': content, 'description': description, 'keywords': keywords, 'submission': submission, 'subscribed': subscribed, 'blogs': blogs, 'category': category})
+    return render(request, 'Blogs.html', {'content': content, 'description': description, 'keywords': keywords, 'submission': submission, 'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title})
 
 
 def categories(request, category):
