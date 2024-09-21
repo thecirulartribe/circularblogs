@@ -117,6 +117,39 @@ img{
 width: 100%;
 max-height: 300px;
 }
+.content a{
+    text-decoration: underline;
+}
+.breadcrumbs{
+    list-style: none;
+    padding: 0px;
+    font-family: "Roboto", sans-serif;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.breadcrumbs li{
+    display: inline-block;
+}
+.breadcrumbs li:not(:last-of-type)::after{
+    content: "/";
+    color: grey;
+    padding: 0 5px 0 5px;
+}
+.less{
+   width: calc(100vw/1.5);
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+.breadcrumbs li a{
+    color: grey;
+}
+.breadcrumbs li a:hover{
+    color: black;
+    text-decoration: underline;
+}
 @media screen and (min-width: 500px) and (max-width: 1400px){
     .cards{
         flex-direction: column;

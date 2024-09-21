@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/social.css' %}" media="print" onload="this.media='all'">
@@ -74,6 +74,10 @@
     {% endif %}
 <div class="blogs">
     <div class="blog">
+        <ol class="breadcrumbs">
+            <li><a href="/category/{{category}}">{{ category }}</a></li>
+            <li class="less">{{ title }}</li>
+        </ol>
         {% for context in content %}
         <div class="blogimage">
             <img src="{{ context.image.url }}" alt="{{ context.Title }}">
