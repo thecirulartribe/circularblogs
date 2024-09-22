@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'frontend/static/js', 'serviceworker.js')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -252,3 +252,56 @@ PWA_APP_SPLASH_SCREEN = [
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
+PWA_APP_SHORTCUTS = [
+    {
+        'name': 'About us',
+        'url': '/aboutus',
+        'description': 'Know more about us',
+        'icons': [
+            {
+                "src":'frontend/static/images/icons/icon-96x96.png',
+                "sizes": "96x96",
+                "type": "image/png"
+             }
+        ]
+    },
+    {
+        'name': 'Any Suggestions',
+        'url': '/suggestions',
+        'description': 'Any Sugestions for our content',
+        'icons': [
+            {
+                "src": 'frontend/static/images/icons/icon-96x96.png',
+                "sizes": "96x96",
+                "type": "image/png"
+            }
+        ]
+    },
+
+    {
+        'name': 'What we offer',
+        'url': '/offer',
+        'description': 'Know about what we offer',
+        'icons': [
+            {
+                "src": 'frontend/static/images/icons/icon-96x96.png',
+                "sizes": "96x96",
+                "type": "image/png"
+            }
+        ]
+    }
+]
+PWA_APP_SCREENSHOTS = [
+    {
+      'src': 'frontend/static/images/icons/screenshot-750x1334.png',
+      'sizes': '750x1334',
+      "type": "image/png",
+      "form_factor": "narrow",
+    },
+    {
+        'src': 'frontend/static/images/icons/screenshot-1900x853.png',
+        'sizes': '1900x853',
+        "type": "image/png",
+        "form_factor": "wide",
+    }
+]
