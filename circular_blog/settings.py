@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+os.path.join(BASE_DIR, 'frontend/static/js', 'serviceworker.js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'blogs',
     'import_export',
-    'django_ckeditor_5'
+    'django_ckeditor_5',
+    'pwa'
 ]
 
 MIDDLEWARE = [
@@ -135,6 +136,7 @@ MEDIA_URL = '/media/'
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/media')
 
+#Django Ck-editor configuration
 customColorPalette = [
         {
             'color': 'hsl(4, 90%, 58%)',
@@ -220,3 +222,34 @@ CKEDITOR_5_CONFIGS = {
         }
     }
 }
+
+#Progressive Web App configuration
+PWA_APP_NAME = 'Circular Blog'
+PWA_APP_DESCRIPTION = "Educating Sustainability"
+PWA_APP_THEME_COLOR = '#008000'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+	{
+		'src': 'frontend/static/images/C.png',
+		'sizes': '160x160'
+	}
+]
+PWA_APP_ICONS_APPLE = [
+	{
+		'src': 'frontend/static/images/C.png',
+		'sizes': '160x160'
+	}
+]
+PWA_APP_SPLASH_SCREEN = [
+	{
+		'src': 'frontend/static/images/Circularblog-nobg.png',
+		'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+	}
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
