@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Blog, Subscribe, service, suggestions
 from django.http import JsonResponse
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .serializers import BlogSerializer
 import random
 
 # Create your views here.
@@ -229,13 +226,6 @@ def thankyou(request):
         heading = 'Suggestion'
         para = "We appreciate your input and will review your suggestion carefully. Your feedback helps us improve and grow. Together, we can make a difference."
     return render(request, 'thankyou.html', {'heading': heading, 'para': para})
-
-
-@api_view(['GET'])
-def blog_list(request):
-    blogs = Blog.objects.all()
-    serializer = BlogSerializer(blogs, many=True)
-    return Response(serializer.data)
 
 def category_wise_count(request):
     category_list = ['Environment','Technology','Agriculture','Life-style', 'Fashion', 'Food', 'Education', 'DIY', 
