@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, blog, offer, suggestion, aboutus, categories, get_blog, thankyou, blog_list, category_wise_count
+from .views import index, blog, offer, suggestion, aboutus, categories, get_blog, thankyou, category_wise_count
 urlpatterns = [
     path('', index, name='recent'),
     path('offer', offer, name='offer'),
@@ -9,7 +9,6 @@ urlpatterns = [
     path('category/<str:category>', categories),
     path('get_blog/', get_blog),
     path('thankyou/', thankyou),
-    path('api/blogs/', blog_list, name='blog-list'),
     path('categorycount/', category_wise_count, name="count")
 ]
 

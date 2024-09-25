@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'frontend/static/js', 'serviceworker.js')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -36,11 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'blogs',
     'import_export',
     'django_ckeditor_5',
-    'pwa'
 ]
 
 MIDDLEWARE = [
@@ -221,87 +218,3 @@ CKEDITOR_5_CONFIGS = {
         }
     }
 }
-
-#Progressive Web App configuration
-PWA_APP_NAME = 'Circular Blog'
-PWA_APP_DESCRIPTION = "Educating Sustainability"
-PWA_APP_THEME_COLOR = '#008000'
-PWA_APP_BACKGROUND_COLOR = '#ffffff'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_ORIENTATION = 'any'
-PWA_APP_START_URL = '/'
-PWA_APP_STATUS_BAR_COLOR = 'default'
-PWA_APP_ICONS = [
-	{
-		'src': 'frontend/static/images/C.png',
-		'sizes': '160x160'
-	}
-]
-PWA_APP_ICONS_APPLE = [
-	{
-		'src': 'frontend/static/images/C.png',
-		'sizes': '160x160'
-	}
-]
-PWA_APP_SPLASH_SCREEN = [
-	{
-		'src': 'frontend/static/images/Circularblog-nobg.png',
-		'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-	}
-]
-PWA_APP_DIR = 'ltr'
-PWA_APP_LANG = 'en-US'
-PWA_APP_SHORTCUTS = [
-    {
-        'name': 'About us',
-        'url': '/aboutus',
-        'description': 'Know more about us',
-        'icons': [
-            {
-                "src":'frontend/static/images/icons/icon-96x96.png',
-                "sizes": "96x96",
-                "type": "image/png"
-             }
-        ]
-    },
-    {
-        'name': 'Any Suggestions',
-        'url': '/suggestions',
-        'description': 'Any Sugestions for our content',
-        'icons': [
-            {
-                "src": 'frontend/static/images/icons/icon-96x96.png',
-                "sizes": "96x96",
-                "type": "image/png"
-            }
-        ]
-    },
-
-    {
-        'name': 'What we offer',
-        'url': '/offer',
-        'description': 'Know about what we offer',
-        'icons': [
-            {
-                "src": 'frontend/static/images/icons/icon-96x96.png',
-                "sizes": "96x96",
-                "type": "image/png"
-            }
-        ]
-    }
-]
-PWA_APP_SCREENSHOTS = [
-    {
-      'src': 'frontend/static/images/icons/screenshot-750x1334.png',
-      'sizes': '750x1334',
-      "type": "image/png",
-      "form_factor": "narrow",
-    },
-    {
-        'src': 'frontend/static/images/icons/screenshot-1900x853.png',
-        'sizes': '1900x853',
-        "type": "image/png",
-        "form_factor": "wide",
-    }
-]

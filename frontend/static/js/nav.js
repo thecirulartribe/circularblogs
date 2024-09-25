@@ -21,12 +21,10 @@ function closenav() {
 function closeform(){
     Sub.classList.add("hide");
 };
-var timeout = setTimeout(openform, 3000);
 function openform(){
     Sub.classList.remove("hide");
 };
 function closepopup(){
     popup.classList.add("hide");
     location.replace(location.href);
-    clearTimeout(timeout);
 }
