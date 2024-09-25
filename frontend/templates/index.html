@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-{% load pwa %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +9,6 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/social.css' %}" media="print" onload="this.media='all'">
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    {% progressive_web_app_meta %}
-    <link rel="mainfest" href="manifest.json">
     <meta name="description" content="At The Circular Tribe, we're on a mission to promote sustainability, eco-friendly practices, and social responsibility. Our platform is a vibrant community where like-minded individuals, businesses, and startups come together to drive positive change.">
     <meta name="keywords" content="Circular Tribe, Blogs, Circular Blog, Sustainability, Green revolution, education">
     <meta name="author" content="The Circular Tribe">
