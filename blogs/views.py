@@ -5,8 +5,8 @@ import random
 
 # Create your views here.
 def index(request):
-    content = Blog.objects.order_by('-pk')
-    sponsered = Blog.objects.filter(sponsered=True)
+    content = Blog.objects.filter(published=True).order_by('-pk')
+    sponsered = Blog.objects.filter(published=True,sponsered=True)
     counter = 0
     main_blog = None
     recent = []
@@ -14,9 +14,9 @@ def index(request):
     submission = False
     subscribed = True
     if len(sponsered) > 0:
-        sponsered_main = Blog.objects.filter(sponsered=True, show_blog_at='Main').order_by('-pk')
-        sponsered_side = Blog.objects.filter(sponsered=True, show_blog_at='Side').order_by('-pk')
-        unsponsered = Blog.objects.filter(sponsered=False).order_by('-pk')
+        sponsered_main = Blog.objects.filter(sponsered=True, show_blog_at='Main', published=True).order_by('-pk')
+        sponsered_side = Blog.objects.filter(sponsered=True, show_blog_at='Side', published=True).order_by('-pk')
+        unsponsered = Blog.objects.filter(sponsered=False, published=True).order_by('-pk')
         for data in sponsered_main:
             if counter == 0:
                 main_blog = data
@@ -55,18 +55,18 @@ def index(request):
         subscribed = subscribe(Name, Email)
     if request.method == "GET":
         title = request.GET.get('search')
-        content = Blog.objects.filter(Title=title)
+        content = Blog.objects.filter(Title=title,published=True)
         if len(content) != 0:
             return redirect(f'/blog/{title}')
     return render(request, 'index.html', {'main': main_blog, 'recent': recent, 'blogs': blogs, 'category': False, 'submission': submission, 'subscribed': subscribed})
 
 
 def blog(request, title):
-    content = Blog.objects.filter(Title=title)
+    content = Blog.objects.filter(Title=title,published=True)
     keywords = content[0].keywords
     description = content[0].meta_description
     category = content[0].category
-    cards_content = Blog.objects.filter(category=category).exclude(Title=title)
+    cards_content = Blog.objects.filter(category=category, published=True).exclude(Title=title)
     submission = False
     subscribed = True
     counter = 3
@@ -88,8 +88,8 @@ def blog(request, title):
 
 
 def categories(request, category):
-    content = Blog.objects.filter(category=category).order_by('-pk')
-    sponsered = Blog.objects.filter(category=category, sponsered=True)
+    content = Blog.objects.filter(category=category, published=True).order_by('-pk')
+    sponsered = Blog.objects.filter(category=category, sponsered=True, published=True)
     counter = 0
     main_blog = None
     recent = []
@@ -97,9 +97,9 @@ def categories(request, category):
     submission = False
     subscribed = True
     if len(sponsered) > 0:
-        sponsered_main = Blog.objects.filter(category=category, sponsered=True, show_blog_at='Main').order_by('-pk')
-        sponsered_side = Blog.objects.filter(category=category, sponsered=True, show_blog_at='Side').order_by('-pk')
-        unsponsered = Blog.objects.filter(category=category, sponsered=False).order_by('-pk')
+        sponsered_main = Blog.objects.filter(category=category, sponsered=True, show_blog_at='Main', published=True).order_by('-pk')
+        sponsered_side = Blog.objects.filter(category=category, sponsered=True, show_blog_at='Side', published=True).order_by('-pk')
+        unsponsered = Blog.objects.filter(category=category, sponsered=False, published=True).order_by('-pk')
         for data in sponsered_main:
             if counter == 0:
                 main_blog = data
@@ -138,7 +138,7 @@ def categories(request, category):
         subscribed = subscribe(Name, Email)
     if request.method == "GET":
         title = request.GET.get('search')
-        content = Blog.objects.filter(Title=title)
+        content = Blog.objects.filter(Title=title, published=True)
         if len(content) != 0:
             return redirect(f'/blog/{title}')
     return render(request, 'index.html', {'main': main_blog, 'recent': recent, 'blogs': blogs, 'category': True, 'submission': submission, 'subscribed': subscribed})
@@ -193,7 +193,7 @@ def suggestion(request):
 
 def get_blog(request):
     search = request.GET.get('search')
-    objs = Blog.objects.filter(Title__startswith=search)
+    objs = Blog.objects.filter(Title__startswith=search, published=True)
     payload = []
     for obj in objs:
         payload.append(obj.Title)
@@ -232,6 +232,6 @@ def category_wise_count(request):
                      'News', 'Travel', 'Case-Studies', 'Others']
     count = {}
     for category in category_list:
-        blogs = Blog.objects.filter(category=category)
+        blogs = Blog.objects.filter(category=category, published=True)
         count[category] = blogs.count()
     return render(request, 'category_list.html', {'count': count})
