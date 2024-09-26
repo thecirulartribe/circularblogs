@@ -18,6 +18,7 @@ class Blog(models.Model):
     sponsered = models.BooleanField(default=False)
     show_blog_at = models.CharField(default=('None', 'None'), max_length=20, choices=[('None', 'None'), ('Main', 'Main'), ('Side', 'Side')])
     author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
+    published = models.BooleanField(default=True)
 
 
 class Subscribe(models.Model):
