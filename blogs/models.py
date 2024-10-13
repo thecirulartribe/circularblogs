@@ -1,10 +1,11 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from django_resized import ResizedImageField
 
 # Create your models here.
 class Blog(models.Model):
     Title = models.CharField(max_length=100)
-    image = models.ImageField()
+    image = ResizedImageField(size=[950,300], quality=80, force_format='WEBP', crop=['middle', 'center'])
     content = CKEditor5Field(config_name='extends', blank=True, null=True)
     category = models.CharField(default=('Others', 'Others'), max_length=20,
                                 choices=[('Environment', 'Environment'), ('Technology', 'Technology'),

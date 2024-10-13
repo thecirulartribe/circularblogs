@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-from django.conf.global_settings import INTERNAL_IPS, STATIC_ROOT
+from django.conf.global_settings import INTERNAL_IPS, STATIC_ROOT, DEFAULT_FILE_STORAGE
 from environ import Env
 import os
 import dj_database_url
@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'import_export',
     'django_ckeditor_5',
     'admin_honeypot',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -101,6 +103,7 @@ DATABASES = {
 POSTGRES_localally = False
 if ENVIRONMENT=='production' or POSTGRES_localally:
     DATABASES['default'] = dj_database_url.parse(env("DATABASE_URL"))
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -150,7 +153,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/media')
+if ENVIRONMENT=='production' or POSTGRES_localally:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/media')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUD_NAME'),
+    'API_KEY': env('CLOUD_API_KEY'),
+    'API_SECRET': env('CLOUD_API_SECRET')
+}
 
 #Django Ck-editor configuration
 customColorPalette = [
