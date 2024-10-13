@@ -18,4 +18,4 @@ jobs:
           git remote add private https://github.com/thecirulartribe/circularbloglive.git
           git push private feature-branch
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
