@@ -17,10 +17,10 @@ jobs:
 
       - name: Push changes to private repository
         run: |
+          git config user.email "thecirculartribeofficial@gmail.com"
+          git config user.name "thecirculartribe"
           git remote add private https://github.com/thecirulartribe/circularbloglive.git
           git commit -m "chnages made"
           git push private feature-branch
-          git config --global user.email "thecirculartribeofficial@gmail.com"
-          git config --global user.name "thecirculartribe"
         env:
           GITHUB_TOKEN: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
