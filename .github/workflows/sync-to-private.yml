@@ -3,7 +3,9 @@ name: Sync Public to Private Repo
 on:
   push:
     branches:
-      - feature-branch
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
 
 jobs:
   sync:
