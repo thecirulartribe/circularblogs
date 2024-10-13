@@ -9,7 +9,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(Blog,BlogAdmin)
+admin.site.register(Blog, ImportExportModelAdmin)
 admin.site.register(Subscribe, ImportExportModelAdmin)
 admin.site.register(service, ImportExportModelAdmin)
 admin.site.register(suggestions, ImportExportModelAdmin)

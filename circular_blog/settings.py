@@ -11,21 +11,37 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+
+from django.conf.global_settings import INTERNAL_IPS, STATIC_ROOT
+from environ import Env
 import os
+import dj_database_url
+# Add these at the top of your settings.py
+
+env = Env()
+Env.read_env()
+ENVIRONMENT = env('ENVIRONMENT', default='production')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tc-eh3%0wf6=sq9+$6$8+r!p!^b0-d0z4w37b)&^4mxp8x@e94'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if ENVIRONMENT == 'development':
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-
+INTERNAL_IPS = {
+    '127.0.0.1',
+    'localhost:8000'
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +54,7 @@ INSTALLED_APPS = [
     'blogs',
     'import_export',
     'django_ckeditor_5',
+    'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +98,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+POSTGRES_localally = False
+if ENVIRONMENT=='production' or POSTGRES_localally:
+    DATABASES['default'] = dj_database_url.parse(env("DATABASE_URL"))
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -122,6 +141,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = 'frontend/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

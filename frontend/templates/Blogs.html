@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/social.css' %}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% if debug %}{% static 'css/blog.css' %}{% else %}{% static 'min-css/blog-min.css' %}{% endif %}">
+    <link rel="stylesheet" href="{% if debug %}{% static 'css/navbar.css' %}{% else %}{% static 'min-css/navbar-min.css' %}{% endif %}">
+    <link rel="stylesheet" href="{% if debug %}{% static 'css/social.css' %}{% else %}{% static 'min-css/social-min.css' %}{% endif %}" media="print" onload="this.media='all'">
     <meta name="description" content="{{ description }}">
-    <meta name="keywords" content="{{ keywords }}">
     <meta name="author" content="The Circular Tribe">
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 </head>
