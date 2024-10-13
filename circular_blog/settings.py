@@ -36,7 +36,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'vercel.app', '.now.sh', 'circularblog.pythonanywhere.com', 'circularblogs.com', 'circularbloglive.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'vercel.app', '.now.sh', 'circularblog.pythonanywhere.com', 'circularblogs.com', 'circularbloglive.vercel.app']
 
 INTERNAL_IPS = {
     '127.0.0.1',
