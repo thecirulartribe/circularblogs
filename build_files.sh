@@ -10,6 +10,10 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # collect static files using the Python interpreter from venv
-python3.9 manage.py collectstatic
+python3.9 manage.py collectstatic --noinput
+
+# make migrations
+python3.9 manage.py makemigrations
+python3.9 manage.py migrate
 
 echo "BUILD END"
