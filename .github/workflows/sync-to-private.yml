@@ -21,6 +21,6 @@ jobs:
           git config user.name "thecirculartribe"
           git remote add private https://github.com/thecirulartribe/circularbloglive.git
           git commit -m "chnages made"
-          git push private feature-branch
+          git push origin feature-branch
         env:
           GITHUB_TOKEN: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
