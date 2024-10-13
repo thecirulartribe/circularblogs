@@ -139,6 +139,24 @@ color: #18392b;;
     width: 25px;
     height: 25px;
 }
+.footer ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 50px;
+    flex-wrap: nowrap;
+    background: black;
+    color: white;
+}
+.footer ul li a{
+    text-decoration: none;
+    color: white;
+}
+.footer ul li a:hover{
+    text-decoration: underline;
+}
 @media screen and (max-width: 520px){
     .form-container{
         width: auto;
@@ -222,6 +240,14 @@ color: #ffffff;
     color: #18392b;
 }
 }
+
+@media screen and (max-width: 700px){
+    .footer ul{
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 10px 0px;
+    }
+}
 @media screen and (max-width: 400px){
     .navshow{
         width: 100%;
@@ -237,3 +263,4 @@ color: #ffffff;
         text-align: center;
     }
 }
+

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'blogs',
     'import_export',
     'django_ckeditor_5',
@@ -155,14 +156,13 @@ MEDIA_URL = '/media/'
 # Path where media is stored
 if ENVIRONMENT=='production' or POSTGRES_localally:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': env('CLOUD_NAME'),
+        'API_KEY': env('CLOUD_API_KEY'),
+        'API_SECRET': env('CLOUD_API_SECRET')
+    }
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/media')
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('CLOUD_NAME'),
-    'API_KEY': env('CLOUD_API_KEY'),
-    'API_SECRET': env('CLOUD_API_SECRET')
-}
 
 #Django Ck-editor configuration
 customColorPalette = [

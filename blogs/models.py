@@ -23,6 +23,9 @@ class Blog(models.Model):
     def __str__(self):
         return self.Title + " | " + self.author
 
+    def get_absolute_url(self):
+        return f'/blog/{self.Title}'
+
 
 class Subscribe(models.Model):
     name = models.CharField(default="No Name", max_length=100)
