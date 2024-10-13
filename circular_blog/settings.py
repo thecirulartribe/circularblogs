@@ -36,7 +36,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'vercel.app', '.now.sh', 'circularblog.pythonanywhere.com', 'circularblogs.com']
 
 INTERNAL_IPS = {
     '127.0.0.1',
@@ -139,13 +139,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATICFILES_DIRS = [
-    BASE_DIR / "frontend/static",
-]
-
 STATIC_URL = 'frontend/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = os.path.join(BASE_DIR, "frontend/static"),
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build','frontend/static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
