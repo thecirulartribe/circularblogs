@@ -1,0 +1,21 @@
+name: Sync Public to Private Repo
+
+on:
+  push:
+    branches:
+      - feature-branch
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout public repository
+        uses: actions/checkout@v2
+
+      - name: Push changes to private repository
+        run: |
+          git remote add private https://github.com/thecirulartribe/circularbloglive.git
+          git push private feature-branch
+        env:
+          GITHUB_TOKEN: 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
