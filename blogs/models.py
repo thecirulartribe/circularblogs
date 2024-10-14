@@ -4,6 +4,7 @@ from django_resized import ResizedImageField
 
 # Create your models here.
 class Blog(models.Model):
+    url = models.CharField(max_length=100, blank=True, null=True)
     Title = models.CharField(max_length=100)
     image = ResizedImageField(size=[950,300], quality=80, force_format='WEBP', crop=['middle', 'center'])
     content = CKEditor5Field(config_name='extends', blank=True, null=True)

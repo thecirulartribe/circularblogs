@@ -120,7 +120,7 @@
         </div>
         <div class="content">
             <div class="mainblog" style="background-image: url('{{main.image.url}}')">
-                <a href="/blog/{{ main.Title }}">
+                <a href="/blog/{{ main.url }}">
                     <div class="heading">
                         <h1>{{ main.Title }}</h1>
                     </div>
@@ -129,7 +129,7 @@
             <div class="recentblog">
                 {% for blog in recent %}
                 <div class="blog" style="background: url('{{blog.image.url}}')">
-                    <a href="/blog/{{ blog.Title }}">
+                    <a href="/blog/{{ blog.url }}">
                         <div class="bloghead">
                             <span><b>{{ blog.Title }}</b></span>
                         </div>
@@ -141,7 +141,7 @@
             <div class="moreblog" id="moreblog">
                 {% for blog in blogs %}
                 <div class="blog" style="background: url('{{blog.image.url}}')">
-                    <a href="/blog/{{ blog.Title }}">
+                    <a href="/blog/{{ blog.url }}">
                         <div class="bloghead">
                             <span><b>{{ blog.Title }}</b></span>
                         </div>

@@ -5,7 +5,7 @@ urlpatterns = [
     path('offer', offer, name='offer'),
     path('suggestions', suggestion, name='suggestion'),
     path('aboutus', aboutus, name='aboutus'),
-    path('blog/<str:title>', blog),
+    path('blog/<str:url>', blog),
     path('category/<str:category>', categories),
     path('get_blog/', get_blog),
     path('thankyou/', thankyou),
