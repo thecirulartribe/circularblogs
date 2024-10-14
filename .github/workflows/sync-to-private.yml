@@ -23,7 +23,7 @@ jobs:
       - name: Push current branch to private repository
         run: |
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)  # Get the current branch name
-          git remote add private https://thecirculartribe:${{ secrets.PAT_PRIVATE_REPO }}@github.com/thecirculartribe/circularbloglive.git
+          git remote add private https://thecirculartribe:${{ secrets.PAT_PRIVATE_REPO }}@github.com/thecirulartribe/circularbloglive.git
           git push private $CURRENT_BRANCH
         env:
           PAT_PRIVATE_REPO: ${{ secrets.PAT_PRIVATE_REPO }}
