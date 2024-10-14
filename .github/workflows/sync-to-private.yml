@@ -2,7 +2,7 @@ name: Sync Public to Private Repo
 
 on:
   push:
-    branches:   # This will trigger the action for any branch push
+    branches:
       - '**'
 
 jobs:
@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout public repository
+      - name: Checkout the current branch
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Fetch all branches
+          fetch-depth: 0  # Fetch the entire history
 
-      - name: Configure Git with PAT
+      - name: Configure Git
         run: |
-          git config --global user.name "thecirulartribe"
-          git config --global user.email "thecirculartribeofficial@gmail.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
-      - name: Push all branches to private repository
+      - name: Push current branch to private repository
         run: |
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)  # Get the current branch name
           git remote add private https://thecirulartribe:${{ secrets.PAT_PRIVATE_REPO }}@github.com/thecirulartribe/circularbloglive.git
-          git push private $CURRENT_BRANCH  # Push all branches to the private repo
+          git push private $CURRENT_BRANCH
         env:
           PAT_PRIVATE_REPO: ${{ secrets.PAT_PRIVATE_REPO }}
