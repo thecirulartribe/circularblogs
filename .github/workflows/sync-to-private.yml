@@ -20,7 +20,7 @@ jobs:
           git remote add private https://github.com/thecirulartribe/circularbloglive.git
           git config user.email "thecirculartribeofficial@gmail.com"
           git config user.name "thecirculartribe"
-          git checkout private feature-branch
+          git pull private feature-branch
           git add .
           git commit -m "changes made"
           git push private feature-branch
