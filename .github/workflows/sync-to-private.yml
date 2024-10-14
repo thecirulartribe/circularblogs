@@ -17,13 +17,13 @@ jobs:
 
       - name: Configure Git with PAT
         run: |
-          git config --global user.name "thecirculartribe"
+          git config --global user.name "thecirulartribe"
           git config --global user.email "thecirculartribeofficial@gmail.com"
 
       - name: Push all branches to private repository
         run: |
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)  # Get the current branch name
-          git remote add private https://thecirculartribe:${{ secrets.PAT_PRIVATE_REPO }}@github.com/thecirculartribe/circularbloglive.git
+          git remote add private https://thecirulartribe:${{ secrets.PAT_PRIVATE_REPO }}@github.com/thecirulartribe/circularbloglive.git
           git push private $CURRENT_BRANCH  # Push all branches to the private repo
         env:
           PAT_PRIVATE_REPO: ${{ secrets.PAT_PRIVATE_REPO }}
