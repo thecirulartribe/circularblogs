@@ -3,24 +3,27 @@ name: Sync Public to Private Repo
 on:
   push:
     branches:
-      - '*'         # matches every branch that doesn't contain a '/'
-      - '*/*'       # matches every branch containing a single '/'
-      - '**'        # matches every branch
+      - '**'
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout public repository
+      - name: Checkout the current branch
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch the entire history
 
-      - name: Push changes to private repository
+      - name: Configure Git
         run: |
-          git config user.email "thecirculartribeofficial@gmail.com"
-          git config user.name "thecirculartribe"
-          git remote add private https://github.com/thecirulartribe/circularbloglive.git
-          git commit -m "chnages made"
-          git push origin feature-branch
+          git config --global user.name "thecirulartribe"
+          git config --global user.email "thecirulartribe@github.com"
+
+      - name: Push current branch to private repository
+        run: |
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)  # Get the current branch name
+          git remote add private https://thecirculartribe:${{ secrets.PAT_PRIVATE_REPO }}@github.com/thecirulartribe/circularbloglive.git
+          git push private $CURRENT_BRANCH
         env:
-          GITHUB_TOKEN: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
+          PAT_PRIVATE_REPO: ${{ secrets.PAT_PRIVATE_REPO }}

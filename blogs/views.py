@@ -57,12 +57,13 @@ def index(request):
         title = request.GET.get('search')
         content = Blog.objects.filter(Title=title,published=True)
         if len(content) != 0:
-            return redirect(f'/blog/{title}')
+            return redirect(f'/blog/{content[0].url}')
     return render(request, 'index.html', {'main': main_blog, 'recent': recent, 'blogs': blogs, 'category': False, 'submission': submission, 'subscribed': subscribed})
 
 
-def blog(request, title):
-    content = Blog.objects.filter(Title=title,published=True)
+def blog(request, url):
+    content = Blog.objects.filter(url=url,published=True)
+    title = content[0].Title
     description = content[0].meta_description
     category = content[0].category
     cards_content = Blog.objects.filter(category=category, published=True).exclude(Title=title)
