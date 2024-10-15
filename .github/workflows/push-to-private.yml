@@ -1,9 +1,12 @@
-name: Sync Changes to Private Repo for Review
+name: Sync Changes to Private Repo
 
 on:
   push:
     branches:
       - main  # Trigger the workflow when changes are pushed to the main branch
+
+permissions:
+  contents: write  # Ensure the workflow has permissions to access repository contents
 
 jobs:
   sync:
@@ -12,9 +15,9 @@ jobs:
 
     steps:
       - name: Checkout public repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Fetch all history to ensure we have the complete commit details
+          fetch-depth: 0  # Fetch full history to include all commits
 
       - name: Get latest commit hash
         id: commit
@@ -26,31 +29,36 @@ jobs:
           BRANCH_NAME="review-$(date +'%Y%m%d%H%M')-${{ steps.commit.outputs.hash }}"
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
 
+      # Add private repo as a remote using GITHUB_TOKEN for authentication
       - name: Add private repo as remote
         run: |
-          git remote add private_repo https://thecirulartribe:${{secrets.PRIVATE_REPO_PAT}}@github.com/thecirulartribe/circularblogslive.git/
+          git remote add private_repo https://github.com/thecirulartribe/circularblogslive.git
 
-      - name: Debug fetch private repo
+      # Fetch and check the remote setup to debug any issues
+      - name: Debugging remotes and fetch
         run: |
-          git remote -v  # Show remotes to ensure private_repo is added correctly
+          git remote -v  # Show the added remotes
+          git ls-remote private_repo  # List remote branches and tags
           git fetch private_repo
         env:
           GIT_TERMINAL_PROMPT: 1
 
+      # Create a new branch in the private repo for review
       - name: Push changes to a new branch in private repo
-        env:
-          BRANCH_NAME: ${{ env.branch_name }}
         run: |
-          git checkout -b $BRANCH_NAME  # Create a new branch for review
-          git push private_repo $BRANCH_NAME  # Push to the private repo as a new branch
+          git checkout -b ${{ env.branch_name }}  # Create a new branch
+          git push private_repo ${{ env.branch_name }}  # Push the new branch to private repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Optionally, create a pull request in the private repo for review
       - name: Create pull request in private repo
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: thecirulartribe/circularblogslive.git  # Change to your private repo
-          branch: ${{ env.branch_name }}
-          base: main  # Target the main branch for the pull request
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use GITHUB_TOKEN for authentication
+          repository: thecirulartribe/circularblogslive  # Private repository
+          branch: ${{ env.branch_name }}  # The branch created above
+          base: main  # Target branch for the PR
           title: "Sync from public repo: ${{ env.branch_name }}"
           body: "This pull request syncs the latest changes from the public repository for review."
-          draft: false  # Set to 'true' if you want to open a draft PR
+          draft: false  # Set to true if you want to open a draft PR
