@@ -5,60 +5,54 @@ on:
     branches:
       - main  # Trigger the workflow when changes are pushed to the main branch
 
+permissions:
+  contents: write  # Ensure the workflow has permissions to access repository contents
+
 jobs:
   sync:
     name: Sync to Private Repo
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the public repository code
       - name: Checkout public repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history
+          fetch-depth: 0  # Fetch full history to include all commits
 
-      # Set up SSH agent and add SSH key from secrets
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.8.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # Get latest commit hash
       - name: Get latest commit hash
         id: commit
         run: echo "::set-output name=hash::$(git rev-parse --short HEAD)"
 
-      # Set new branch name based on commit hash and current date/time
       - name: Set new branch name
         id: vars
         run: |
           BRANCH_NAME="review-$(date +'%Y%m%d%H%M')-${{ steps.commit.outputs.hash }}"
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
 
-      # Add the private repository as a remote using SSH
+      # Add private repo as a remote using GITHUB_TOKEN for authentication
       - name: Add private repo as remote
         run: |
-          git remote add private_repo git@github.com:thecirulartribe/circularblogslive.git
+          git remote add private_repo https://github.com/thecirulartribe/circularblogslive.git
 
-      # Check if the remote is set up correctly and fetch from the private repo
-      - name: Check remotes and fetch
+      # Fetch and check the remote setup to debug any issues
+      - name: Debugging remotes and fetch
         run: |
-          git remote -v  # Show the added remotes
-          git ls-remote private_repo  # List remote branches and tags
           git fetch private_repo
 
-      # Push the changes to a new branch in the private repository
+      # Create a new branch in the private repo for review
       - name: Push changes to a new branch in private repo
         run: |
           git checkout -b ${{ env.branch_name }}  # Create a new branch
           git push private_repo ${{ env.branch_name }}  # Push the new branch to private repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Optionally, create a pull request in the private repo for review
       - name: Create pull request in private repo
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: thecirulartribe/circularblogslive.git  # Private repository
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use GITHUB_TOKEN for authentication
+          repository: thecirulartribe/circularblogslive  # Private repository
           branch: ${{ env.branch_name }}  # The branch created above
           base: main  # Target branch for the PR
           title: "Sync from public repo: ${{ env.branch_name }}"
