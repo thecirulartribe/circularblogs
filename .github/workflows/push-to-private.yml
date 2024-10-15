@@ -1,10 +1,3 @@
-name: Sync Changes to Private Repo for Review
-
-on:
-  push:
-    branches:
-      - main  # Trigger the workflow when changes are pushed to the main branch
-
 jobs:
   sync:
     name: Sync to Private Repo
@@ -28,13 +21,19 @@ jobs:
 
       - name: Add private repo as remote
         run: |
-          git remote add private_repo https://thecirulartribe:${{ secrets.PRIVATE_REPO_PAT }}@github.com/thecirulartribe/circularblogslive.git
+          git remote add private_repo https://thecirculartribe:${{ secrets.PRIVATE_REPO_PAT }}@github.com/thecirulartribe/circularblogslive.git/
+
+      - name: Debug fetch private repo
+        run: |
+          git remote -v  # Show remotes to ensure private_repo is added correctly
+          git fetch private_repo
+        env:
+          GIT_TERMINAL_PROMPT: 1
 
       - name: Push changes to a new branch in private repo
         env:
           BRANCH_NAME: ${{ env.branch_name }}
         run: |
-          git fetch --all
           git checkout -b $BRANCH_NAME  # Create a new branch for review
           git push private_repo $BRANCH_NAME  # Push to the private repo as a new branch
 
