@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout public repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history to ensure we have the complete commit details
 
@@ -28,7 +28,7 @@ jobs:
 
       - name: Add private repo as remote
         run: |
-          git remote add private_repo https://thecirculartribe:${{secrets.PRIVATE_REPO_PAT}}@github.com/thecirulartribe/circularblogslive.git/
+          git remote add private_repo https://thecirulartribe:${{secrets.PRIVATE_REPO_PAT}}@github.com/thecirulartribe/circularblogslive.git/
 
       - name: Debug fetch private repo
         run: |
