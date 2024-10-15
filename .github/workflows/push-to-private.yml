@@ -37,7 +37,11 @@ jobs:
       # Fetch and check the remote setup to debug any issues
       - name: Debugging remotes and fetch
         run: |
+          git remote -v  # Show the added remotes
+          git ls-remote private_repo  # List remote branches and tags
           git fetch private_repo
+        env:
+          GIT_TERMINAL_PROMPT: 1
 
       # Create a new branch in the private repo for review
       - name: Push changes to a new branch in private repo
