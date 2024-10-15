@@ -1,3 +1,10 @@
+name: Sync Changes to Private Repo for Review
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow when changes are pushed to the main branch
+
 jobs:
   sync:
     name: Sync to Private Repo
