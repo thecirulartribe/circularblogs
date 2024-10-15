@@ -1,0 +1,50 @@
+name: Sync Changes to Private Repo for Review
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow when changes are pushed to the main branch
+
+jobs:
+  sync:
+    name: Sync to Private Repo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout public repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history to ensure we have the complete commit details
+
+      - name: Get latest commit hash
+        id: commit
+        run: echo "::set-output name=hash::$(git rev-parse --short HEAD)"
+
+      - name: Set new branch name
+        id: vars
+        run: |
+          BRANCH_NAME="review-$(date +'%Y%m%d%H%M')-${{ steps.commit.outputs.hash }}"
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+
+      - name: Add private repo as remote
+        run: |
+          git remote add private_repo https://thecirculartribe:${{ secrets.PRIVATE_REPO_PAT }}@github.com/thecirulartribe/circularblogslive.git
+
+      - name: Push changes to a new branch in private repo
+        env:
+          BRANCH_NAME: ${{ env.branch_name }}
+        run: |
+          git fetch --all
+          git checkout -b $BRANCH_NAME  # Create a new branch for review
+          git push private_repo $BRANCH_NAME  # Push to the private repo as a new branch
+
+      - name: Create pull request in private repo
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: thecirulartribe/circularblogslive.git  # Change to your private repo
+          branch: ${{ env.branch_name }}
+          base: main  # Target the main branch for the pull request
+          title: "Sync from public repo: ${{ env.branch_name }}"
+          body: "This pull request syncs the latest changes from the public repository for review."
+          draft: false  # Set to 'true' if you want to open a draft PR
