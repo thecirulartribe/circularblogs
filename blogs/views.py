@@ -235,3 +235,23 @@ def category_wise_count(request):
         blogs = Blog.objects.filter(category=category, published=True)
         count[category] = blogs.count()
     return render(request, 'category_list.html', {'count': count})
+
+def terms_and_condition(request):
+    submission = False
+    subscribed = True
+    if request.method == "POST":
+        Name = request.POST.get('Name')
+        Email = request.POST.get('Email')
+        submission = True
+        subscribed = subscribe(Name, Email)
+    return render(request, 'terms-and-condition.html', {'submission': submission, 'subscribed': subscribed})
+
+def privacy_policy(request):
+    submission = False
+    subscribed = True
+    if request.method == "POST":
+        Name = request.POST.get('Name')
+        Email = request.POST.get('Email')
+        submission = True
+        subscribed = subscribe(Name, Email)
+    return render(request, 'privacy-policy.html', {'submission': submission, 'subscribed': subscribed})
