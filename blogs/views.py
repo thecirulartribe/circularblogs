@@ -237,6 +237,8 @@ def category_wise_count(request):
     return render(request, 'category_list.html', {'count': count})
 
 def terms_and_condition(request):
+    submission = False
+    subscribed = True
     if request.method == "POST":
         Name = request.POST.get('Name')
         Email = request.POST.get('Email')
@@ -245,6 +247,8 @@ def terms_and_condition(request):
     return render(request, 'terms-and-condition.html', {'submission': submission, 'subscribed': subscribed})
 
 def privacy_policy(request):
+    submission = False
+    subscribed = True
     if request.method == "POST":
         Name = request.POST.get('Name')
         Email = request.POST.get('Email')
