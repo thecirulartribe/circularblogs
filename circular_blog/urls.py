@@ -28,7 +28,7 @@ sitemaps = {
     'blogs': BlogSitemap,
 }
 urlpatterns = [
-    path('sitemaps.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('asteroid/', admin.site.urls),
