@@ -64,6 +64,7 @@ def index(request):
 def blog(request, url):
     content = Blog.objects.filter(url=url,published=True)
     title = content[0].Title
+    url = content[0].url
     description = content[0].meta_description
     category = content[0].category
     cards_content = Blog.objects.filter(category=category, published=True).exclude(Title=title)
@@ -84,7 +85,7 @@ def blog(request, url):
         Email = request.POST.get('Email')
         submission = True
         subscribed = subscribe(Name, Email)
-    return render(request, 'Blogs.html', {'content': content, 'description': description, 'submission': submission, 'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title})
+    return render(request, 'Blogs.html', {'content': content, 'description': description, 'submission': submission, 'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title, 'url': url})
 
 
 def categories(request, category):

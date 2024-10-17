@@ -25,7 +25,7 @@ class Blog(models.Model):
         return self.Title + " | " + self.author
 
     def get_absolute_url(self):
-        return f'/blog/{self.Title}'
+        return f'/blog/{self.url}'
 
 
 class Subscribe(models.Model):

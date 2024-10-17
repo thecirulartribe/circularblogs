@@ -4,15 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://circularblogs.com/" />
-    <title>Circular Blogs</title>
+    <link rel="canonical" href="https://www.circularblogs.com/" />
+    <title>Circular Blogs - Educating Sustainability</title>
     <link rel="stylesheet" href="{% if debug %}{% static 'css/home.css' %}{% else %}{% static 'min-css/home-min.css' %}{% endif %}">
     <link rel="stylesheet" href="{% if debug %}{% static 'css/navbar.css' %}{% else %}{% static 'min-css/navbar-min.css' %}{% endif %}">
     <link rel="stylesheet" href="{% if debug %}{% static 'css/social.css' %}{% else %}{% static 'min-css/social-min.css' %}{% endif %}" media="print" onload="this.media='all'">
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <meta name="description" content="Welcome to Circular Blogs, your ultimate destination for all things sustainable! Explore insightful articles, practical tips, and innovative ideas on eco-friendly living. Join our community of changemakers and discover how to reduce your footprint while promoting a greener future. Together, we can make a difference—start your sustainable journey with us today!">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="Welcome to Circular Blogs, your ultimate destination for all things related to sustainability. Explore insightful articles, practical tips, and innovative ideas on eco-friendly living.">
     <meta name="keywords" content="Circular Tribe, Blogs, Circular Blogs, Sustainability, Green revolution, education">
     <meta name="author" content="The Circular Tribe">
+    <meta property="og:title" content="Circular Blogs" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Welcome to Circular Blogs, your ultimate destination for all things related to sustainability." />
+    <meta property="og:url" content="https://www.circularblogs.com" />
+    <meta property="og:image" content="{% static 'images/circularblog.png' %}" />
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
