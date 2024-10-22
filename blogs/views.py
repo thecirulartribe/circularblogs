@@ -139,9 +139,9 @@ def categories(request, category):
         subscribed = subscribe(Name, Email)
     if request.method == "GET":
         title = request.GET.get('search')
-        content = Blog.objects.filter(Title=title, published=True)
+        content = Blog.objects.filter(Title=title,published=True)
         if len(content) != 0:
-            return redirect(f'/blog/{title}')
+            return redirect(f'/blog/{content[0].url}')
     return render(request, 'index.html', {'main': main_blog, 'recent': recent, 'blogs': blogs, 'category': True, 'submission': submission, 'subscribed': subscribed})
 
 
