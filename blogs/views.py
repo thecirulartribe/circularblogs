@@ -194,7 +194,7 @@ def suggestion(request):
 
 def get_blog(request):
     search = request.GET.get('search')
-    objs = Blog.objects.filter(Title__startswith=search, published=True)
+    objs = Blog.objects.filter(Title__icontains=search, published=True)
     payload = []
     for obj in objs:
         payload.append(obj.Title)
