@@ -11,4 +11,4 @@ class StaticSitemap(Sitemap):
 
 class BlogSitemap(Sitemap):
     def items(self):
-        return Blog.objects.all()
+        return Blog.objects.all().order_by('-pk')

@@ -98,6 +98,9 @@ color: #18392b;;
     text-align: center;
     border-radius: 15px;
 }
+.form-container h2{
+    font-size: 1.8rem;
+}
 .Subin{
     background-color: #ffffff;
     color: #000000;
@@ -163,7 +166,7 @@ color: #18392b;;
         height: 300px;
         margin: 10px;
     }
-    .form-container h1{
+    .form-container h2{
         margin: 10px;
     }
 }

@@ -4,12 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://circularblogs.com/offer" />
+    <link rel="canonical" href="https://www.circularblogs.com/offer" />
     <title>Circular Blogs | What we offer?</title>
     <link rel="stylesheet" href="{% if debug %}{% static 'css/offer.css' %}{% else %}{% static 'min-css/offer-min.css' %}{% endif %}">
     <link rel="stylesheet" href="{% if debug %}{% static 'css/navbar.css' %}{% else %}{% static 'min-css/navbar-min.css' %}{% endif %}">
     <link rel="stylesheet" href="{% if debug %}{% static 'css/social.css' %}{% else %}{% static 'min-css/social-min.css' %}{% endif %}" media="print" onload="this.media='all'">
+    <meta name="description" content="We at Circular Blogs offer a marketplace for companies focused on sustainability and wants to reach wider audience with their product">
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <meta property="og:title" content="Circular Blogs | What we offer" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="We at Circular Blogs offer a marketplace for companies focused on sustainability and wants to reach wider audience with their product" />
+    <meta property="og:url" content="https://www.circularblogs.com/offer" />
+    <meta property="og:image" content="{% static 'images/circularblog.png' %}" />
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -51,7 +57,7 @@
     <form class="subscribing hide" id="subscribing" method="POST">
         {% csrf_token %}
         <div class="form-container">
-            <h1>Subscribe to our Newsletter</h1>
+            <h2>Subscribe to our Newsletter</h2>
             <a class="Subclose Subhide" onclick="closeform()" id="Subclose">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg subcl" viewBox="0 0 16 16">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
