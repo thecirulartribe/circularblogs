@@ -8,7 +8,7 @@ urlpatterns = [
     path('blog/<str:url>', blog),
     path('category/<str:category>', categories),
     path('get_blog/', get_blog),
-    path('thankyou/', thankyou),
+    path('thankyou', thankyou),
     path('categorycount/', category_wise_count, name="count"),
     path('terms-and-condition/', terms_and_condition, name="terms"),
     path('privacy-policy/', privacy_policy, name="privacy")
