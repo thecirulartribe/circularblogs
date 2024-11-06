@@ -2,5 +2,4 @@ User-agent: *
 Disallow: /admin/
 Disallow: /asteroid/
 
-Crawl-delay: 2
 Sitemap: https://www.circularblogs.com/sitemap.xml
