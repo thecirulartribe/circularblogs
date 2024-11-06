@@ -442,7 +442,7 @@ height: auto;
     .heading h1{
         font-size: x-large;
     }
-    .heading{
-        font-family: "Open Sans", sans-serif;
+    .bloghead span{
+        font-size: 16px;
     }
 }
