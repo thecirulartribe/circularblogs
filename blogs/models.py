@@ -16,6 +16,7 @@ class Blog(models.Model):
                                          ('DIY', 'DIY'), ('News', 'News'), ('Travel', 'Travel'),
                                          ('Case-Studies', 'Case-Studies'), ('Others', 'Others')])
     blog_date = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     meta_description = models.CharField(default="description", max_length=300)
     author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
     sponsered = models.BooleanField(default=False)
