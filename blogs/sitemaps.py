@@ -12,3 +12,6 @@ class StaticSitemap(Sitemap):
 class BlogSitemap(Sitemap):
     def items(self):
         return Blog.objects.all().order_by('-pk')
+
+    def lastmod(self,obj):
+        return obj.updated_at
