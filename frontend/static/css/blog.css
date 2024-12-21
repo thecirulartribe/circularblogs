@@ -2,10 +2,14 @@
 *{
     margin: 0%;
     padding: 0%;
+    scroll-behavior: smooth;
 }
 body{
     background-color: whitesmoke;
     overflow-x: hidden;
+}
+h2 {
+    scroll-margin-top: 100px;
 }
 ::-webkit-scrollbar{
         width: 10px;
@@ -27,12 +31,16 @@ body{
 }
 .blog{
     margin-top: 100px;
-    width: 70%;
     height: auto;
     padding: 50px;
     display: flex;
     flex-direction: column;
+    align-items
     gap: 20px;
+}
+.row {
+   display: flex;
+   flex-direction: row;
 }
 .suggestion{
     display: flex;
@@ -99,6 +107,8 @@ a{
     padding-left: 30px;
     padding-right: 30px;
     text-align: justify;
+    width: 70%;
+    align-self: flex-end;
 }
 ol{
     padding-left: 30px;
@@ -151,6 +161,37 @@ max-height: 300px;
     color: black;
     text-decoration: underline;
 }
+.tableofcont {
+  position: sticky;
+  top: 100px;
+  max-width: 300px;
+  height: 100%;
+  padding: 20px;
+  margin-right: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: block;
+}
+
+.tableofcont ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tableofcont ul li {
+  margin: 10px 0;
+}
+
+.tableofcont ul li a {
+  text-decoration: none;
+  color: #023020;
+  font-size: 16px;
+}
+
+.tableofcont ul li a:hover {
+  text-decoration: underline;
+}
 @media screen and (min-width: 500px) and (max-width: 1400px){
     .cards{
         flex-direction: column;
@@ -165,6 +206,18 @@ max-height: 300px;
     }
     .titleblog{
         width: calc(100% - 10px);
+    }
+}
+@media screen and (max-width: 1400px){
+    .blog {
+      width: 70%;
+    }
+    .content {
+      width: auto;
+      align-self: center;
+    }
+    .tableofcont {
+      display: none;
     }
 }
 @media screen and (max-width: 940px){

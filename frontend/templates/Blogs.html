@@ -18,6 +18,7 @@
     <meta property="og:description" content="{{ description }}" />
     <meta property="og:url" content="https://www.circularblogs.com/blog/{{ url }}" />
     <meta property="og:image" content="{% static 'images/circularblog.png' %}" />
+    {% if not debug %}
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -25,12 +26,15 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-N2N2WKXR');</script>
     <!-- End Google Tag Manager -->
+    {% endif %}
 </head>
 <body>
+    {% if not debug %}
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2N2WKXR"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    {% endif %}
 <header>
     <navbar>
         <div class="navbuttons">
@@ -102,10 +106,13 @@
         <div class="title">
             <h1>{{ context.Title }}</h1>
         </div>
-        <div class="content">
-            {{ context.content|safe }}
-        </div>
+        <div class="row">
+            <aside id="toc" class="tableofcont"></aside>
+            <div class="content" id="blogcontent">
+                {{ context.content|safe }}
+            </div>
         {% endfor %}
+        </div>
     </div>
     <div class="suggestion">
         <div class="texts">
@@ -157,5 +164,25 @@
     </footer>
 <script type="text/javascript" src="{% static 'js/nav.js' %}" defer></script>
 <script type="text/javascript" src="{% static 'js/injectattribute.js' %}"></script>
+<script>
+    {% if sponsored %}
+        console.log('yes');
+        {% if nofollow %}
+            nofollow();
+        {% endif %}
+        {% if dofollow %}
+            dofollow();
+        {% endif %}
+        {% if noreferrer %}
+            noreferrer();
+        {% endif %}
+        {% if noopener %}
+            noopener();
+        {% endif %}
+    {% else %}
+        default_link();
+    {% endif %}
+</script>
+<script type="text/javascript" src="{% static 'js/toc.js' %}" defer></script>
 </body>
 </html>

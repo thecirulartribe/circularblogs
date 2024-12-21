@@ -67,6 +67,11 @@ def blog(request, url):
     url = content[0].url
     description = content[0].meta_description
     category = content[0].category
+    sponsered = content[0].sponsered
+    nofollow = content[0].nofollow
+    dofollow = content[0].dofollow
+    noreferrer = content[0].noreferrer
+    noopener = content[0].noopener
     cards_content = Blog.objects.filter(category=category, published=True).exclude(Title=title)
     submission = False
     subscribed = True
@@ -85,7 +90,9 @@ def blog(request, url):
         Email = request.POST.get('Email')
         submission = True
         subscribed = subscribe(Name, Email)
-    return render(request, 'Blogs.html', {'content': content, 'description': description, 'submission': submission, 'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title, 'url': url})
+    return render(request, 'Blogs.html', {'content': content, 'description': description, 'submission': submission,
+                                          'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title, 'url': url,
+                                          'sponsored': sponsered, 'nofollow': nofollow, 'dofollow': dofollow, 'noreferrer': noreferrer, 'noopener': noopener})
 
 
 def categories(request, category):
