@@ -264,6 +264,16 @@ def privacy_policy(request):
         subscribed = subscribe(Name, Email)
     return render(request, 'privacy-policy.html', {'submission': submission, 'subscribed': subscribed})
 
+def cookie_policy(request):
+    submission = False
+    subscribed = True
+    if request.method == "POST":
+        Name = request.POST.get('Name')
+        Email = request.POST.get('Email')
+        submission = True
+        subscribed = subscribe(Name, Email)
+    return render(request, 'cookie-policy.html', {'submission': submission, 'subscribed': subscribed})
+
 def page_not_found_view(request, exception):
     return render(request, '404.html', status=404)
 
