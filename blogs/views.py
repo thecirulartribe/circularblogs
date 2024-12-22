@@ -65,8 +65,14 @@ def blog(request, url):
     content = Blog.objects.filter(url=url,published=True)
     title = content[0].Title
     url = content[0].url
+    toc = content[0].table_of_content
     description = content[0].meta_description
     category = content[0].category
+    sponsered = content[0].sponsered
+    nofollow = content[0].nofollow
+    dofollow = content[0].dofollow
+    noreferrer = content[0].noreferrer
+    noopener = content[0].noopener
     cards_content = Blog.objects.filter(category=category, published=True).exclude(Title=title)
     submission = False
     subscribed = True
@@ -85,7 +91,9 @@ def blog(request, url):
         Email = request.POST.get('Email')
         submission = True
         subscribed = subscribe(Name, Email)
-    return render(request, 'Blogs.html', {'content': content, 'description': description, 'submission': submission, 'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title, 'url': url})
+    return render(request, 'Blogs.html', {'content': content, 'description': description, 'toc': toc,'submission': submission,
+                                          'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title, 'url': url,
+                                          'sponsored': sponsered, 'nofollow': nofollow, 'dofollow': dofollow, 'noreferrer': noreferrer, 'noopener': noopener})
 
 
 def categories(request, category):
@@ -256,6 +264,16 @@ def privacy_policy(request):
         submission = True
         subscribed = subscribe(Name, Email)
     return render(request, 'privacy-policy.html', {'submission': submission, 'subscribed': subscribed})
+
+def cookie_policy(request):
+    submission = False
+    subscribed = True
+    if request.method == "POST":
+        Name = request.POST.get('Name')
+        Email = request.POST.get('Email')
+        submission = True
+        subscribed = subscribe(Name, Email)
+    return render(request, 'cookie-policy.html', {'submission': submission, 'subscribed': subscribed})
 
 def page_not_found_view(request, exception):
     return render(request, '404.html', status=404)

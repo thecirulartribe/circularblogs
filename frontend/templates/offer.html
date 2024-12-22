@@ -17,6 +17,7 @@
     <meta property="og:description" content="We at Circular Blogs offer a marketplace for companies focused on sustainability and wants to reach wider audience with their product" />
     <meta property="og:url" content="https://www.circularblogs.com/offer" />
     <meta property="og:image" content="{% static 'images/circularblog.png' %}" />
+    {% if not debug %}
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -24,12 +25,15 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-N2N2WKXR');</script>
     <!-- End Google Tag Manager -->
+    {% endif %}
 </head>
 <body>
+    {% if not debug %}
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2N2WKXR"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    {% endif %}
     <header>
         <navbar>
             <div class="navbuttons">
@@ -172,11 +176,12 @@
               </form>
             </div>
           </section>
-            <footer class="footer">
+    <footer class="footer">
         <ul>
             <li>Copyright © 2024 Circular Blogs - All Rights Reserved.</li>
             <li><a href="/privacy-policy">Privacy Policy</a></li>
             <li><a href="/terms-and-condition">Terms and condition</a></li>
+            <li><a href="/cookie-policy">Cookie Policy</a></li>
         </ul>
     </footer>
     </main>

@@ -8,6 +8,7 @@ class Blog(models.Model):
     page_title = models.CharField(max_length=60, blank=True, null=True)
     Title = models.CharField(max_length=100)
     image = ResizedImageField(size=[950,300], quality=80, force_format='WEBP', crop=['middle', 'center'])
+    table_of_content = models.BooleanField(default=False)
     content = CKEditor5Field(config_name='extends', blank=True, null=True)
     category = models.CharField(default=('Others', 'Others'), max_length=20,
                                 choices=[('Environment', 'Environment'), ('Technology', 'Technology'),
@@ -20,6 +21,10 @@ class Blog(models.Model):
     meta_description = models.CharField(default="description", max_length=300)
     author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
     sponsered = models.BooleanField(default=False)
+    nofollow = models.BooleanField(default=False)
+    dofollow = models.BooleanField(default=False)
+    noreferrer = models.BooleanField(default=False)
+    noopener = models.BooleanField(default=False)
     show_blog_at = models.CharField(default=('None', 'None'), max_length=20, choices=[('None', 'None'), ('Main', 'Main'), ('Side', 'Side')])
     published = models.BooleanField(default=True)
 

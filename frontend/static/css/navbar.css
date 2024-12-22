@@ -250,6 +250,9 @@ color: #ffffff;
         text-align: center;
         padding: 10px 0px;
     }
+    .footer ul li{
+        padding: 5px 0px;
+    }
 }
 @media screen and (max-width: 400px){
     .navshow{
