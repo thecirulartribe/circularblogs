@@ -102,6 +102,7 @@ a{
 }
 .title{
     text-align: justify;
+    padding: 15px 0 30px 0;
 }
 .content{
     padding-left: 30px;
@@ -119,13 +120,13 @@ ul{
 .blogimage{
     background-repeat: no-repeat;
     width: 100%;
-    max-height: 300px;
+    aspect-ratio: 3 / 1;
     background-size: cover;
     background-position: center;
 }
 img{
 width: 100%;
-max-height: 300px;
+aspect-ratio: 3 / 1;
 }
 .content a{
     text-decoration: underline;
