@@ -8,6 +8,7 @@ class Blog(models.Model):
     page_title = models.CharField(max_length=60, blank=True, null=True)
     Title = models.CharField(max_length=100)
     image = ResizedImageField(size=[950,300], quality=80, force_format='WEBP', crop=['middle', 'center'])
+    table_of_content = models.BooleanField(default=False)
     content = CKEditor5Field(config_name='extends', blank=True, null=True)
     category = models.CharField(default=('Others', 'Others'), max_length=20,
                                 choices=[('Environment', 'Environment'), ('Technology', 'Technology'),

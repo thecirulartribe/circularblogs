@@ -65,6 +65,7 @@ def blog(request, url):
     content = Blog.objects.filter(url=url,published=True)
     title = content[0].Title
     url = content[0].url
+    toc = content[0].table_of_content
     description = content[0].meta_description
     category = content[0].category
     sponsered = content[0].sponsered
@@ -90,7 +91,7 @@ def blog(request, url):
         Email = request.POST.get('Email')
         submission = True
         subscribed = subscribe(Name, Email)
-    return render(request, 'Blogs.html', {'content': content, 'description': description, 'submission': submission,
+    return render(request, 'Blogs.html', {'content': content, 'description': description, 'toc': toc,'submission': submission,
                                           'subscribed': subscribed, 'blogs': blogs, 'category': category, 'title': title, 'url': url,
                                           'sponsored': sponsered, 'nofollow': nofollow, 'dofollow': dofollow, 'noreferrer': noreferrer, 'noopener': noopener})
 

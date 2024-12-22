@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const blogContent = document.getElementById("blogcontent");
+  const blog_id = document.getElementById("blog-container")
   const toc = document.getElementById("toc");
   const headers = blogContent.querySelectorAll("h2");
 
@@ -20,5 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     toc.appendChild(ul);
+    blog_id.classList.add("w-auto");
+    blogContent.classList.add("content-toc");
+    toc.classList.add("tableofcont-active");
   }
 });
