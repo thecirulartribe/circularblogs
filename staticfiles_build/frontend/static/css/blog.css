@@ -2,10 +2,14 @@
 *{
     margin: 0%;
     padding: 0%;
+    scroll-behavior: smooth;
 }
 body{
     background-color: whitesmoke;
     overflow-x: hidden;
+}
+h2 {
+    scroll-margin-top: 100px;
 }
 ::-webkit-scrollbar{
         width: 10px;
@@ -26,13 +30,17 @@ body{
     margin-bottom: 50px;
 }
 .blog{
-    margin-top: 100px;
-    width: 70%;
+    margin-top: 50px;
     height: auto;
     padding: 50px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 70%;
+}
+.row {
+   display: flex;
+   flex-direction: row;
 }
 .suggestion{
     display: flex;
@@ -94,11 +102,14 @@ a{
 }
 .title{
     text-align: justify;
+    padding: 15px 0 30px 0;
 }
 .content{
     padding-left: 30px;
     padding-right: 30px;
     text-align: justify;
+    width: auto;
+    align-self: center;
 }
 ol{
     padding-left: 30px;
@@ -109,13 +120,13 @@ ul{
 .blogimage{
     background-repeat: no-repeat;
     width: 100%;
-    max-height: 300px;
+    aspect-ratio: 3 / 1;
     background-size: cover;
     background-position: center;
 }
 img{
 width: 100%;
-max-height: 300px;
+aspect-ratio: 3 / 1;
 }
 .content a{
     text-decoration: underline;
@@ -123,6 +134,7 @@ max-height: 300px;
 .breadcrumbs{
     list-style: none;
     padding: 0px;
+    padding-bottom: 10px;
     font-family: "Roboto", sans-serif;
     height: 20px;
     display: flex;
@@ -151,6 +163,37 @@ max-height: 300px;
     color: black;
     text-decoration: underline;
 }
+.tableofcont {
+  position: sticky;
+  top: 100px;
+  max-width: 300px;
+  height: 100%;
+  padding: 20px;
+  margin-right: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: none;
+}
+
+.tableofcont ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tableofcont ul li {
+  margin: 10px 0;
+}
+
+.tableofcont ul li a {
+  text-decoration: none;
+  color: #023020;
+  font-size: 16px;
+}
+
+.tableofcont ul li a:hover {
+  text-decoration: underline;
+}
 @media screen and (min-width: 500px) and (max-width: 1400px){
     .cards{
         flex-direction: column;
@@ -165,6 +208,18 @@ max-height: 300px;
     }
     .titleblog{
         width: calc(100% - 10px);
+    }
+}
+@media screen and (min-width: 1400px){
+    .w-auto{
+        width: auto !important;
+    }
+    .content-toc {
+        width: 70% !important;
+        align-self: flex-end !important;
+    }
+    .tableofcont-active {
+      display: block !important;
     }
 }
 @media screen and (max-width: 940px){
