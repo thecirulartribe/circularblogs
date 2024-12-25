@@ -1,29 +1,3 @@
-/*
-#ffffff	(255,255,255)
-#d0ded8	(208,222,216)
-#85aa9b	(133,170,155)
-#588b76	(88,139,118)
-#18392b	(24,57,43)
-.wittgenstein-<uniquifier> {
-  font-family: "Wittgenstein", serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-  .roboto-regular {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.roboto-bold {
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-*/
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 *{
     margin: 0%;
     padding: 0%;
