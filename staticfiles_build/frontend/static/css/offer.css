@@ -24,6 +24,12 @@ main{
     top: 100px;
     font-family: "Roboto", sans-serif;
 }
+h2 {
+   scroll-margin-top: 100px;
+}
+section {
+   scroll-margin-top: 100px;
+}
 .hero {
     background: #f0f8f8;
     padding: 50px 0;
@@ -160,6 +166,15 @@ main{
     border: none;
     cursor: pointer;
   }
+@media screen and (max-width: 940px) {
+    h2 {
+       scroll-margin-top: 50px;
+    }
+    section {
+       scroll-margin-top: 50px;
+    }
+}
+
 @media (max-width: 768px) {
     .hero h1 {
       font-size: 2em;
