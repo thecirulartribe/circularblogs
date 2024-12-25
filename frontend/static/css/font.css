@@ -1,0 +1,50 @@
+/* Roboto */
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/woff2/Roboto-Bold.woff2') format('woff2'),
+         url('fonts/woff/Roboto-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/woff2/Roboto-Regular.woff2') format('woff2'),
+         url('fonts/woff/Roboto-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Wittgenstein */
+@font-face {
+    font-family: 'Wittgenstein';
+    src: url('fonts/woff2/Wittgenstein-Bold.woff2') format('woff2'),
+         url('fonts/woff/Wittgenstein-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Wittgenstein';
+    src: url('fonts/woff2/Wittgenstein-Regular.woff2') format('woff2'),
+         url('fonts/woff/Wittgenstein-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* OpenSans */
+@font-face {
+    font-family: 'OpenSans';
+    src: url('fonts/woff2/OpenSans-Bold.woff2') format('woff2'),
+         url('fonts/woff/OpenSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('fonts/woff2/OpenSans-Regular.woff2') format('woff2'),
+         url('fonts/woff/OpenSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
