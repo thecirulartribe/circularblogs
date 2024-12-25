@@ -1,6 +1,4 @@
 from django.urls import path
-from setuptools.extern import names
-
 from .views import (index, blog, offer, suggestion, aboutus, categories, get_blog, thankyou, category_wise_count,
                     terms_and_condition, privacy_policy, cookie_policy)
 urlpatterns = [
