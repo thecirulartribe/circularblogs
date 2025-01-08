@@ -7,9 +7,9 @@
     <title>Circular Blogs | Any Sugestions?</title>
     <link rel="canonical" href="https://www.circularblogs.com/suggestions" />
     <link rel="stylesheet" href="{% static 'css/font.css' %}">
-    <link rel="stylesheet" href="{% if debug %}{% static 'css/suggestion.css' %}{% else %}{% static 'min-css/suggestion-min.css' %}{% endif %}">
-    <link rel="stylesheet" href="{% if debug %}{% static 'css/navbar.css' %}{% else %}{% static 'min-css/navbar-min.css' %}{% endif %}">
-    <link rel="stylesheet" href="{% if debug %}{% static 'css/social.css' %}{% else %}{% static 'min-css/social-min.css' %}{% endif %}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% if debug %}{% static 'css/suggestion.css' %}{% else %}{% static 'minified-css/suggestion-min.css' %}{% endif %}">
+    <link rel="stylesheet" href="{% if debug %}{% static 'css/navbar.css' %}{% else %}{% static 'minified-css/navbar-min.css' %}{% endif %}">
+    <link rel="stylesheet" href="{% if debug %}{% static 'css/social.css' %}{% else %}{% static 'minified-css/social-min.css' %}{% endif %}" media="print" onload="this.media='all'">
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     {% if not debug %}
