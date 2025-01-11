@@ -173,7 +173,13 @@ aspect-ratio: 3 / 1;
   border: 1px solid #ddd;
   border-radius: 5px;
   display: none;
+  max-height: 80vh;
+  overflow-y: scroll;
 }
+
+.tableofcontent::-webkit-scrollbar{
+        width: 4px;
+    }
 
 .tableofcont ul {
   list-style: none;
