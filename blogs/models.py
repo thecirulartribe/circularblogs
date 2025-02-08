@@ -20,16 +20,14 @@ class Blog(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     meta_description = models.CharField(default="description", max_length=300)
     author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
-    sponsered = models.BooleanField(default=False)
+    sponsored = models.BooleanField(default=False)
     nofollow = models.BooleanField(default=False)
     dofollow = models.BooleanField(default=False)
     noreferrer = models.BooleanField(default=False)
     noopener = models.BooleanField(default=False)
     show_blog_at = models.CharField(default=('None', 'None'), max_length=20, choices=[('None', 'None'), ('Main', 'Main'), ('Side', 'Side')])
     published = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.Title + " | " + self.author
+    views = models.PositiveIntegerField(default=0)  # View counter
 
     def get_absolute_url(self):
         return f'/blog/{self.url}'
@@ -59,3 +57,8 @@ class suggestions(models.Model):
 
     def __str__(self):
         return self.suggestion
+
+class BlogView(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_views')
+    ip_address = models.GenericIPAddressField()
+    timestamp = models.DateTimeField(auto_now_add=True)
