@@ -40,7 +40,6 @@ def blog(request, url):
         BlogView.objects.create(blog=blog_post, ip_address=user_ip)
         blog_post.views += 1
         blog_post.save(update_fields=['views'])
-        first_visit = true
 
     # Get related blog posts
     related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
