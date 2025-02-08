@@ -73,10 +73,10 @@
             </a>
             <input type="text" name="Name" class="Name Subin" id="Name" placeholder="Enter your Name" required/>
             <input type="email" name="Email" class="Email Subin" id="Email" placeholder="Enter your email id" required/>
-            <button class="Subbtn" type="submit">Submit</button>
+            <button class="Subbtn" type="submit" name="Submit">Submit</button>
         </div>
     </form>
-        {% if submission %}
+    {% if submission %}
     <div class="subscribing" id="Popupclose">
         <div class="form-container">
             {% if subscribed %}
@@ -103,17 +103,17 @@
         </section>
 
         <div class="container mission" id="about">
-            <h2>Our Mission</h2>
+            <h2 class="head-title">Our Mission</h2>
             <p>At The Circular Tribe, our mission is to promote sustainability and create awareness about sustainable brands available in the market. We are dedicated to fostering a community of environmentally responsible individuals and establishing a platform to showcase brands and startups committed to spreading sustainability practices.</p>
         </div>
 
         <div class="container vision">
-            <h2>Our Vision</h2>
+            <h2 class="head-title">Our Vision</h2>
             <p>Our long-term vision is to build a robust community of eco-conscious individuals and businesses. We aim to become the go-to platform for all things sustainable, providing resources, connections, and opportunities for those passionate about protecting our planet.</p>
         </div>
 
         <div class="container">
-            <h2>Core Values</h2>
+            <h2 class="head-title">Core Values</h2>
             <div class="values">
                 <div>
                     <img src="{% static 'images/recycling-icon.png' %}" alt="Sustainability">
@@ -121,7 +121,7 @@
                     <p>We believe in the power of sustainable practices to create a better future.</p>
                 </div>
                 <div>
-                    <img src="{% static 'images/leaves-icon.png' %}" title="recycle icons">
+                    <img src="{% static 'images/leaves-icon.png' %}" alt="Eco-Friendly">
                     <h3>Eco-Friendly Practices</h3>
                     <p>Our operations and partnerships emphasize eco-friendly methods.</p>
                 </div>
@@ -134,41 +134,39 @@
         </div>
 
         <div class="container">
-            <h2>What We Offer</h2>
+            <h2 class="head-title">What We Offer</h2>
             <div class="offerings">
                 <div>
                     <img src="{% static 'images/diary-journal-color-icon.png' %}" alt="Sustainability Blogs">
                     <h3>Sustainability Blogs</h3>
-                    <p>A platform to share and publish blogs about sustainable practices.</p>
+                    <p>We offer users a platform to share and publish blogs about sustainable practices.</p>
                 </div>
                 <div>
                     <img src="{% static 'images/startup-rocket-launch-icon.png' %}" alt="Showcase for Startups">
                     <h3>Showcase for Startups</h3>
-                    <p>Offering budding startups the opportunity to showcase their commitment to sustainability.</p>
+                    <p>Providing startups the opportunity to highlight their commitment to sustainability.</p>
                 </div>
             </div>
         </div>
+
         <div class="container">
-            <h2>Future Plans</h2>
+            <h2 class="head-title">Coming Soon</h2>
             <div class="future-plans">
                 <div>
                     <img src="{% static 'images/link-hyperlink-color-icon.png' %}" alt="Supply Chain">
-                    <h3>Supply Chain</h3>
-                    <p>Creating an efficient supply chain for scrap vendors.</p>
-                </div>
-                <div>
-                    <img src="{% static 'images/check-out-icon.png' %}" alt="Marketplace">
-                    <h3>Marketplace</h3>
-                    <p>Establishing a marketplace for sustainable brands and startups.</p>
+                    <h3>Exciting new features to support sustainability and innovation.</h3>
+                    <p>We will soon allow users to upload their sustainability-related blogs on our platform, fostering a stronger community-driven approach to sustainable content.</p>
+                    <button class="btn" onclick="openform()">Subscribe for Updates</button>
                 </div>
             </div>
         </div>
-    <div class="container">
-        <h2>We'd love to get in touch with you </h2>
-        <div class="contact">
-            <h3><a href="mailto:community@circularblogs.com">community@circularblogs.com</a></h3>
+
+        <div class="container">
+            <h2 class="head-title">We'd love to get in touch with you</h2>
+            <div class="contact">
+                <h3><a href="mailto:community@circularblogs.com">community@circularblogs.com</a></h3>
+            </div>
         </div>
-    </div>
     </main>
     <div class="social">
         <a href="https://www.instagram.com/circular_blogs/" target="_blank" rel="noreferrer nopener" aria-label="Instagram page">
