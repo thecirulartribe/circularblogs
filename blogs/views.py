@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.db.models import Count, Q
 from .models import Blog, Subscribe, service, suggestions, BlogView
 from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription
 import random
@@ -112,13 +111,6 @@ def thankyou(request):
             if request.GET.get('offer')
             else "We appreciate your input and will review your suggestion carefully.")
     return render(request, 'thankyou.html', {'heading': heading, 'para': para})
-
-# Category Count Page
-def category_wise_count(request):
-    category_list = ['Environment', 'Technology', 'Agriculture', 'Life-style', 'Fashion', 'Food',
-                     'Education', 'DIY', 'News', 'Travel', 'Case-Studies', 'Others']
-    count = {category: Blog.objects.filter(category=category, published=True).count() for category in category_list}
-    return render(request, 'category_list.html', {'count': count})
 
 # Static Pages
 def terms_and_condition(request):
