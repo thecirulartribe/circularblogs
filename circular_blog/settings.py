@@ -71,12 +71,6 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache_table',
-    }
-}
 
 ROOT_URLCONF = 'circular_blog.urls'
 
@@ -164,8 +158,20 @@ if ENVIRONMENT=='production' or POSTGRES_localally:
         'API_KEY': env('CLOUD_API_KEY'),
         'API_SECRET': env('CLOUD_API_SECRET')
     }
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+            'LOCATION': 'cache_table',
+        }
+    }
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/media')
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-local-cache'
+        }
+    }
 
 #Django Ck-editor configuration
 customColorPalette = [
