@@ -69,6 +69,3 @@ class BlogView(models.Model):
 class BotIP(models.Model):
     ip_address = models.GenericIPAddressField(unique=True)
     added_on = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.ip_address
