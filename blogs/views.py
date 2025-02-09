@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .models import Blog, Subscribe, service, suggestions, BlogView
-from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription
+from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription, is_bot
 import random
-
+import time
 
 # Index Page
 def index(request):
@@ -35,10 +35,22 @@ def blog(request, url):
 
     # IP-based view tracking
     user_ip = get_client_ip(request)
-    if not BlogView.objects.filter(blog=blog_post, ip_address=user_ip).exists():
-        BlogView.objects.create(blog=blog_post, ip_address=user_ip)
-        blog_post.views += 1
-        blog_post.save(update_fields=['views'])
+
+    # Get last visit timestamp from session
+    last_visit = request.session.get(f'blog_view_{blog_post.id}')
+    current_time = time.time()
+
+    if last_visit and (current_time - last_visit) < 60:  # 60-second cooldown
+        print("Rate limit triggered: Duplicate view ignored")
+    else:
+        request.session[f'blog_view_{blog_post.id}'] = current_time  # Update timestamp
+
+        # Exclude bot views from analytics
+        if not is_bot(request):
+            if not BlogView.objects.filter(blog=blog_post, ip_address=user_ip).exists():
+                BlogView.objects.create(blog=blog_post, ip_address=user_ip)
+                blog_post.views += 1
+                blog_post.save(update_fields=['views'])
 
     # Get related blog posts
     related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))

@@ -62,3 +62,13 @@ class BlogView(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_views')
     ip_address = models.GenericIPAddressField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.blog.Title} - {self.ip_address}"
+
+class BotIP(models.Model):
+    ip_address = models.GenericIPAddressField(unique=True)
+    added_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.ip_address
