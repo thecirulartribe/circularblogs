@@ -1,4 +1,6 @@
-from .models import Subscribe
+from .models import Subscribe, BotIP
+from .variables import BOT_USER_AGENTS
+import re
 
 def categorize_blogs(queryset):
     """Categorize blogs into main, recent, and blog sections."""
@@ -28,11 +30,28 @@ def subscribe(name, email):
         return True  # Successfully subscribed
     return False  # Already subscribed
 
+
 def get_client_ip(request):
-    """Retrieve the client's IP address from the request."""
+    """Retrieve the real IP address of the client."""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+def is_bot(request):
+    """Check if the request comes from a bot using User-Agent and IP."""
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
+
+    # Check if User-Agent contains bot keywords
+    if any(re.search(bot, user_agent, re.IGNORECASE) for bot in BOT_USER_AGENTS):
+        return True
+
+    # Check if the IP exists in the bot IP database
+    user_ip = get_client_ip(request)
+    if BotIP.objects.filter(ip_address=user_ip).exists():
+        return True
+
+    return False
