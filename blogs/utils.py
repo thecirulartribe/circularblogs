@@ -44,13 +44,15 @@ def get_client_ip(request):
 def is_bot(request):
     """Check if the request comes from a bot using User-Agent and IP."""
     user_agent = request.META.get('HTTP_USER_AGENT', '')
+    user_ip = get_client_ip(request)
 
     # Check if User-Agent contains bot keywords
     if any(re.search(bot, user_agent, re.IGNORECASE) for bot in BOT_USER_AGENTS):
+        if not BotIP.objects.filter(ip_address=user_ip).exists():  # Avoid duplicates
+            BotIP.objects.create(ip_address=user_ip)
         return True
 
-    # Check if the IP exists in the bot IP database
-    user_ip = get_client_ip(request)
+    # Check if IP exists in the bot database
     if BotIP.objects.filter(ip_address=user_ip).exists():
         return True
 
