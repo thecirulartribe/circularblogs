@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Subscribe, service, suggestions, BlogView
+from .models import Blog, Subscribe, service, suggestions, BlogView, BotIP
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
@@ -12,3 +12,9 @@ admin.site.register(BlogView)
 class BlogAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('Title', 'category', 'author', 'views')
     search_fields = ['Title', 'category', 'author']
+
+@admin.register(BotIP)
+class BotIPAdmin(admin.ModelAdmin):
+    list_display = ('ip_address', 'added_on')
+    search_fields = ('ip_address',)
+    ordering = ('-added_on',)
