@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.core.cache import cache
-from django.db import connection
 from .models import Blog, Subscribe, service, suggestions, BlogView
 from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription, is_bot
 import random
@@ -35,48 +34,39 @@ def index(request):
     })
 
 # Blog Detail Page
+# Blog Detail Page
 def blog(request, url):
-    """ Handles individual blog page views with caching and rate-limited view counting """
-    cache_key = f'blog_{url}'
+    blog_post = get_object_or_404(Blog, url=url, published=True)
 
-    # Ensure DB connection is alive (fixes first-load 500 error)
-    if connection.connection is None:
-        connection.ensure_connection()
-
-    blog_post = cache.get(cache_key)
-    if blog_post is None:
-        blog_post = get_object_or_404(Blog, url=url, published=True)
-        cache.set(cache_key, blog_post, timeout=3600) # Cache blog content for 1 hour
-    else:
-        blog_post = Blog.objects.get(pk=blog_post.pk)
-
+    # IP-based view tracking
     user_ip = get_client_ip(request)
+
+    # Get last visit timestamp from session
     last_visit = request.session.get(f'blog_view_{blog_post.id}')
     current_time = time.time()
 
-    # Rate-limit view counting (1 view per 60 seconds per user)
-    if not last_visit or (current_time - last_visit) >= 60:
-        request.session[f'blog_view_{blog_post.id}'] = current_time  # Update session timestamp
+    if last_visit and (current_time - last_visit) < 60:  # 60-second cooldown
+        print("Rate limit triggered: Duplicate view ignored")
+    else:
+        request.session[f'blog_view_{blog_post.id}'] = current_time  # Update timestamp
+
+        # Exclude bot views from analytics
         if not is_bot(request):
             if not BlogView.objects.filter(blog=blog_post, ip_address=user_ip).exists():
                 BlogView.objects.create(blog=blog_post, ip_address=user_ip)
                 blog_post.views += 1
                 blog_post.save(update_fields=['views'])
 
-    # Fetch and cache related blogs
-    related_cache_key = f'related_blogs_{blog_post.id}'
-    related_blogs = cache.get(related_cache_key)
+    # Get related blog posts
+    related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
+    random.shuffle(related_blogs)
+    blogs = related_blogs[:3]  # Select 3 random related blogs
 
-    if related_blogs is None:
-        related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
-        random.shuffle(related_blogs)
-        cache.set(related_cache_key, related_blogs, timeout=3600)
-
-    related_blogs_3 = related_blogs[:3]
     submission, subscribed = handle_subscription(request)
+
     return render(request, 'Blogs.html', {
         'content': [blog_post], 'description': blog_post.meta_description, 'toc': blog_post.table_of_content,
-        'submission': submission, 'subscribed': subscribed, 'blogs': related_blogs_3,
+        'submission': submission, 'subscribed': subscribed, 'blogs': blogs,
         'category': blog_post.category, 'title': blog_post.Title, 'url': blog_post.url,
         'sponsored': blog_post.sponsored, 'nofollow': blog_post.nofollow, 'dofollow': blog_post.dofollow,
         'noreferrer': blog_post.noreferrer, 'noopener': blog_post.noopener
