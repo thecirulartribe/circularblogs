@@ -163,4 +163,4 @@ cython_debug/
 updates/
 node/
 media/
-staticfiles_build
+staticfiles_build/
