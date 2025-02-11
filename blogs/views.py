@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.core.cache import cache
+from django.db import connection
 from .models import Blog, Subscribe, service, suggestions, BlogView
 from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription, is_bot
 import random
@@ -37,13 +38,17 @@ def index(request):
 def blog(request, url):
     """ Handles individual blog page views with caching and rate-limited view counting """
     cache_key = f'blog_{url}'
-    try:
-        blog_post = cache.get(cache_key)
-    except:
-        blog_post = None
+
+    # Ensure DB connection is alive (fixes first-load 500 error)
+    if connection.connection is None:
+        connection.ensure_connection()
+
+    blog_post = cache.get(cache_key)
     if blog_post is None:
         blog_post = get_object_or_404(Blog, url=url, published=True)
-        cache.set(cache_key, blog_post, timeout=3600)  # Cache blog content for 1 hour
+        cache.set(cache_key, blog_post, timeout=3600) # Cache blog content for 1 hour
+    else:
+        blog_post = Blog.objects.get(pk=blog_post.pk)
 
     user_ip = get_client_ip(request)
     last_visit = request.session.get(f'blog_view_{blog_post.id}')
@@ -58,14 +63,21 @@ def blog(request, url):
                 blog_post.views += 1
                 blog_post.save(update_fields=['views'])
 
-    related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
-    random.shuffle(related_blogs)
-    related_blogs = related_blogs[:3]  # Select 3 random related blogs
+    # Fetch and cache related blogs
+    related_cache_key = f'related_blogs_{blog_post.id}'
+    related_blogs = cache.get(related_cache_key)
+    related_blogs_3 = related_blogs[:3]
+
+    if related_blogs is None:
+        related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
+        random.shuffle(related_blogs)
+        related_blogs_3 = related_blogs[:3]  # Pick 3 random blogs
+        cache.set(related_cache_key, related_blogs, timeout=3600)
 
     submission, subscribed = handle_subscription(request)
     return render(request, 'Blogs.html', {
         'content': [blog_post], 'description': blog_post.meta_description, 'toc': blog_post.table_of_content,
-        'submission': submission, 'subscribed': subscribed, 'blogs': related_blogs,
+        'submission': submission, 'subscribed': subscribed, 'blogs': related_blogs_3,
         'category': blog_post.category, 'title': blog_post.Title, 'url': blog_post.url,
         'sponsored': blog_post.sponsored, 'nofollow': blog_post.nofollow, 'dofollow': blog_post.dofollow,
         'noreferrer': blog_post.noreferrer, 'noopener': blog_post.noopener
