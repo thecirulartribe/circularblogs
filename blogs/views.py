@@ -37,10 +37,12 @@ def index(request):
 def blog(request, url):
     """ Handles individual blog page views with caching and rate-limited view counting """
     cache_key = f'blog_{url}'
-    blog_post = cache.get(cache_key)
+    try:
+        blog_post = cache.get(cache_key)
+    except:
+        blog_post = None
     if blog_post is None:
         blog_post = get_object_or_404(Blog, url=url, published=True)
-        print(blog_post)
         cache.set(cache_key, blog_post, timeout=3600)  # Cache blog content for 1 hour
 
     user_ip = get_client_ip(request)
