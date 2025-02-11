@@ -38,9 +38,9 @@ def blog(request, url):
     """ Handles individual blog page views with caching and rate-limited view counting """
     cache_key = f'blog_{url}'
     blog_post = cache.get(cache_key)
-
-    if not blog_post:
+    if blog_post is None:
         blog_post = get_object_or_404(Blog, url=url, published=True)
+        print(blog_post)
         cache.set(cache_key, blog_post, timeout=3600)  # Cache blog content for 1 hour
 
     user_ip = get_client_ip(request)
@@ -55,16 +55,10 @@ def blog(request, url):
                 BlogView.objects.create(blog=blog_post, ip_address=user_ip)
                 blog_post.views += 1
                 blog_post.save(update_fields=['views'])
-                cache.set(cache_key, blog_post, timeout=3600)  # Update blog cache with new view count
 
-    # Fetch related blogs (cached)
-    related_cache_key = f'related_blogs_{blog_post.id}'
-    related_blogs = cache.get(related_cache_key)
-    if not related_blogs:
-        related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
-        random.shuffle(related_blogs)
-        related_blogs = related_blogs[:3]  # Select 3 random related blogs
-        cache.set(related_cache_key, related_blogs, timeout=3600)
+    related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
+    random.shuffle(related_blogs)
+    related_blogs = related_blogs[:3]  # Select 3 random related blogs
 
     submission, subscribed = handle_subscription(request)
     return render(request, 'Blogs.html', {
