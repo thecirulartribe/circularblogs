@@ -150,6 +150,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Base url to serve media files
 MEDIA_URL = '/media/'
 
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
 # Path where media is stored
 if ENVIRONMENT=='production' or POSTGRES_localally:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
