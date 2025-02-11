@@ -34,12 +34,10 @@ class Blog(models.Model):
         super().save(*args, **kwargs)
         cache.delete('blog_list')  # Clear blog list cache
         cache.delete(f'blog_{self.url}')  # Clear specific blog cache
-        cache.delete(f'related_blogs_{self.id}')  # Clear related blogs cache
 
     def delete(self, *args, **kwargs):
         cache.delete('blog_list')
         cache.delete(f'blog_{self.url}')
-        cache.delete(f'related_blogs_{self.id}')
         super().delete(*args, **kwargs)
 
     def get_absolute_url(self):
