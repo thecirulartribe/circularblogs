@@ -66,14 +66,13 @@ def blog(request, url):
     # Fetch and cache related blogs
     related_cache_key = f'related_blogs_{blog_post.id}'
     related_blogs = cache.get(related_cache_key)
-    related_blogs_3 = related_blogs[:3]
 
     if related_blogs is None:
         related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
         random.shuffle(related_blogs)
-        related_blogs_3 = related_blogs[:3]  # Pick 3 random blogs
         cache.set(related_cache_key, related_blogs, timeout=3600)
 
+    related_blogs_3 = related_blogs[:3]
     submission, subscribed = handle_subscription(request)
     return render(request, 'Blogs.html', {
         'content': [blog_post], 'description': blog_post.meta_description, 'toc': blog_post.table_of_content,
