@@ -162,6 +162,10 @@ if ENVIRONMENT=='production' or POSTGRES_localally:
         'default': {
             'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
             'LOCATION': 'cache_table',
+            'TIMEOUT': 3600,
+            'OPTIONS': {
+                'MAX_ENTRIES': 10000,
+            },
         }
     }
 else:
