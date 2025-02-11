@@ -1,6 +1,7 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from django_resized import ResizedImageField
+from django.core.cache import cache
 
 # Create your models here.
 class Blog(models.Model):
