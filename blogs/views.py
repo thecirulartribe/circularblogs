@@ -90,13 +90,8 @@ def categories(request, category):
 def get_blog(request):
     """ Returns cached blog titles for search autocomplete """
     search = request.GET.get('search')
-    cached_titles = cache.get('blog_titles')
-
-    if not cached_titles:
-        cached_titles = list(Blog.objects.filter(published=True).values_list('Title', flat=True))
-        cache.set('blog_titles', cached_titles, timeout=86400)  # Store for 1 day
-
-    return JsonResponse({'status': True, 'payload': cached_titles})
+    payload = list(Blog.objects.filter(Title__icontains=search, published=True).values_list('Title', flat=True))
+    return JsonResponse({'status': True, 'payload': payload})
 
 # Offer Page
 def offer(request):
