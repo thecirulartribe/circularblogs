@@ -63,23 +63,28 @@ h2 {
     gap: 10px;
 }
 .card{
-    width: 320px;
+    width: 30%;
     background-color: black;
     height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    box-sizing: border-box;
+}
+.card a{
+    width: 100%;
 }
 a{
     text-decoration: none;
 }
 .titleblog{
-    width: 310px;
+    width: 100%;
     background-color: rgba(0,0,0,0.5);
     color: #ffffff;
     cursor: pointer;
     padding: 5px;
+    box-sizing: border-box;
 }
 .card:hover .titleblog{
     color: black;
@@ -203,16 +208,10 @@ aspect-ratio: 3 / 1;
     .cards{
         flex-direction: column;
         align-items: center;
-        justify-content: center
+        justify-content: center;
     }
     .card{
         width: 100%;
-    }
-    .card a{
-        width: 100%;
-    }
-    .titleblog{
-        width: calc(100% - 10px);
     }
 }
 @media screen and (min-width: 1400px){
