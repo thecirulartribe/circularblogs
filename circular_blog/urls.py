@@ -30,6 +30,7 @@ sitemaps = {
 urlpatterns = [
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    path('ads.txt/', TemplateView.as_view(template_name="ads.txt", content_type="text/plain")),
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('adimanav/', admin.site.urls),
     path('', include('blogs.urls')),
