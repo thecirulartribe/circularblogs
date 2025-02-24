@@ -2,6 +2,7 @@ from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from django_resized import ResizedImageField
 from django.core.cache import cache
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Blog(models.Model):
@@ -20,7 +21,8 @@ class Blog(models.Model):
     blog_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     meta_description = models.CharField(default="description", max_length=300)
-    author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
+    #author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
+    author_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     sponsored = models.BooleanField(default=False)
     nofollow = models.BooleanField(default=False)
     dofollow = models.BooleanField(default=False)
