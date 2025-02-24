@@ -10,8 +10,8 @@ admin.site.register(BlogView)
 
 @admin.register(Blog)
 class BlogAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('Title', 'category', 'author', 'views')
-    search_fields = ['Title', 'category', 'author']
+    list_display = ('Title', 'category', 'author_user', 'views')
+    search_fields = ['Title', 'category', 'author_user']
 
 @admin.register(BotIP)
 class BotIPAdmin(admin.ModelAdmin):
