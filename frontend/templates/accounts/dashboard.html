@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div style="margin: 100px">
+<h2>Your Blogs</h2>
+<ul>
+    {% for blog in blogs %}
+    <li>
+        <a href="{% url 'edit_blog' blog.id %}">{{ blog.Title }}</a>
+        <a href="{% url 'delete_blog' blog.id %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'create_blog' %}">Add New Blog</a>
+</div>
+{% endblock %}
+
