@@ -21,8 +21,6 @@ class Blog(models.Model):
     blog_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     meta_description = models.CharField(default="description", max_length=300)
-    #author = models.CharField(default=('Shreyash', 'Shreyash'), max_length=10, choices=[('Shreyash', 'Shreyash'), ('Tanmay', 'Tanmay'), ('Prathmesh', 'Prathmesh')])
-    author_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     sponsored = models.BooleanField(default=False)
     nofollow = models.BooleanField(default=False)
     dofollow = models.BooleanField(default=False)
