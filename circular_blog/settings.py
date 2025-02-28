@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'admin_honeypot',
     'cloudinary_storage',
     'cloudinary',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -265,3 +266,5 @@ CKEDITOR_5_CONFIGS = {
         }
     }
 }
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
