@@ -2,12 +2,12 @@
 
 {% block page_content %}
 <div style="margin: 100px">
-<h2>Login</h2>
-<form method="post">
+<h2>Create a New Blog</h2>
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+    {{ form.media }}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <button type="submit">Save</button>
 </form>
-    <a href="{% url 'signup' %}">Signup</a>
 </div>
 {% endblock %}

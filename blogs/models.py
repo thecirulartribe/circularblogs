@@ -1,13 +1,13 @@
 from django.db import models
+from django.conf import settings
 from django_ckeditor_5.fields import CKEditor5Field
 from django_resized import ResizedImageField
 from django.core.cache import cache
-from django.contrib.auth.models import User
 
 # Create your models here.
 class Blog(models.Model):
     url = models.CharField(max_length=100, blank=True, null=True)
-    page_title = models.CharField(max_length=60, blank=True, null=True)
+    author_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     Title = models.CharField(max_length=100)
     image = ResizedImageField(size=[950,300], quality=80, force_format='WEBP', crop=['middle', 'center'])
     table_of_content = models.BooleanField(default=False)

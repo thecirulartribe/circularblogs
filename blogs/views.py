@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .forms import BlogForm
 from django.http import JsonResponse
 from django.core.cache import cache
 from .models import Blog, Subscribe, service, suggestions, BlogView
@@ -158,3 +160,43 @@ def page_not_found_view(request, exception):
 
 def server_error(request, exception=None):
     return render(request, '500.html', status=500)
+
+
+@login_required
+def create_blog_view(request):
+    if request.method == "POST":
+        form = BlogForm(request.POST, request.FILES)  # Ensure file uploads work
+        if form.is_valid():
+            user_blog = form.save(commit=False)  # Don't save yet
+            if not user_blog.author_user:  # Only assign if the author isn't already set
+                user_blog.author_user = request.user
+            user_blog.save()  # Save now
+            return redirect("/accounts/dashboard/")  # Redirect to your blog list page
+    else:
+        form = BlogForm()
+    return render(request, "blog/create_blog.html", {"form": form})
+
+@login_required
+def edit_blog_view(request, blog_id):
+    user_blog = Blog.objects.get(id=blog_id)
+
+    if user_blog.author_user != request.user:  # Prevent unauthorized editing
+        return redirect("blog_list")  # Redirect if not the owner
+
+    if request.method == "POST":
+        form = BlogForm(request.POST, request.FILES, instance=user_blog)
+        if form.is_valid():
+            form.save()
+            return redirect("blog_list")  # Change to your blog list view
+    else:
+        form = BlogForm(instance=user_blog)
+
+    return render(request, "blog/edit_blog.html", {"form": form})
+
+@login_required
+def delete_blog_view(request, blog_id):
+    user_blog = get_object_or_404(Blog, id=blog_id, author_user=request.user)
+    if request.method == 'POST':
+        user_blog.delete()
+        return redirect('dashboard')
+    return render(request, 'blog/delete_blog.html', {'blog': user_blog})
