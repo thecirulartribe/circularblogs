@@ -164,3 +164,4 @@ updates/
 node/
 media/
 staticfiles_build/
+.idea
