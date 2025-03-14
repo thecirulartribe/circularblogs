@@ -1,3 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+::-webkit-scrollbar{
+        width: 10px;
+    }
+::-webkit-scrollbar-track {
+        background: #ffffff;
+      }
+::-webkit-scrollbar-thumb {
+        background: green;
+}
 navbar{
     position: fixed;
     top:0%;
@@ -22,6 +35,10 @@ navbar{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+}
+.navigation a {
+  text-decoration: none;
 }
 .navigation ul{
     list-style: none;
