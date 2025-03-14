@@ -1,12 +1,68 @@
 {% extends "base.html" %}
 
+{% block page_head %}
+  {% load static %}
+  <title>Editor | Circular Blogs </title>
+  <link rel="stylesheet" href="{% if debug %}{% static 'css/edit-blog.css' %}{% else %}{% static 'minified-css/edit-blog-min.css' %}{% endif %}">
+{% endblock%}
+
 {% block page_content %}
-<div style="margin: 100px">
-<h2>Edit Blog</h2>
-<form method="post">
+<div class="edit-blog-container">
+  <h2>{{ page_title }}</h2>
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-</form>
+    <label for="id_url">URL:</label>
+    <input type="text" name="url" id="id_url" value="{% if form.url.value is None %}{% else %}{{ form.url.value }}{% endif %}" required>
+    {% if form.url.errors %}
+      <p class="error">{{ form.url.errors.0 }}</p>
+    {% endif %}
+
+    <label for="id_Title">Title:</label>
+    <input type="text" name="Title" id="id_Title" value="{% if form.Title.value is None %}{% else %}{{ form.Title.value }}{% endif %}" required>
+    {% if form.Title.errors %}
+      <p class="error">{{ form.Title.errors.0 }}</p>
+    {% endif %}
+
+    <label for="id_category">Category:</label>
+      {{ form.category }}
+      {% if form.category.errors %}
+        <p class="error">{{ form.category.errors.0 }}</p>
+      {% endif %}
+
+    <label for="id_image">Image:</label>
+    <input type="file" name="image" id="id_image">
+    {% if form.image.errors %}
+      <p class="error">{{ form.image.errors.0 }}</p>
+    {% endif %}
+
+    <label for="id_content">Content:</label>
+    {{ form.content }}
+    {% if form.content.errors %}
+      <p class="error">{{ form.content.errors.0 }}</p>
+    {% endif %}
+
+    <!-- Toggle Switch for Table of Content -->
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" name="table_of_content" id="id_table_of_content" {% if form.table_of_content.value %}checked{% endif %}>
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">Table of Content</span>
+    </div>
+
+    <!-- Toggle Switch for Queued -->
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" name="queued" id="id_queued" {% if form.queued.value %}checked{% endif %}>
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">Ready for Review</span>
+    </div>
+
+    <button type="submit" class="btn save-btn">Save Changes</button>
+    <a href="{% url 'dashboard' %}" class="btn cancel-btn">Cancel</a>
+  </form>
 </div>
+
+{{ form.media }}
 {% endblock %}

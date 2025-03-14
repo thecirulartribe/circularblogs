@@ -1,9 +1,30 @@
 {% extends "base.html" %}
+
+{% block page_head %}
+  {% load static %}
+  <title>Verification | Circular Blogs </title>
+  <link rel="stylesheet" href="{% if debug %}{% static 'css/email-page.css' %}{% else %}{% static 'minified-css/email-page-min.css' %}{% endif %}">
+{% endblock%}
+
 {% block page_content %}
-<div style="margin: 100px">
-<div class="container">
-    <h2>Email Verification Sent</h2>
-    <p>A verification email has been sent to your email address. Please check your inbox and follow the link to complete your registration.</p>
-</div>
+<div class="verification-container">
+    <div class="verification-box">
+        <h2>Email Verification Sent</h2>
+        <p>We've sent a verification email to your registered email address.</p>
+        <p>Please check your inbox and click the verification link to activate your account.</p>
+
+        <div class="icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png" alt="Email Sent">
+        </div>
+
+        <p class="note">Didn't receive the email? Check your spam folder or click below to resend.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Resend Verification Email</button>
+        </form>
+
+        <p class="back-to-login"><a href="{% url 'login' %}">Back to Login</a></p>
+    </div>
 </div>
 {% endblock %}

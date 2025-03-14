@@ -27,7 +27,9 @@ class Blog(models.Model):
     noreferrer = models.BooleanField(default=False)
     noopener = models.BooleanField(default=False)
     show_blog_at = models.CharField(default=('None', 'None'), max_length=20, choices=[('None', 'None'), ('Main', 'Main'), ('Side', 'Side')])
-    published = models.BooleanField(default=True)
+    published = models.BooleanField(default=False)
+    queued = models.BooleanField(default=False)
+    revert = models.BooleanField(default=False)
     views = models.PositiveIntegerField(default=0)  # View counter
 
     def save(self, *args, **kwargs):
