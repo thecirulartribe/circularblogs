@@ -9,7 +9,17 @@
 {% block page_content %}
 <div class="signup-container">
   <div class="signup-box">
-    <h2>Sign Up</h2>
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <h2>Welcome to Circular Blogs!</h2>
+    <h3>Create an account to start writing.</h3>
 
     {% if form.errors %}
     <div class="error-message">
@@ -72,6 +82,7 @@
     </form>
 
     <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    <p class="login-link">Click “Create Account” to agree to Circular Blogs <a href="{% url 'terms and conditions' %}">Terms of Service</a> and acknowledge that Circular Blogs <a href="{% url 'privacy policy' %}">Privacy Policy</a> applies to you.</p>
   </div>
 </div>
 {% endblock %}

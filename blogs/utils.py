@@ -43,3 +43,19 @@ def is_bot(request):
 
     # Directly check if the IP is already stored
     return BotIP.objects.filter(ip_address=user_ip).exists()
+
+
+def url_creater(title):
+    # Convert to lowercase
+    title = title.lower()
+
+    # Replace non-alphanumeric characters with spaces
+    title = re.sub(r'[^a-z0-9\s]', '', title)
+
+    # Replace multiple spaces with a single hyphen
+    title = re.sub(r'\s+', '-', title)
+
+    # Strip hyphens from start and end
+    title = title.strip('-')
+
+    return title
