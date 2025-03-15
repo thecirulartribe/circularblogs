@@ -11,12 +11,6 @@
   <h2>{{ page_title }}</h2>
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <label for="id_url">URL:</label>
-    <input type="text" name="url" id="id_url" value="{% if form.url.value is None %}{% else %}{{ form.url.value }}{% endif %}" required>
-    {% if form.url.errors %}
-      <p class="error">{{ form.url.errors.0 }}</p>
-    {% endif %}
-
     <label for="id_Title">Title:</label>
     <input type="text" name="Title" id="id_Title" value="{% if form.Title.value is None %}{% else %}{{ form.Title.value }}{% endif %}" required>
     {% if form.Title.errors %}

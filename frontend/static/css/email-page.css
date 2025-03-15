@@ -4,6 +4,7 @@
     align-items: center;
     height: 100vh;
     background-color: #f8f9fa;
+    margin-top: 50px;
 }
 
 .verification-box {
@@ -53,6 +54,11 @@ p {
     background-color: #0056b3;
 }
 
+.btn:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
 .back-to-login a {
     display: inline-block;
     margin-top: 15px;
@@ -63,4 +69,9 @@ p {
 
 .back-to-login a:hover {
     text-decoration: underline;
+}
+
+.attempt {
+  font-size: 16px;
+  color: red;
 }

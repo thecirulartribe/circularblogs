@@ -11,7 +11,7 @@ urlpatterns = [
     path('get_blog/', get_blog),
     path('thankyou', thankyou, name="thankyou"),
     path('terms-and-condition/', terms_and_condition, name="terms and conditions"),
-    path('privacy-policy/', privacy_policy, name=" policy"),
+    path('privacy-policy/', privacy_policy, name="privacy policy"),
     path('cookie-policy/', cookie_policy, name="cookie policy"),
     path('create/', create_blog_view, name='create_blog'),
     path('edit/<int:blog_id>/', edit_blog_view, name='edit_blog'),

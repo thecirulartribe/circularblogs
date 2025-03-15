@@ -1,12 +1,10 @@
-from tabnanny import check
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import BlogForm
 from django.http import JsonResponse
 from django.core.cache import cache
 from .models import Blog, Subscribe, service, suggestions, BlogView
-from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription, is_bot
+from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription, is_bot, url_creater
 import random
 import time
 from accounts.views import logincheck
@@ -172,6 +170,8 @@ def create_blog_view(request):
       user_blog = form.save(commit=False)  # Don't save yet
       if not user_blog.author_user:  # Only assign if the author isn't already set
         user_blog.author_user = request.user
+      if user_blog.queued:
+        user_blog.url = url_creater(f"{user_edited_blog.Title} {user_blog.author_user}")
       user_blog.save()  # Save now
       return redirect("/accounts/dashboard/")  # Redirect to your blog list page
   else:
@@ -183,11 +183,14 @@ def edit_blog_view(request, blog_id):
   user_blog = Blog.objects.get(id=blog_id)
 
   if user_blog.author_user != request.user:  # Prevent unauthorized editing
-    return redirect("blog_list")  # Redirect if not the owner
+    return redirect("/accounts/dashboard/")  # Redirect if not the owner
 
   if request.method == "POST":
     form = BlogForm(request.POST, request.FILES, instance=user_blog)
+    user_edited_blog = form.save(commit=False)
     if form.is_valid():
+      if user_edited_blog.queued:
+        user_edited_blog.url = url_creater(f"{user_edited_blog.Title} by {user_blog.author_user}")
       form.save()
       return redirect("/accounts/dashboard/")  # Change to your blog list view
   else:
