@@ -20,9 +20,11 @@ from django.utils.html import strip_tags
 from django.db.models import Sum
 from django.utils.timezone import now
 from django.contrib import messages
+from django_ratelimit.decorators import ratelimit
 
 User = get_user_model()
 
+@ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def signup(request):
   form = CustomUserCreationForm(request.POST)
   if form.is_valid():

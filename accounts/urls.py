@@ -1,10 +1,15 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LoginView
 from .views import signup, dashboard_view, activate, forgot_password, reset_password, email_sent, resend_verification_email
+from django_ratelimit.decorators import ratelimit
+
+# Apply rate limit to login view
+login_view = ratelimit(key="ip", rate="5/m", method="POST", block=True)(LoginView.as_view(template_name='accounts/login.html'))
 
 urlpatterns = [
     path('signup/', signup, name='signup'),
-    path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', login_view, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('dashboard/', dashboard_view, name='dashboard'),
     path("activate/<uidb64>/<token>/", activate, name="activate"),
