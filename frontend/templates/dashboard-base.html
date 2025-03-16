@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+  {% block page_head %}
+  {% endblock %}
+</head>
+<body>
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="{% url 'dashboard' %}">Circular Blogs</a>
+    </div>
+    <div class="nav-right">
+      <a href="{% url 'create_blog' %}" class="btn-primary">Write a Blog</a>
+      <div class="profile-img">
+        {% if user.profile_image %}
+          <img src="{{ user.profile_image.url }}" alt="Profile">
+        {% else %}
+          <img src="{% static 'images/default-user.svg' %}" alt="Default Profile">
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>
+
+{% block page_content %}
+{% endblock %}
+
+<footer class="footer">
+  <ul>
+    <li>Copyright © 2024 Circular Blogs - All Rights Reserved.</li>
+    <li><a href="/privacy-policy">Privacy Policy</a></li>
+    <li><a href="/terms-and-condition">Terms and condition</a></li>
+    <li><a href="/cookie-policy">Cookie Policy</a></li>
+  </ul>
+</footer>
+</body>
+{% block page_script %}
+{% endblock %}
+</html>
