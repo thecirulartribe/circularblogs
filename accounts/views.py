@@ -157,7 +157,7 @@ def dashboard_view(request):
   blog_list = categories.get(selected_category, categories["published"])
 
   # Implement pagination
-  paginator = Paginator(blog_list, 10)  # Show 10 blogs per page
+  paginator = Paginator(blog_list, 9)  # Show 9 blogs per page
   page_number = request.GET.get("page")
   page_obj = paginator.get_page(page_number)
 
