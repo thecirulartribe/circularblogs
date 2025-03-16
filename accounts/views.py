@@ -26,21 +26,19 @@ User = get_user_model()
 
 @ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def signup(request):
-  form = CustomUserCreationForm(request.POST)
-  if form.is_valid():
-    user = form.save(commit=False)
-    user.is_active = False  # Disable account until email is verified
-    user.resend_attempts = 0  # Initialize resend attempts
-    user.last_resend_time = None  # Reset last resend time
-    user.save()
-
+  if request.method == "POST":
+    form = CustomUserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save(commit=False)
+      user.is_active = False  # Disable account until email is verified
+      user.resend_attempts = 0  # Initialize resend attempts
+      user.last_resend_time = None  # Reset last resend time
+      user.save()
     # Send verification email
-    send_verification_email(user, request)
-
-    return redirect(f"/accounts/signup/email-sent/{user}/")  # Show success page
+      send_verification_email(user, request)
+      return redirect(f"/accounts/signup/email-sent/{user}/")  # Show success page
   else:
     form = CustomUserCreationForm()
-
   return render(request, "accounts/signup.html", {"form": form})
 
 
