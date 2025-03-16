@@ -184,6 +184,8 @@ def edit_blog_view(request, blog_id):
 
   if user_blog.author_user != request.user:  # Prevent unauthorized editing
     return redirect("/accounts/dashboard/")  # Redirect if not the owner
+  if user_blog.published:
+    return redirect("/accounts/dashboard/")
 
   if request.method == "POST":
     form = BlogForm(request.POST, request.FILES, instance=user_blog)

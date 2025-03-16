@@ -1,86 +1,67 @@
-{% extends "base.html" %}
+{% extends "dashboard-base.html" %}
+{% load static %}
 
 {% block page_head %}
-  {% load static %}
-  <title>Dashboard | Circular Blogs </title>
+  <title>Dashboard | Circular Blogs</title>
   <link rel="stylesheet" href="{% if debug %}{% static 'css/dashboard.css' %}{% else %}{% static 'minified-css/dashboard-min.css' %}{% endif %}">
-{% endblock%}
-
+{% endblock %}
 
 {% block page_content %}
-<div class="dashboard-container">
-  <aside class="sidebar">
-    <ul>
-      <li><a href="{% url 'create_blog' %}">Create Blog</a></li>
-      <li><a href="{% url 'logout' %}">Log out</a></li>
-    </ul>
-  </aside>
-  <main class="dashboard-content">
-    <h2>Welcome, {{ user.username }}</h2>
-    <!-- Blog Stats Section -->
-    <a class="card create-blog-mobile" href="{% url 'create_blog' %}"><h3>Create Blog</h3></a>
-    <div class="stats">
-      <div class="card published"><h3>Published Blogs</h3><p>{{ published_blogs }}</p></div>
-      <div class="card queued"><h3>Queued Blogs</h3><p>{{ queued_blogs }}</p></div>
-      <div class="card reverted"><h3>Reverted Blogs</h3><p>{{ reverted_blogs }}</p></div>
-      <div class="card draft"><h3>Draft Blogs</h3><p>{{ draft_blogs }}</p></div>
-      <div class="card views"><h3>Total Blog Views</h3><p>{{ total_views }}</p></div>
-    </div>
+  <div class="dashboard-container">
+    <main class="dashboard-content">
+      <div class="blog-filter">
+        <a href="?category=published" class="{% if selected_category == 'published' %}active{% endif %}">Published</a>
+        <a href="?category=draft" class="{% if selected_category == 'draft' %}active{% endif %}">Draft</a>
+        <a href="?category=queued" class="{% if selected_category == 'queued' %}active{% endif %}">Queued</a>
+        <a href="?category=reverted" class="{% if selected_category == 'reverted' %}active{% endif %}">Reverted</a>
+      </div>
 
-    <!-- Blog Status Sections -->
-    <section class="blog-sections">
-      <div class="blog-box queued-section">
-        <h3>Queued Blogs (Waiting for Verification)</h3>
-        <ul>
-          {% for blog in queued_list %}
-          <li><a href="{% url 'edit_blog' blog.id %}">{{ blog.Title }}</a> - {{ blog.blog_date }}</li>
-          {% empty %}
-          <li>No blogs waiting for verification.</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="blog-box reverted-section">
-        <h3>Reverted Blogs (Need Changes)</h3>
-        <ul>
-          {% for blog in reverted_list %}
-          <li><a href="{% url 'edit_blog' blog.id %}">{{ blog.Title }}</a> - {{ blog.updated_at }}</li>
-          {% empty %}
-          <li>No reverted blogs.</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="blog-box draft-section">
-        <h3>Drafts</h3>
-        <ul>
-          {% for blog in draft_list %}
-          <li><a href="{% url 'edit_blog' blog.id %}">{{ blog.Title }}</a> - {{ blog.updated_at }}</li>
-          {% empty %}
-          <li>No drafts found.</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="blogs-section published-section">
-        <h2>Published Blogs</h2>
-        <div class="blog-list">
-          {% for blog in blogs %}
+      <section class="blog-list">
+        {% for blog in page_obj %}
           <div class="blog-card">
-            <h3>
-                <a href="{% url 'view_blog' blog.url %}" class="blog-title">{{ blog.Title }}</a>
-            </h3>
+            <h3>{{ blog.Title }}</h3>
             <p><strong>Updated:</strong> {{ blog.updated_at|date:"F d, Y" }}</p>
             <p><strong>Views:</strong> {{ blog.views }}</p>
             <div class="blog-actions">
-              <a href="{% url 'edit_blog' blog.id %}" class="btn edit-btn">Edit</a>
+              <a href="{% if selected_category == 'published' %}{% url 'view_blog' blog.url %}{% else %}{% url 'edit_blog' blog.id %}{% endif %}" class="btn edit-btn">
+                {% if selected_category == 'published' %}
+                  View
+                {% else %}
+                  Edit
+                {% endif %}
+              </a>
               <a href="{% url 'delete_blog' blog.id %}" class="btn delete-btn">Delete</a>
             </div>
           </div>
-          {% empty %}
-          <p>No published blogs yet.</p>
-          {% endfor %}
-        </div>
-      </div>
-    </section>
-    </main>
-</div>
-{% endblock %}
+        {% empty %}
+          <p>No blogs found in this category.</p>
+        {% endfor %}
+      </section>
 
+      <div class="pagination">
+        {% if page_obj.has_previous %}
+          <a href="?category={{ selected_category }}&page=1">First</a>
+          <a href="?category={{ selected_category }}&page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+          <a href="?category={{ selected_category }}&page={{ page_obj.next_page_number }}">Next</a>
+          <a href="?category={{ selected_category }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <h3>Overview</h3>
+      <ul>
+        <li>Total Views: <strong>{{ total_views }}</strong></li>
+        <li>Published Blogs: <strong>{{ published_blogs }}</strong></li>
+        <li>Queued Blogs: <strong>{{ queued_blogs }}</strong></li>
+        <li>Draft Blogs: <strong>{{ draft_blogs }}</strong></li>
+        <li>Reverted Blogs: <strong>{{ reverted_blogs }}</strong></li>
+      </ul>
+    </aside>
+  </div>
+{% endblock %}
