@@ -15,12 +15,11 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
 from django.utils.html import strip_tags
-from django.db.models import Sum
 from django_ratelimit.decorators import ratelimit
 from django.core.paginator import Paginator
 from blogs.models import Blog
 from .models import CustomUser
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileEditForm
 
 User = get_user_model()
 
@@ -146,6 +145,7 @@ def dashboard_view(request):
 
   # Categorize blogs
   categories = {
+    "overview": blogs,
     "published": blogs.filter(published=True),
     "queued": blogs.filter(queued=True, published=False),
     "reverted": blogs.filter(revert=True, published=False, queued=False),
@@ -154,16 +154,15 @@ def dashboard_view(request):
 
   # Get selected category from query params
   selected_category = request.GET.get("category", "published")
-  blog_list = categories.get(selected_category, categories["published"])
+  blog_list = categories.get(selected_category, categories["published"]).order_by('-pk')
 
   # Implement pagination
-  paginator = Paginator(blog_list, 9)  # Show 9 blogs per page
+  paginator = Paginator(blog_list, 10)  # Show 10 blogs per page
   page_number = request.GET.get("page")
   page_obj = paginator.get_page(page_number)
 
   context = {
     "total_blogs": blogs.count(),
-    "total_views": blogs.aggregate(Sum('views'))['views__sum'] or 0,
     "published_blogs": categories["published"].count(),
     "queued_blogs": categories["queued"].count(),
     "reverted_blogs": categories["reverted"].count(),
@@ -246,3 +245,16 @@ def reset_password(request, uidb64, token):
       success = True
 
   return render(request, "accounts/reset_password.html", {'errors': errors, 'success': success})
+
+
+@login_required
+def edit_profile_view(request):
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = ProfileEditForm(instance=request.user)
+
+    return render(request, 'accounts/edit_profile.html', {'form': form})

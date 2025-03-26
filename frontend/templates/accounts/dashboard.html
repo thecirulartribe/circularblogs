@@ -8,60 +8,66 @@
 
 {% block page_content %}
   <div class="dashboard-container">
+    <aside class="sidebar">
+      <a href="?"></a>
+      <a href="?category=published" class="{% if selected_category == 'published' %}active{% endif %}">Published</a>
+      <a href="?category=draft" class="{% if selected_category == 'draft' %}active{% endif %}">Draft</a>
+      <a href="?category=queued" class="{% if selected_category == 'queued' %}active{% endif %}">Queued</a>
+      <a href="?category=reverted" class="{% if selected_category == 'reverted' %}active{% endif %}">Reverted</a>
+    </aside>
     <main class="dashboard-content">
       <div class="blog-filter">
-        <a href="?category=published" class="{% if selected_category == 'published' %}active{% endif %}">Published</a>
-        <a href="?category=draft" class="{% if selected_category == 'draft' %}active{% endif %}">Draft</a>
-        <a href="?category=queued" class="{% if selected_category == 'queued' %}active{% endif %}">Queued</a>
-        <a href="?category=reverted" class="{% if selected_category == 'reverted' %}active{% endif %}">Reverted</a>
+      <ul>
+        <li>Total: <strong>{{ total_blogs }}</strong></li>
+        <li>Published: <strong>{{ published_blogs }}</strong></li>
+        <li>Queued: <strong>{{ queued_blogs }}</strong></li>
+        <li>Draft: <strong>{{ draft_blogs }}</strong></li>
+        <li>Reverted: <strong>{{ reverted_blogs }}</strong></li>
+      </ul>
       </div>
 
       <section class="blog-list">
         {% for blog in page_obj %}
           <div class="blog-card">
-            <h3>{{ blog.Title }}</h3>
-            <p><strong>Updated:</strong> {{ blog.updated_at|date:"F d, Y" }}</p>
-            <p><strong>Views:</strong> {{ blog.views }}</p>
-            <div class="blog-actions">
-              <a href="{% if selected_category == 'published' %}{% url 'view_blog' blog.url %}{% else %}{% url 'edit_blog' blog.id %}{% endif %}" class="btn edit-btn">
-                {% if selected_category == 'published' %}
-                  View
-                {% else %}
-                  Edit
-                {% endif %}
-              </a>
-              <a href="{% url 'delete_blog' blog.id %}" class="btn delete-btn">Delete</a>
+            <img src="{{ blog.image.url }}" class="blog-image" width="150" height="150">
+            <div class="blog-card-content">
+              <h2 class="blog-title">{{ blog.Title }}</h2>
+              <p><strong>Posted:</strong> {{ blog.updated_at|date:"F d, Y" }}</p>
+              <p><strong>Views:</strong> {{ blog.views }}</p>
+              <div class="blog-actions">
+                <a href="{% if selected_category == 'published' %}{% url 'view_blog' blog.url %}{% else %}{% url 'edit_blog' blog.id %}{% endif %}" class="btn edit-btn">
+                  {% if selected_category == 'published' %}
+                    View
+                  {% else %}
+                    Edit
+                  {% endif %}
+                </a>
+                <a href="{% url 'delete_blog' blog.id %}" class="btn delete-btn">Delete</a>
+              </div>
             </div>
           </div>
         {% empty %}
+        <div class="not-found">
           <p>No blogs found in this category.</p>
+        </div>
         {% endfor %}
       </section>
 
       <div class="pagination">
         {% if page_obj.has_previous %}
-          <a href="?category={{ selected_category }}&page=1">First</a>
-          <a href="?category={{ selected_category }}&page={{ page_obj.previous_page_number }}">Previous</a>
+          <a class="pagination-btn link-active backward" href="?category={{ selected_category }}&page={{ page_obj.previous_page_number }}">Prev</a>
+        {% else %}
+          <span class="pagination-btn">Prev</span>
         {% endif %}
 
-        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        <span class="center">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
 
         {% if page_obj.has_next %}
-          <a href="?category={{ selected_category }}&page={{ page_obj.next_page_number }}">Next</a>
-          <a href="?category={{ selected_category }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+          <a class="pagination-btn link-active forward" href="?category={{ selected_category }}&page={{ page_obj.next_page_number }}">Next</a>
+        {% else %}
+          <span class="pagination-btn">Next</span>
         {% endif %}
       </div>
     </main>
-
-    <aside class="sidebar">
-      <h3>Overview</h3>
-      <ul>
-        <li>Total Views: <strong>{{ total_views }}</strong></li>
-        <li>Published Blogs: <strong>{{ published_blogs }}</strong></li>
-        <li>Queued Blogs: <strong>{{ queued_blogs }}</strong></li>
-        <li>Draft Blogs: <strong>{{ draft_blogs }}</strong></li>
-        <li>Reverted Blogs: <strong>{{ reverted_blogs }}</strong></li>
-      </ul>
-    </aside>
   </div>
 {% endblock %}
