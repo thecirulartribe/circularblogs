@@ -41,8 +41,3 @@ function search3(){
     }
 }
 search1()
-function moreblog(){
-    var moreblog = document.getElementById("moreblog");
-    moreblog.style.display = "flex";
-    document.getElementById("moretxt").style.display = "none";
-}

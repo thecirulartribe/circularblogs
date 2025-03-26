@@ -4,7 +4,8 @@
     align-items: center;
     height: 100vh;
     background-color: #f8f9fa;
-    margin: 50px;
+    margin: 150px 0;
+    box-sizing: border-box;
 }
 
 .signup-box {
@@ -103,4 +104,10 @@ h3 {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
+}
+
+.login-note {
+    margin: 8px 0;
+    font-size: 12px;
+    text-align: left;
 }

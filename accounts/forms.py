@@ -8,7 +8,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "first_name", "last_name" ,"email", "password1", "password2")
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -35,3 +35,9 @@ class CustomUserCreationForm(UserCreationForm):
 
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords do not match.")
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ["first_name", "last_name" ,"bio", "profile_picture"]

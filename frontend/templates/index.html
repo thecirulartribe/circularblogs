@@ -50,7 +50,7 @@
         <li><a id="Others" href="/category/Others">Others</a></li>
       </ul>
     </div>
-    <div class="content">
+    <div class="content" {% if page_blog.has_previous %} x-data="{ moreblogs: true }" {% else %} x-data="{ moreblogs: false }" {% endif %}>
       <div class="mainblog" style="background-image: url('{{main.image.url}}')">
         <a href="/blog/{{ main.url }}">
           <div class="heading">
@@ -68,9 +68,9 @@
           </a>
         </div>
         {% endfor %}
-        <div class="more" onclick="moreblog()" id="moretxt">More Blogs</div>
+        <div class="more" id="moretxt" @click="moreblogs = true" x-show="!moreblogs">More Blogs</div>
       </div>
-      <div class="moreblog" id="moreblog">
+      <div class="moreblog" id="moreblog" x-show="moreblogs">
         {% for blog in blogs %}
         <div class="blog" style="background: url('{{blog.image.url}}')">
           <a href="/blog/{{ blog.url }}">
@@ -80,6 +80,21 @@
           </a>
         </div>
         {% endfor %}
+        <div class="pagination">
+          {% if page_blog.has_previous %}
+            <a class="pagination-btn link-active backward" href="?page={{ page_blog.previous_page_number }}">Prev</a>
+          {% else %}
+            <span class="pagination-btn">Prev</span>
+          {% endif %}
+
+          <span class="center">Page {{ page_blog.number }} of {{ page_blog.paginator.num_pages }}</span>
+
+          {% if page_blog.has_next %}
+            <a class="pagination-btn link-active forward" href="?page={{ page_blog.next_page_number }}">Next</a>
+          {% else %}
+            <span class="pagination-btn">Next</span>
+          {% endif %}
+        </div>
       </div>
     </div>
   </main>

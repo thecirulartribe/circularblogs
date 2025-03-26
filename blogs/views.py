@@ -5,9 +5,11 @@ from django.http import JsonResponse
 from django.core.cache import cache
 from .models import Blog, Subscribe, service, suggestions, BlogView
 from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription, is_bot, url_creater
+from django.core.paginator import Paginator
 import random
 import time
 from accounts.views import logincheck
+from accounts.models import CustomUser
 
 # Index Page
 def index(request):
@@ -21,7 +23,12 @@ def index(request):
     all_blogs = sponsored_main + sponsored_side + unsponsored if sponsored_main or sponsored_side else blogs_queryset
     cache.set('blog_list', all_blogs, timeout=3600)  # Cache for 1 hour
 
-  main_blog, recent, blogs = categorize_blogs(all_blogs)
+  # Implement pagination
+  paginator = Paginator(all_blogs, 10)  # Show 10 blogs per page
+  page_number = request.GET.get("page")
+  page_blog = paginator.get_page(page_number)
+
+  main_blog, recent, blogs = categorize_blogs(page_blog)
 
   # Handle Search Query
   search_title = request.GET.get('search')
@@ -33,7 +40,7 @@ def index(request):
   check = logincheck(request)
   return render(request, 'index.html', {
     'main': main_blog, 'recent': recent, 'blogs': blogs,
-    'category': False, 'dashboard': check})
+    'category': False, 'dashboard': check,  'page_blog': page_blog})
 
 # Blog Detail Page
 def blog(request, url):
@@ -58,6 +65,7 @@ def blog(request, url):
         blog_post.views += 1
         blog_post.save(update_fields=['views'])
 
+  author_info = list(CustomUser.objects.filter(username=blog_post.author_user))
   related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
   random.shuffle(related_blogs)
   related_blogs = related_blogs[:3]  # Select 3 random related blogs
@@ -66,7 +74,7 @@ def blog(request, url):
     'content': [blog_post], 'description': blog_post.meta_description, 'toc': blog_post.table_of_content,
     'blogs': related_blogs, 'category': blog_post.category, 'title': blog_post.Title, 'url': blog_post.url,
     'sponsored': blog_post.sponsored, 'nofollow': blog_post.nofollow, 'dofollow': blog_post.dofollow,
-    'noreferrer': blog_post.noreferrer, 'noopener': blog_post.noopener, 'dashboard': check
+    'noreferrer': blog_post.noreferrer, 'noopener': blog_post.noopener, 'dashboard': check, 'author' : author_info[0]
   })
 
 # Category Page

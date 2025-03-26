@@ -41,12 +41,12 @@ h2 {
    display: flex;
    flex-direction: row;
 }
-.suggestion{
+.suggestion {
     display: flex;
     flex-direction: column;
     width: 70%;
 }
-.texts{
+.texts {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -106,8 +106,26 @@ a{
 }
 .title{
     text-align: justify;
-    padding: 15px 0 30px 0;
+    padding: 15px 0 0 0;
 }
+
+.blog-info-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.blog-info {
+  text-align: left;
+  border-right: 1px solid black;
+  padding-right: 10px;
+}
+
+.blog-info:last-child {
+  border-right: 0;
+}
+
 .content{
     padding-left: 30px;
     padding-right: 30px;

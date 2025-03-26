@@ -1,0 +1,125 @@
+{% extends "dashboard-base.html" %}
+{% load static %}
+
+{% block page_head %}
+  <title>Edit Profile | Circular Blogs</title>
+  <link rel="stylesheet" href="{% if debug %}{% static 'css/dashboard.css' %}{% else %}{% static 'minified-css/dashboard-min.css' %}{% endif %}">
+  <style>
+    .profile-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    .profile-picture {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .profile-picture input {
+      width: 400px;
+    }
+
+    h1 {
+      color: #34A853;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input, textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .profile-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .btn-submit, .btn-cancel {
+      background-color: #34A853;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .btn-cancel {
+      background-color: #ccc;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .btn-submit:hover {
+      background-color: #2e8b45;
+    }
+
+    .btn-cancel:hover {
+      background-color: #b0b0b0;
+    }
+  </style>
+{% endblock %}
+
+{% block page_content %}
+  <div class="profile-container">
+    <h1>Edit Your Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="form-group profile-picture">
+        <label for="id_profile_picture">Profile Picture:</label>
+        {% if user.profile_picture %}
+          <img src="{{ user.profile_picture.url }}" alt="Profile Image" class="profile-preview" />
+        {% else %}
+          <img src="{% static 'images/default-user.svg' %}" alt="Default Profile" class="profile-preview" />
+        {% endif %}
+        {{ form.profile_picture }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_first_name">First Name:</label>
+        {{ form.first_name }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_last_name">Last Name:</label>
+        {{ form.last_name }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_bio">Bio:</label>
+        {{ form.bio }}
+      </div>
+
+      <button type="submit" class="btn-submit">Save Changes</button>
+      <a href="{% url 'dashboard' %}" class="btn-cancel">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
