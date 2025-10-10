@@ -6,7 +6,7 @@ from django_ratelimit.decorators import ratelimit
 
 # Apply rate limit to login view
 login_view = ratelimit(key="ip", rate="5/m", method="POST", block=True)(LoginView.as_view(template_name='accounts/login.html'))
-
+'''
 urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', login_view, name='login'),
@@ -19,3 +19,5 @@ urlpatterns = [
     path("signup/resend-verification/<int:user_id>/", resend_verification_email, name="resend_verification"),
     path('edit-profile/', edit_profile_view, name='edit_profile'),
 ]
+'''
+urlpatterns = []

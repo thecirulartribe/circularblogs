@@ -11,32 +11,25 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
 from django.conf.global_settings import INTERNAL_IPS, STATIC_ROOT, DEFAULT_FILE_STORAGE
-from environ import Env
+import dotenv
 import os
 import dj_database_url
-# Add these at the top of your settings.py
+dotenv.load_dotenv()
 
-env = Env()
-Env.read_env()
-ENVIRONMENT = env('ENVIRONMENT', default='production')
+ENVIRONMENT = os.getenv('ENVIRONMENT', "development")
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'development-server')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 if ENVIRONMENT == 'development':
     DEBUG = True
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",") if os.environ.get("ALLOWED_HOSTS") else []
 
 INTERNAL_IPS = {
     '127.0.0.1',
@@ -105,7 +98,8 @@ DATABASES = {
 }
 POSTGRES_localally = False
 if ENVIRONMENT=='production' or POSTGRES_localally:
-    DATABASES['default'] = dj_database_url.parse(env("DATABASE_URL"))
+    DATABASE_URL = os.environ.get("DATABASE_URL")
+    DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
 
 
 # Password validation
@@ -152,12 +146,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 # Path where media is stored
-if ENVIRONMENT=='production' or POSTGRES_localally:
+Cloud_local = False
+if ENVIRONMENT=='production' or POSTGRES_localally or Cloud_local:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': env('CLOUD_NAME'),
-        'API_KEY': env('CLOUD_API_KEY'),
-        'API_SECRET': env('CLOUD_API_SECRET')
+        'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+        'API_KEY': os.getenv('CLOUD_API_KEY'),
+        'API_SECRET': os.getenv('CLOUD_API_SECRET')
     }
     CACHES = {
         'default': {
@@ -277,8 +272,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', "")
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD', "")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 if not DEBUG:
