@@ -3,12 +3,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import BlogForm
 from django.http import JsonResponse
 from django.core.cache import cache
-from .models import Blog, Subscribe, service, suggestions, BlogView
-from .utils import subscribe, get_client_ip, categorize_blogs, handle_subscription, is_bot, url_creater
+from .models import Blog, service, suggestions, BlogView
+from .utils import get_client_ip, categorize_blogs, handle_subscription, is_bot, url_creater
 from django.core.paginator import Paginator
 import random
 import time
-from accounts.views import logincheck
 from accounts.models import CustomUser
 
 # Index Page
@@ -37,10 +36,12 @@ def index(request):
     if search_result:
       return redirect(f'/blog/{search_result.url}')
 
-  check = logincheck(request)
+  submission, subscribed = handle_subscription(request)
   return render(request, 'index.html', {
     'main': main_blog, 'recent': recent, 'blogs': blogs,
-    'category': False, 'dashboard': check,  'page_blog': page_blog})
+    'category': False, 'page_blog': page_blog,
+    'submission': submission, 'subscribed': subscribed
+  })
 
 # Blog Detail Page
 def blog(request, url):
@@ -54,7 +55,6 @@ def blog(request, url):
   user_ip = get_client_ip(request)
   last_visit = request.session.get(f'blog_view_{blog_post.id}')
   current_time = time.time()
-  check = logincheck(request)
 
   # Rate-limit view counting (1 view per 60 seconds per user)
   if not last_visit or (current_time - last_visit) >= 60:
@@ -65,16 +65,23 @@ def blog(request, url):
         blog_post.views += 1
         blog_post.save(update_fields=['views'])
 
-  author_info = list(CustomUser.objects.filter(username=blog_post.author_user))
+  if blog_post.author_user:
+    author_name = CustomUser.objects.filter(username=blog_post.author_user).first()
+  else:
+    author_name = {
+      "first_name": "Tribal",
+      "last_name": "member"
+    }
   related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
   random.shuffle(related_blogs)
   related_blogs = related_blogs[:3]  # Select 3 random related blogs
-
+  submission, subscribed = handle_subscription(request)
   return render(request, 'Blogs.html', {
     'content': [blog_post], 'description': blog_post.meta_description, 'toc': blog_post.table_of_content,
     'blogs': related_blogs, 'category': blog_post.category, 'title': blog_post.Title, 'url': blog_post.url,
     'sponsored': blog_post.sponsored, 'nofollow': blog_post.nofollow, 'dofollow': blog_post.dofollow,
-    'noreferrer': blog_post.noreferrer, 'noopener': blog_post.noopener, 'dashboard': check, 'author' : author_info[0]
+    'noreferrer': blog_post.noreferrer, 'noopener': blog_post.noopener, 'author' : author_name,
+    'submission': submission, 'subscribed': subscribed
   })
 
 # Category Page
@@ -82,17 +89,17 @@ def categories(request, category):
   """ Displays blogs from a specific category """
   cache_key = f'category_{category}'
   blogs_queryset = cache.get(cache_key)
-  check = logincheck(request)
 
   if not blogs_queryset:
     blogs_queryset = Blog.objects.filter(category=category, published=True).order_by('-pk')
     cache.set(cache_key, blogs_queryset, timeout=3600)
 
   main_blog, recent, blogs = categorize_blogs(blogs_queryset)
-
+  submission, subscribed = handle_subscription(request)
   return render(request, 'index.html', {
     'main': main_blog, 'recent': recent, 'blogs': blogs,
-    'category': True, 'dashboard': check })
+    'category': True,
+  'submission':submission, 'subscribed': subscribed})
 
 # Blog Search API
 def get_blog(request):
@@ -103,8 +110,6 @@ def get_blog(request):
 
 # Offer Page
 def offer(request):
-  check = logincheck(request)
-
   """ Handles service requests """
   if request.method == "POST" and request.POST.get("service") == 'service':
     service.objects.create(
@@ -113,18 +118,16 @@ def offer(request):
       message=request.POST.get("message")
     )
     return redirect('/thankyou?offer=offer')
-
-  return render(request, 'offer.html', {'dashboard': check})
+  submission, subscribed = handle_subscription(request)
+  return render(request, 'offer.html', {'submission': submission, 'subscribed': subscribed})
 
 # About Us Page
 def aboutus(request):
-  check = logincheck(request)
   submission, subscribed = handle_subscription(request)
-  return render(request, 'aboutus.html', {'dashboard': check, 'subcribe_form': True, 'submission': submission, 'subscribed': subscribed})
+  return render(request, 'aboutus.html', {'submission': submission, 'subscribed': subscribed})
 
 # Suggestion Page
 def suggestion(request):
-  check = logincheck(request)
   """ Handles user suggestions """
   if request.method == "POST" and request.POST.get("suggestions") == 'suggestions':
     suggestions.objects.create(
@@ -133,8 +136,8 @@ def suggestion(request):
       suggestion=request.POST.get('suggestion')
     )
     return redirect('/thankyou?suggestion=suggestion')
-
-  return render(request, 'suggestion.html', {'dashboard': check})
+  submission, subscribed = handle_subscription(request)
+  return render(request, 'suggestion.html', {'submission': submission, 'subscribed': subscribed})
 
 # Thank You Page
 def thankyou(request):
@@ -147,18 +150,18 @@ def thankyou(request):
 
 # Static Pages
 def terms_and_condition(request):
-  check = logincheck(request)
-  return render(request, 'terms-and-condition.html', {'dashboard': check})
+  submission, subscribed = handle_subscription(request)
+  return render(request, 'terms-and-condition.html', {'submission': submission, 'subscribed': subscribed})
 
 
 def privacy_policy(request):
-  check = logincheck(request)
-  return render(request, 'privacy-policy.html', {'dashboard': check})
+  submission, subscribed = handle_subscription(request)
+  return render(request, 'privacy-policy.html', {'submission': submission, 'subscribed': subscribed})
 
 
 def cookie_policy(request):
-  check = logincheck(request)
-  return render(request, 'cookie-policy.html', {'dashboard': check})
+  submission, subscribed = handle_subscription(request)
+  return render(request, 'cookie-policy.html', {'submission': submission, 'subscribed': subscribed})
 
 
 # Error Pages
@@ -169,7 +172,7 @@ def page_not_found_view(request, exception):
 def server_error(request, exception=None):
   return render(request, '500.html', status=500)
 
-
+'''
 @login_required
 def create_blog_view(request):
   if request.method == "POST":
@@ -214,3 +217,4 @@ def delete_blog_view(request, blog_id):
     user_blog.delete()
     return redirect('/accounts/dashboard/')
   return render(request, 'blog/delete_blog.html', {'blog': user_blog, 'dashboard': True})
+'''
