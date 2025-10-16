@@ -29,9 +29,9 @@
         <h1>{{ context.Title }}</h1>
       </div>
       <div class="blog-info-box">
-        <span class="blog-info">Published Date: {{ context.updated_at|date:"F d, Y" }}</span>
+        <span class="blog-info">Published Date: {{ context.blog_date|date:"F d, Y" }}</span>
         <span class="blog-info">Published By: {{ author.first_name }} {{ author.last_name }}</span>
-        <span class="blog-info">Read Time: 5 min</span>
+        <span class="blog-info">Read Time: {{ context.read_time }} min</span>
       </div>
       <hr>
       <div class="row">
