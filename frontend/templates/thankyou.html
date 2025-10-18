@@ -4,9 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You - The Circular Tribe</title>
+    {% if request.GET.community %}
+        <title>Welcome to CircularBlogs Community!</title>
+        <meta name="description" content="Thank you for joining CircularBlogs community! Check your email for Discord access and start your sustainability writing journey.">
+    {% else %}
+        <title>Thank You - CircularBlogs</title>
+    {% endif %}
     <link rel="canonical" href="https://www.circularblogs.com/thankyou" />
     <link rel="stylesheet" href="{% if debug %}{% static 'css/thankyou.css' %}{% else %}{% static 'minified-css/thankyou-min.css' %}{% endif %}">
+    <script src="{% if debug %}{% static 'js/thankyou.js' %}{% else %}{% static 'minified-js/thankyou-min.js' %}{% endif %}" defer></script>
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     {% if not debug %}
@@ -28,9 +34,112 @@
     {% endif %}
     <section class="thank-you-section">
         <div class="container">
-            <h1>Thank You for Your {{ heading }}!</h1>
-            <p>{{ para }}</p>
-            <a href="/" class="btn">Back to Home</a>
+            {% if request.GET.community %}
+                <!-- Community Welcome Section -->
+                <div class="success-icon">
+                    <div class="checkmark">✓</div>
+                </div>
+                
+                <h1 class="main-heading">Application Received!</h1>
+                <p class="main-description">Thank you for applying to join CircularBlogs community! We've received your application and will review it carefully. Check your email for confirmation and next steps.</p>
+                
+                <!-- Important Notice -->
+                <div class="important-notice">
+                    <div class="notice-icon">🔒</div>
+                    <div class="notice-content">
+                        <h3>Private Channel Access</h3>
+                        <p>Our blog writers work in a <strong>private Discord channel</strong>. Access is granted only after we review your application and may include follow-up tasks to ensure the best fit for our community standards.</p>
+                    </div>
+                </div>
+                
+                <!-- Next Steps Section -->
+                <div class="next-steps">
+                    <h2>What's Next?</h2>
+                    <div class="steps-grid">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Application Review</h3>
+                                <p>Our team will review your application within 3-5 business days. We may send follow-up questions or tasks to better understand your expertise.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Follow-up Process</h3>
+                                <p>If we like your application, you may receive additional tasks or questions to complete before gaining access to our private writer channel.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Private Channel Access</h3>
+                                <p>Upon successful completion of our review process, you'll be invited to our exclusive Discord channel for writers with paid opportunities.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Links Section -->
+                <div class="quick-links">
+                    <h2>Useful Links</h2>
+                    <div class="links-grid">
+                        <a href="mailto:community@circularblogs.com" class="link-card contact-link">
+                            <div class="link-icon">📧</div>
+                            <div class="link-content">
+                                <h3>Contact Us</h3>
+                                <p>Questions about your application?</p>
+                            </div>
+                            <div class="link-badge">Support</div>
+                        </a>
+                        
+                        <a href="/" class="link-card">
+                            <div class="link-icon">📚</div>
+                            <div class="link-content">
+                                <h3>Read Our Blogs</h3>
+                                <p>Get inspired by existing content</p>
+                            </div>
+                        </a>
+                        
+                        <a href="/aboutus" class="link-card">
+                            <div class="link-icon">🌱</div>
+                            <div class="link-content">
+                                <h3>About CircularBlogs</h3>
+                                <p>Learn more about our mission</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Community Stats -->
+                <div class="community-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Articles Published</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1K+</div>
+                        <div class="stat-label">Monthly Readers</div>
+                    </div>
+                </div>
+                
+            {% else %}
+                <!-- Default Thank You -->
+                <div class="success-icon">
+                    <div class="checkmark">✓</div>
+                </div>
+                <h1 class="main-heading">Thank You for Your {{ heading }}!</h1>
+                <p class="main-description">{{ para }}</p>
+            {% endif %}
+            
+            <div class="action-buttons">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+                {% if request.GET.community %}
+                    <a href="mailto:hello@circularblogs.com" class="btn btn-secondary">Contact Us</a>
+                {% endif %}
+            </div>
         </div>
     </section>
 </body>

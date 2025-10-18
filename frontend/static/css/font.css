@@ -1,4 +1,7 @@
-/* Roboto */
+/* Google Fonts Import - Poppins, Inter, and Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+/* Roboto - Local fallback */
 @font-face {
     font-family: 'Roboto';
     src: url('fonts/woff2/Roboto-Bold.woff2') format('woff2'),
@@ -15,7 +18,7 @@
     font-style: normal;
 }
 
-/* Wittgenstein */
+/* Wittgenstein - Local fallback */
 @font-face {
     font-family: 'Wittgenstein';
     src: url('fonts/woff2/Wittgenstein-Bold.woff2') format('woff2'),
@@ -32,7 +35,7 @@
     font-style: normal;
 }
 
-/* OpenSans */
+/* OpenSans - Local fallback */
 @font-face {
     font-family: 'OpenSans';
     src: url('fonts/woff2/OpenSans-Bold.woff2') format('woff2'),

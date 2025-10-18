@@ -78,10 +78,15 @@ class service(models.Model):
 class suggestions(models.Model):
   name = models.CharField(max_length=200, blank=True)
   email = models.EmailField(blank=True)
+  topic = models.CharField(max_length=50, choices=[
+    ('Feedback', 'General Feedback'),
+    ('Blog Idea', 'Blog Idea'),
+    ('Collaboration', 'Collaboration Proposal')
+  ], default='Feedback')
   suggestion = models.TextField()
 
   def __str__(self):
-    return self.suggestion
+    return f"{self.topic}: {self.suggestion[:50]}..."
 
 class BlogView(models.Model):
   blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_views')

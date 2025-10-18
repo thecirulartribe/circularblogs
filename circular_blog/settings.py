@@ -146,7 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 # Path where media is stored
-Cloud_local = False
+Cloud_local = True
 if ENVIRONMENT=='production' or POSTGRES_localally or Cloud_local:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     CLOUDINARY_STORAGE = {

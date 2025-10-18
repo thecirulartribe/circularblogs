@@ -1,5 +1,5 @@
 from django import forms
-from .models import Blog
+from .models import Blog, service
 from PIL import Image
 import bleach
 
@@ -70,3 +70,46 @@ class BlogForm(forms.ModelForm):
     if category not in valid_categories:
       raise forms.ValidationError("Invalid category selected. Please choose a valid category.")
     return category
+
+
+class CommunityApplicationForm(forms.ModelForm):
+  class Meta:
+    model = service
+    fields = ['name', 'email', 'message']
+    
+    widgets = {
+      'name': forms.TextInput(attrs={
+        'class': 'form-input',
+        'placeholder': 'Enter your full name',
+        'required': True
+      }),
+      'email': forms.EmailInput(attrs={
+        'class': 'form-input',
+        'placeholder': 'Enter your email address',
+        'required': True
+      }),
+      'message': forms.Textarea(attrs={
+        'class': 'form-input form-textarea',
+        'rows': 6,
+        'placeholder': 'Tell us about:\n• Your writing experience and expertise\n• Topics you\'re passionate about\n• Why you want to join our community\n• Any relevant background in sustainability/environment',
+        'required': True
+      })
+    }
+    
+    error_messages = {
+      'name': {'required': 'Please enter your full name.'},
+      'email': {'required': 'Please enter a valid email address.'},
+      'message': {'required': 'Please tell us about yourself.'}
+    }
+  
+  def clean_name(self):
+    name = self.cleaned_data.get('name', '').strip()
+    if len(name) < 2:
+      raise forms.ValidationError('Name must be at least 2 characters long.')
+    return name
+  
+  def clean_message(self):
+    message = self.cleaned_data.get('message', '').strip()
+    if len(message) < 50:
+      raise forms.ValidationError('Please provide more details about yourself (at least 50 characters).')
+    return message
