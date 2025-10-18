@@ -1,92 +1,314 @@
 {% extends "base.html" %}
 
 {% block page_head %}
-  {% load static %}
-  <title>Circular Blogs | About us</title>
-  <link rel="canonical" href="https://www.circularblogs.com/aboutus" />
-  <link rel="stylesheet" href="{% if debug %}{% static 'css/about.css' %}{% else %}{% static 'minified-css/about-min.css' %}{% endif %}">
-  <meta name="description" content="We are The Circular Tribe focused primarily around educating, helping and creating products for sustainable future">
-  <meta name="keywords" content="The Circular Tribe, Circular Tribe, Blogs, Circular Blogs, Sustainability, Green revolution, education">
-  <meta name="author" content="The Circular Tribe">
-  <meta property="og:title" content="Circular Blogs | About us" />
-  <meta property="og:type" content="website" />
-  <meta property="og:description" content="We are The Circular Tribe focused primarily around educating, helping and creating products for sustainable future" />
-  <meta property="og:url" content="https://www.circularblogs.com/aboutus" />
-  <meta property="og:image" content="{% static 'images/circularblog.png' %}" />
+{% load static %}
+<title>Circular Blogs | About us</title>
+<link rel="canonical" href="https://www.circularblogs.com/aboutus" />
+<link rel="stylesheet"
+  href="{% if debug %}{% static 'css/about.css' %}{% else %}{% static 'minified-css/about-min.css' %}{% endif %}">
+<meta name="description"
+  content="We are a small group of writers, designers, and tech enthusiasts sharing insights on sustainability, innovation, and technology through CircularBlogs">
+<meta name="keywords"
+  content="CircularBlogs, Sustainability, Green revolution, education, collaborative platform, volunteer-driven">
+<meta name="author" content="CircularBlogs Team">
+<meta property="og:title" content="Circular Blogs | About us" />
+<meta property="og:type" content="website" />
+<meta property="og:description"
+  content="We are a small group of writers, designers, and tech enthusiasts sharing insights on sustainability, innovation, and technology through CircularBlogs" />
+<meta property="og:url" content="https://www.circularblogs.com/aboutus" />
+<meta property="og:image" content="{% static 'images/circularblog.png' %}" />
 {% endblock %}
 
 {% block page_content %}
-<main>
-  <section class="hero">
-    <h1>Welcome to The Circular Tribe</h1>
-    <p>Promoting Sustainability, Building a Greener Future</p>
-    <a href="#about" class="btn">Learn More About Us</a>
+<main class="about-main">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="hero-content">
+      <div class="logotext">
+        <h1 class="about-circular">About</h1>
+        <h1 class="about-cblogs">CircularBlogs</h1>
+      </div>
+      <p class="hero-tagline">A small group with a big mission — making sustainability accessible to everyone</p>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-elements">
+        <div class="element element-1">🌱</div>
+        <div class="element element-2">♻️</div>
+        <div class="element element-3">🌍</div>
+        <div class="element element-4">💡</div>
+      </div>
+    </div>
   </section>
 
-  <div class="container mission" id="about">
-    <h2 class="head-title">Our Mission</h2>
-    <p>At The Circular Tribe, our mission is to promote sustainability and create awareness about sustainable brands available in the market. We are dedicated to fostering a community of environmentally responsible individuals and establishing a platform to showcase brands and startups committed to spreading sustainability practices.</p>
-  </div>
-
-  <div class="container vision">
-    <h2 class="head-title">Our Vision</h2>
-    <p>Our long-term vision is to build a robust community of eco-conscious individuals and businesses. We aim to become the go-to platform for all things sustainable, providing resources, connections, and opportunities for those passionate about protecting our planet.</p>
-  </div>
-
-  <div class="container">
-    <h2 class="head-title">Core Values</h2>
-    <div class="values">
-      <div>
-        <img src="{% static 'images/recycling-icon.png' %}" alt="Sustainability">
-        <h3>Promote Sustainability</h3>
-        <p>We believe in the power of sustainable practices to create a better future.</p>
-      </div>
-      <div>
-        <img src="{% static 'images/leaves-icon.png' %}" alt="Eco-Friendly">
-        <h3>Eco-Friendly Practices</h3>
-        <p>Our operations and partnerships emphasize eco-friendly methods.</p>
-      </div>
-      <div>
-        <img src="{% static 'images/earth-icon.png' %}" alt="Social Responsibility">
-        <h3>Social Responsibility</h3>
-        <p>We encourage everyone to take responsibility for our Mother Earth.</p>
+  <!-- Who We Are Section -->
+  <section class="who-we-are">
+    <div class="container">
+      <h2 class="section-title">Who We Are</h2>
+      <div class="intro-cards">
+        <div class="intro-card">
+          <div class="card-icon">👥</div>
+          <h3>Small & Passionate</h3>
+          <p>We are a small group of writers, designers, and tech enthusiasts who share one simple goal — to make
+            sustainability and knowledge sharing more accessible to everyone.</p>
+        </div>
+        <div class="intro-card">
+          <div class="card-icon">🤝</div>
+          <h3>Volunteer-Driven</h3>
+          <p>We are not a registered company or NGO, but a volunteer-driven group that maintains this platform in our
+            free time. No corporate jargon, just genuine passion.</p>
+        </div>
+        <div class="intro-card">
+          <div class="card-icon">🎯</div>
+          <h3>Purpose-Built</h3>
+          <p>CircularBlogs was created to be a space where learning, ideas, and inspiration come together — without ads,
+            clutter, or commercial interests.</p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="container">
-    <h2 class="head-title">What We Offer</h2>
-    <div class="offerings">
-      <div>
-        <img src="{% static 'images/diary-journal-color-icon.png' %}" alt="Sustainability Blogs">
-        <h3>Sustainability Blogs</h3>
-        <p>We offer users a platform to share and publish blogs about sustainable practices.</p>
-      </div>
-      <div>
-        <img src="{% static 'images/startup-rocket-launch-icon.png' %}" alt="Showcase for Startups">
-        <h3>Showcase for Startups</h3>
-        <p>Providing startups the opportunity to highlight their commitment to sustainability.</p>
+  <!-- Mission & Values Section -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-content">
+        <div class="mission-text">
+          <h2 class="section-title">Our Mission</h2>
+          <p class="mission-description">To share honest, easy-to-understand blogs about sustainability, circular
+            economy concepts, and technology — while inspiring small actions that can lead to meaningful change.</p>
+
+          <div class="values-grid">
+            <div class="value-item">
+              <span class="value-icon">🔓</span>
+              <div>
+                <h4>Free & Open</h4>
+                <p>Available to all, no paywalls or barriers</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <span class="value-icon">✨</span>
+              <div>
+                <h4>Credible & Simple</h4>
+                <p>Without unnecessary jargon or complexity</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <span class="value-icon">🌐</span>
+              <div>
+                <h4>Community-Driven</h4>
+                <p>Where anyone can suggest, write, or collaborate</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mission-visual">
+          <div class="mission-circle">
+            <div class="circle-text">Making sustainability accessible</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="container">
-    <h2 class="head-title">Coming Soon</h2>
-    <div class="future-plans">
-      <div>
-        <img src="{% static 'images/link-hyperlink-color-icon.png' %}" alt="Supply Chain">
-        <h3>Exciting new features to support sustainability and innovation.</h3>
-        <p>We will soon allow users to upload their sustainability-related blogs on our platform, fostering a stronger community-driven approach to sustainable content.</p>
-        <button class="btn" onclick="openform()">Subscribe for Updates</button>
+  <!-- Our Story Section -->
+  <section class="story-section">
+    <div class="container">
+      <h2 class="section-title">Our Story</h2>
+      <div class="story-timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker">🚀</div>
+          <div class="timeline-content">
+            <h3>The Beginning</h3>
+            <p>CircularBlogs began as a passion project — a few of us wanted to create a space where readers could
+              learn, explore, and contribute to sustainability discussions.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">🔍</div>
+          <div class="timeline-content">
+            <h3>The Problem</h3>
+            <p>We noticed that sustainability discussions were either too technical or too scattered, making it hard for
+              everyday people to engage meaningfully.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">📝</div>
+          <div class="timeline-content">
+            <h3>Starting Small</h3>
+            <p>So we decided to start small: writing one article at a time, in our own voice, hoping others would join
+              us in this journey.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">🌱</div>
+          <div class="timeline-content">
+            <h3>Growing Together</h3>
+            <p>Over time, more contributors came in — friends, students, developers, and everyday readers who wanted to
+              make an impact. We may not be big, but we're consistent, transparent, and growing through collaboration.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="container">
-    <h2 class="head-title">We'd love to get in touch with you</h2>
-    <div class="contact">
-      <h3><a href="mailto:community@circularblogs.com">community@circularblogs.com</a></h3>
+  <!-- What We Do Section -->
+  <section class="what-we-do">
+    <div class="container">
+      <h2 class="section-title">What We Do</h2>
+      <div class="activities-grid">
+        <div class="activity-card">
+          <div class="activity-icon">📚</div>
+          <h3>Educational Content</h3>
+          <p>Publish blogs, explainers, and stories on sustainability, circular economy, and green technology that
+            anyone can understand.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🎤</div>
+          <h3>Platform for Voices</h3>
+          <p>Offer a space for individuals and organizations to share their insights, experiences, and innovative
+            solutions.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🏪</div>
+          <h3>Brand Awareness</h3>
+          <p>Support small eco-friendly brands through blog features and awareness content, helping sustainable
+            businesses grow.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">💬</div>
+          <h3>Community Building</h3>
+          <p>Encourage open discussions, suggestions, and collaborations from our readers and contributors.</p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🔬</div>
+          <h3>Research & Analysis</h3>
+          <p>Dive deep into sustainability trends, technologies, and case studies to provide well-researched content.
+          </p>
+        </div>
+        <div class="activity-card">
+          <div class="activity-icon">🌟</div>
+          <h3>Inspiration Hub</h3>
+          <p>Share success stories, DIY projects, and practical tips that inspire readers to take action in their daily
+            lives.</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title">Our Team</h2>
+      <div class="team-intro">
+        <p>We are a small group working remotely across different time zones, each bringing unique skills and
+          perspectives to CircularBlogs.</p>
+      </div>
+      <div class="team-roles">
+        <div class="role-card">
+          <div class="role-icon">✍️</div>
+          <h3>Content Writers</h3>
+          <p>Crafting engaging, accessible articles on sustainability topics</p>
+        </div>
+        <div class="role-card">
+          <div class="role-icon">💻</div>
+          <h3>Tech Team</h3>
+          <p>Managing the website, ensuring smooth user experience</p>
+        </div>
+        <div class="role-card">
+          <div class="role-icon">📝</div>
+          <h3>Editors</h3>
+          <p>Reviewing content for clarity, accuracy, and impact</p>
+        </div>
+        <div class="role-card">
+          <div class="role-icon">🎨</div>
+          <h3>Designers</h3>
+          <p>Creating visual content and improving user interface</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="impact-section">
+    <div class="container">
+      <h2 class="section-title">Our Impact</h2>
+      <div class="impact-stats">
+        <div class="stat-card">
+          <div class="stat-number">150+</div>
+          <div class="stat-label">Articles Published</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1K+</div>
+          <div class="stat-label">Monthly Readers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Topic Categories</div>
+        </div>
+      </div>
+      <p class="impact-description">Every article we publish, every reader we reach, and every conversation we start
+        contributes to a more sustainable future. Small actions, big impact.</p>
+    </div>
+  </section>
+
+  <!-- Get Involved Section -->
+  <section class="get-involved-section">
+    <div class="container">
+      <div class="involvement-content">
+        <h2 class="section-title">Get Involved</h2>
+        <p class="involvement-intro">Ready to join our mission? There are many ways to contribute to CircularBlogs and
+          help spread sustainability awareness.</p>
+
+        <div class="involvement-options">
+          <div class="involvement-card">
+            <div class="involvement-icon">✍️</div>
+            <h3>Write for Us</h3>
+            <p>Share your expertise, experiences, or research on sustainability topics</p>
+            <a href="/write-for-us" class="involvement-btn">Start
+              Writing</a>
+          </div>
+          <div class="involvement-card">
+            <div class="involvement-icon">💡</div>
+            <h3>Suggest Topics</h3>
+            <p>Have ideas for articles or topics you'd like us to cover?</p>
+            <a href="/suggestions/" class="involvement-btn">Share Ideas</a>
+          </div>
+          <div class="involvement-card">
+            <div class="involvement-icon">🔗</div>
+            <h3>Collaborate</h3>
+            <p>Partner with us for research or joint content projects</p>
+            <a href="mailto:community@circularblogs.com?subject=Collaboration" class="involvement-btn">Let's
+              Collaborate</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-content">
+        <h2 class="section-title">Let's Connect</h2>
+        <p>Have questions, suggestions, or just want to say hello? We'd love to hear from you!</p>
+        <div class="contact-info">
+          <a class="contact-item" href="mailto:community@circularblogs.com">
+            <span class="contact-icon">📧</span>
+            <div>
+              <h4>Email Us</h4>
+              <span>community@circularblogs.com</span>
+            </div>
+          </a>
+          <a class="contact-item" href="/suggestions/">
+            <span class="contact-icon">💬</span>
+            <div>
+              <h4>Feedback</h4>
+              <span>Share your thoughts</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 {% endblock %}

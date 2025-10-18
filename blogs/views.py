@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import BlogForm
+from .forms import BlogForm, CommunityApplicationForm
 from django.http import JsonResponse
 from django.core.cache import cache
 from .models import Blog, service, suggestions, BlogView
 from .utils import get_client_ip, categorize_blogs, handle_subscription, is_bot, url_creater
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.conf import settings
 import random
 import time
 from accounts.models import CustomUser
@@ -110,14 +112,7 @@ def get_blog(request):
 
 # Offer Page
 def offer(request):
-  """ Handles service requests """
-  if request.method == "POST" and request.POST.get("service") == 'service':
-    service.objects.create(
-      name=request.POST.get("name"),
-      email=request.POST.get("email"),
-      message=request.POST.get("message")
-    )
-    return redirect('/thankyou?offer=offer')
+  """ Displays collaboration information page """
   submission, subscribed = handle_subscription(request)
   return render(request, 'offer.html', {'submission': submission, 'subscribed': subscribed})
 
@@ -128,24 +123,59 @@ def aboutus(request):
 
 # Suggestion Page
 def suggestion(request):
-  """ Handles user suggestions """
+  """ Handles user feedback and suggestions """
   if request.method == "POST" and request.POST.get("suggestions") == 'suggestions':
     suggestions.objects.create(
-      name=request.POST.get('name'),
-      email=request.POST.get('email'),
+      name=request.POST.get('name', ''),
+      email=request.POST.get('email', ''),
+      topic=request.POST.get('topic', 'Feedback'),
       suggestion=request.POST.get('suggestion')
     )
     return redirect('/thankyou?suggestion=suggestion')
   submission, subscribed = handle_subscription(request)
   return render(request, 'suggestion.html', {'submission': submission, 'subscribed': subscribed})
 
+def write_for_us(request):
+  """ Handles write for us community applications """
+  form = CommunityApplicationForm()
+  
+  if request.method == "POST" and request.POST.get("community_application") == 'community_application':
+    form = CommunityApplicationForm(request.POST)
+    
+    if form.is_valid():
+      email = form.cleaned_data['email']
+      
+      # Check if user already exists with this email
+      if service.objects.filter(email=email).exists():
+        form.add_error('email', 'An application with this email address already exists. Please use a different email or contact us if you need assistance.')
+        submission, subscribed = handle_subscription(request)
+        return render(request, 'write-for-us.html', {
+          'form': form,
+          'submission': submission, 
+          'subscribed': subscribed
+        })
+      
+      # Save the application
+      application = form.save()
+      
+      return redirect('/thankyou?community=community')
+  
+  submission, subscribed = handle_subscription(request)
+  return render(request, 'write-for-us.html', {
+    'form': form,
+    'submission': submission, 
+    'subscribed': subscribed
+  })
+
 # Thank You Page
 def thankyou(request):
   """ Displays a thank-you message after submission """
-  heading = 'Interest' if request.GET.get('offer') else 'Suggestion'
-  para = ("We appreciate your interest in The Circular Tribe and our mission to promote sustainability."
-          if request.GET.get('offer')
-          else "We appreciate your input and will review your suggestion carefully.")
+  if request.GET.get('community'):
+    heading = 'Application Received!'
+    para = "Thank you for applying to join CircularBlogs community! We've received your application and will review it carefully. Check your email for confirmation and next steps."
+  else:
+    heading = 'Suggestion'
+    para = "We appreciate your input and will review your suggestion carefully."
   return render(request, 'thankyou.html', {'heading': heading, 'para': para})
 
 # Static Pages

@@ -2,39 +2,49 @@
 
 {% block page_head %}
   {% load static %}
-  <title>Circular Blogs | Any Sugestions?</title>
+  <title>Circular Blogs | Feedback</title>
   <link rel="canonical" href="https://www.circularblogs.com/suggestions" />
   <link rel="stylesheet" href="{% if debug %}{% static 'css/suggestion.css' %}{% else %}{% static 'minified-css/suggestion-min.css' %}{% endif %}">
 {% endblock %}
 
 {% block page_content %}
 <main>
-  <section class="suggestions-section">
+  <section class="feedback-section">
     <div class="container">
-      <h1>We Value Your Suggestions</h1>
-      <p>Your feedback helps us improve and serve you better. Please share your thoughts, ideas, or suggestions with us.</p>
-      <form class="suggestions-form" method="POST">
+      <h1 class="heading">We Value Your Feedback</h1>
+      <p class="description">Your feedback helps us improve and serve you better. Whether you have suggestions, blog ideas, or collaboration proposals, we'd love to hear from you.</p>
+      <form class="feedback-form" method="POST" id="feedbackForm">
         {% csrf_token %}
         <input type="hidden" name="suggestions" value="suggestions">
-        <label for="name">Your Name (Optional)</label>
-        <input type="text" id="User" name="name" placeholder="Enter your name">
+        
+        <div class="form-group">
+          <label for="name" class="form-label">Your Name (Optional)</label>
+          <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name">
+        </div>
 
-        <label for="email">Your Email (Optional)</label>
-        <input type="email" id="UserEmail" name="email" placeholder="Enter your email">
+        <div class="form-group">
+          <label for="email" class="form-label">Your Email (Optional)</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email">
+        </div>
 
-        <label for="suggestion">Your Suggestion</label>
-        <textarea id="suggestion" name="suggestion" rows="5" placeholder="Enter your suggestion" required></textarea>
-        <button type="submit">Submit Suggestion</button>
+        <div class="form-group">
+          <label for="topic" class="form-label">Topic</label>
+          <select id="topic" name="topic" class="form-input form-select" required>
+            <option value="">Select a topic</option>
+            <option value="Feedback">General Feedback</option>
+            <option value="Blog Idea">Blog Idea</option>
+            <option value="Collaboration">Collaboration Proposal</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message" class="form-label">Your Message</label>
+          <textarea id="message" name="suggestion" rows="6" class="form-input form-textarea" placeholder="Share your thoughts, ideas, or suggestions..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary form-submit">Submit Feedback</button>
       </form>
     </div>
   </section>
-  <footer class="footer">
-    <ul>
-      <li>Copyright © 2024 Circular Blogs - All Rights Reserved.</li>
-      <li><a href="/privacy-policy">Privacy Policy</a></li>
-      <li><a href="/terms-and-condition">Terms and condition</a></li>
-      <li><a href="/cookie-policy">Cookie Policy</a></li>
-    </ul>
-  </footer>
 </main>
 {% endblock %}

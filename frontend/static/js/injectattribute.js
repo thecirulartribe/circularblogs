@@ -1,4 +1,4 @@
-var blogs = document.getElementsByClassName('content')
+var blogs = document.getElementsByClassName('content-wrapper')
 const count = blogs[0].getElementsByTagName('a').length
 
 function addRelAttributes(element, newAttributes) {
