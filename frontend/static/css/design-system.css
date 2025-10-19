@@ -949,15 +949,6 @@ input[type="button"]:hover {
   transition: outline-color var(--transition-focus);
 }
 
-/* Enhanced list item interactions */
-li {
-  transition: all var(--transition-hover);
-}
-
-li:hover {
-  transform: translateX(2px);
-}
-
 /* Image hover effects */
 img {
   transition: transform var(--transition-base), filter var(--transition-base);

@@ -18,9 +18,10 @@
     pointer-events: none;
 }
 
-.container {
+.container-wfu {
     position: relative;
     z-index: 2;
+    max-width: 1200px;
 }
 
 /* Enhanced heading with icon */
