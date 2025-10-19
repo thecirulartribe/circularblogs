@@ -1,0 +1,35 @@
+{% extends "blog-view-base.html" %}
+
+{% block hero_section %}
+    <section class="hero-section">
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <!-- Subtle particle effects -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <!-- Subtle grid overlay -->
+    <div class="grid-overlay"></div>
+    
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="journey-header">
+            <h2 class="journey-title">{{ category }}</h2>
+            <p class="journey-subtitle">Explore {{ category|lower }} stories, solutions, and actionable insights for a greener future</p>
+        </div>
+      </div>
+    </div>
+    </section>
+{% endblock %}

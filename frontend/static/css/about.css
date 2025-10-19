@@ -26,7 +26,6 @@ body {
     width: 100%;
     font-family: var(--font-family-primary);
     margin-top: 100px;
-    margin-bottom: var(--spacing-16);
 }
 
 .container {

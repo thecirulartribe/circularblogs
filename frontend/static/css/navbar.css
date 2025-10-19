@@ -1,6 +1,6 @@
 * {
-    margin: 0;
-    padding: 0;
+      margin: 0;
+      padding: 0;
 }
 
 ::-webkit-scrollbar {
@@ -122,6 +122,11 @@ navbar {
     transition: all var(--transition-base);
     z-index: var(--z-index-dropdown);
     padding: var(--spacing-2) 0;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .dropdown.active .dropdown-menu {
@@ -135,17 +140,17 @@ navbar {
     padding: var(--spacing-2) var(--spacing-4);
     color: var(--color-primary-900);
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1rem !important;
     transition: var(--transition-fast);
     border-bottom: 1px solid transparent;
+    width: 50%;
 }
 
 .dropdown-menu a:hover {
     background-color: var(--color-primary-50);
     color: var(--color-accent-500);
-    font-size: 1.1rem;
+    font-size: 1rem !important;
     border-bottom-color: var(--color-primary-100);
-    transform: translateX(4px);
     border-radius: var(--radius-md);
 }
 
@@ -299,7 +304,7 @@ navbar {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-3);
-    margin-bottom: var(--spacing-6);
+    margin: var(--spacing-6) 0;
     padding: var(--spacing-4);
     background: var(--color-primary-50);
     border-radius: var(--radius-lg);
@@ -376,7 +381,7 @@ navbar {
     box-shadow: 0 0 0 3px rgba(6, 122, 27, 0.1);
 }
 
-.form-input:focus + .input-icon {
+.form-input:focus+.input-icon {
     color: var(--color-primary-600);
 }
 
@@ -408,7 +413,7 @@ navbar {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -438,6 +443,223 @@ navbar {
     text-align: center;
     margin-top: var(--spacing-4);
     line-height: var(--line-height-normal);
+}
+
+/* Social Media Section in Subscribe Modal */
+.subscribe-social {
+    margin: var(--spacing-6) 0 var(--spacing-4) 0;
+    padding: var(--spacing-4) 0;
+    border-top: 1px solid var(--color-border-primary);
+    border-bottom: 1px solid var(--color-border-primary);
+}
+
+.social-header {
+    text-align: center;
+    margin-bottom: var(--spacing-4);
+}
+
+.social-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary-700);
+    margin: 0 0 var(--spacing-1) 0;
+}
+
+.social-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-4);
+    max-width: 400px;
+    margin: 0 auto;
+    animation: socialFadeIn 0.6s ease-out 0.3s both;
+}
+
+@keyframes socialFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    position: relative;
+    overflow: hidden;
+    animation: socialLinkFadeIn 0.5s ease-out both;
+}
+
+.social-link:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.social-link:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.social-link:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.social-link:nth-child(4) {
+    animation-delay: 0.7s;
+}
+
+@keyframes socialLinkFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.social-link:hover::before {
+    left: 100%;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary-200);
+}
+
+.social-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    position: relative;
+    z-index: 1;
+}
+
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+    transition: all var(--transition-base);
+}
+
+.social-text {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    transition: color var(--transition-base);
+    position: relative;
+    z-index: 1;
+}
+
+/* Platform-specific colors */
+.social-link.instagram:hover {
+    background: linear-gradient(135deg, #E4405F, #C13584);
+    border-color: #E4405F;
+}
+
+.social-link.instagram:hover .social-icon {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.social-link.instagram:hover .social-icon svg,
+.social-link.instagram:hover .social-text {
+    color: var(--color-white);
+}
+
+.social-link.youtube:hover {
+    background: linear-gradient(135deg, #FF0000, #CC0000);
+    border-color: #FF0000;
+}
+
+.social-link.youtube:hover .social-icon {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.social-link.youtube:hover .social-icon svg,
+.social-link.youtube:hover .social-text {
+    color: var(--color-white);
+}
+
+.social-link.facebook:hover {
+    background: linear-gradient(135deg, #1877F2, #166FE5);
+    border-color: #1877F2;
+}
+
+.social-link.facebook:hover .social-icon {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.social-link.facebook:hover .social-icon svg,
+.social-link.facebook:hover .social-text {
+    color: var(--color-white);
+}
+
+.social-link.whatsapp:hover {
+    background: linear-gradient(135deg, #25D366, #20BA5A);
+    border-color: #25D366;
+}
+
+.social-link.whatsapp:hover .social-icon {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.social-link.whatsapp:hover .social-icon svg,
+.social-link.whatsapp:hover .social-text {
+    color: var(--color-white);
+}
+
+/* Default icon colors */
+.social-link.instagram .social-icon svg {
+    color: #E4405F;
+}
+
+.social-link.youtube .social-icon svg {
+    color: #FF0000;
+}
+
+.social-link.facebook .social-icon svg {
+    color: #1877F2;
+}
+
+.social-link.whatsapp .social-icon svg {
+    color: #25D366;
+}
+
+.social-link .social-text {
+    color: var(--color-text-secondary);
 }
 
 /* Success Modal */
@@ -681,79 +903,79 @@ navbar {
         width: 95vw;
         margin: var(--spacing-4);
     }
-    
+
     .subscribe-header {
         padding: var(--spacing-4) var(--spacing-4) 0;
     }
-    
+
     .subscribe-content {
         padding: var(--spacing-3) var(--spacing-4) var(--spacing-4);
     }
-    
+
     .subscribe-title {
         font-size: var(--font-size-xl);
     }
-    
+
     .subscribe-description {
         font-size: var(--font-size-sm);
     }
-    
+
     .subscribe-benefits {
         padding: var(--spacing-3);
     }
-    
+
     .benefit-item {
         font-size: var(--font-size-xs);
     }
-    
+
     .form-input {
         padding: var(--spacing-2) var(--spacing-2) var(--spacing-2) var(--spacing-8);
         font-size: var(--font-size-sm);
     }
-    
+
     .input-icon {
         left: var(--spacing-2);
         width: 18px;
         height: 18px;
     }
-    
+
     .subscribe-submit {
         padding: var(--spacing-3) var(--spacing-4);
         font-size: var(--font-size-sm);
     }
-    
+
     .success-container {
         padding: var(--spacing-6);
     }
-    
+
     .success-checkmark,
     .info-icon {
         width: 60px;
         height: 60px;
     }
-    
+
     .checkmark-icon,
     .info-icon svg {
         width: 30px;
         height: 30px;
     }
-    
+
     .success-title {
         font-size: var(--font-size-xl);
     }
-    
+
     .success-message {
         font-size: var(--font-size-sm);
     }
-    
+
     .success-next-steps {
         padding: var(--spacing-3);
     }
-    
+
     .success-next-steps h3 {
         font-size: var(--font-size-base);
     }
-    
+
     .success-next-steps li {
         font-size: var(--font-size-xs);
     }
@@ -767,12 +989,12 @@ navbar {
         border-radius: 0;
         margin: 0;
     }
-    
+
     .subscribe-content,
     .success-container {
         padding: var(--spacing-4);
     }
-    
+
     .subscribe-form-fields {
         gap: var(--spacing-3);
     }
@@ -877,7 +1099,7 @@ navbar {
     }
 
     .navshow .dropdown.active .dropdown-menu {
-        max-height: 500px;
+        max-height: 1000px;
         opacity: 1;
         visibility: visible;
     }
@@ -916,5 +1138,102 @@ navbar {
 
     .subscribe {
         height: 50px;
+    }
+}
+
+/* Social Media Responsive Styles */
+@media screen and (max-width: 640px) {
+    .social-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-2);
+        max-width: 280px;
+    }
+
+    .social-link {
+        padding: var(--spacing-2);
+    }
+
+    .social-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .social-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .social-text {
+        font-size: var(--font-size-xs);
+    }
+
+    .social-title {
+        font-size: var(--font-size-base);
+    }
+
+    .social-subtitle {
+        font-size: var(--font-size-xs);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .social-links {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-2);
+        max-width: 100%;
+    }
+
+    .social-link {
+        padding: var(--spacing-2);
+        gap: var(--spacing-1);
+    }
+
+    .social-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .social-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .social-text {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    .social-title {
+        font-size: var(--font-size-sm);
+    }
+
+    .social-subtitle {
+        font-size: 11px;
+    }
+
+    .subscribe-social {
+        margin: var(--spacing-4) 0 var(--spacing-3) 0;
+        padding: var(--spacing-3) 0;
+    }
+
+    .social-header {
+        margin-bottom: var(--spacing-3);
+    }
+}
+
+/* Reduced motion support for social media section */
+@media (prefers-reduced-motion: reduce) {
+
+    .social-links,
+    .social-link {
+        animation: none;
+    }
+
+    .social-link::before {
+        display: none;
+    }
+
+    .social-link:hover {
+        transform: none;
     }
 }

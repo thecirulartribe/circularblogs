@@ -1,238 +1,99 @@
-{% extends "base.html" %}
+{% extends "blog-view-base.html" %}
 
-{% block page_head %}
-{% load static %}
-<link rel="canonical" href="https://www.circularblogs.com/" />
-<title>Circular Blogs - Educating Sustainability</title>
-<link rel="stylesheet"
-  href="{% if debug %}{% static 'css/home.css' %}{% else %}{% static 'minified-css/home-min.css' %}{% endif %}">
-<meta name="description"
-  content="Welcome to Circular Blogs, your ultimate destination for all things related to sustainability. Explore insightful articles, practical tips, and innovative ideas on eco-friendly living.">
-<meta name="keywords" content="Circular Tribe, Blogs, Circular Blogs, Sustainability, Green revolution, education">
-<meta name="author" content="The Circular Tribe">
-<meta property="og:title" content="Circular Blogs" />
-<meta property="og:type" content="website" />
-<meta property="og:description"
-  content="Welcome to Circular Blogs, your ultimate destination for all things related to sustainability." />
-<meta property="og:url" content="https://www.circularblogs.com" />
-<meta property="og:image" content="{% static 'images/circularblog.png' %}" />
-{% endblock %}
-
-{% block page_content %}
-<main id="main">
-  <div class="logotext" id="logotext">
-    <h2 class="circular">Circular</h2>
-    <h2 class="cblogs">Blogs</h2>
-  </div>
-
-  <!-- Hero/Intro Section -->
+{% block hero_section %}
   <section class="hero-section">
+    <!-- Floating decorative elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <!-- Subtle particle effects -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <!-- Subtle grid overlay -->
+    <div class="grid-overlay"></div>
+    
     <div class="hero-container">
       <div class="hero-content">
-        <p class="hero-description">
-          We're a small group of writers and tech enthusiasts sharing insights on
-          sustainability, innovation, and technology. CircularBlogs isn't a company —
-          it's a collaborative, part-time effort to share knowledge and awareness.
-        </p>
+        <!-- Brand Identity -->
+        <div class="brand-identity">
+          <div class="brand-logo">
+            <div class="logo-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="brand-text">
+              <h1 class="brand-name">CircularBlogs</h1>
+              <p class="brand-tagline">Educating Sustainability</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Description -->
+        <div class="hero-description-wrapper">
+          <p class="hero-description">
+            We're a passionate community of writers and tech enthusiasts sharing insights on
+            sustainability, innovation, and green technology. Join us in exploring practical solutions
+            for a more sustainable future.
+          </p>
+        </div>
+
+        <!-- Call to Action -->
         <div class="hero-actions">
-          <a href="/aboutus/" class="btn-primary hero-btn">About Us</a>
-          <a href="/write-for-us/" class="btn-secondary hero-btn">Write for Us</a>
+          <a href="/aboutus/" class="btn-primary hero-btn">
+            <span>About Us</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a href="/write-for-us/" class="btn-secondary hero-btn">
+            <span>Write for Us</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Key Features -->
+        <div class="hero-features">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <span>Expert Articles</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <span>Community Driven</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span>Actionable Insights</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <form class="searchbar" id="autocomplete" method="GET">
-    <div class="row1">
-      <input class="search" type="text" name="search" id="search" placeholder="Search articles..." />
-      <button class="searchbutton" type="submit" id="submit" name="Search" aria-label="Search">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
-          viewBox="0 0 16 16">
-          <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-        </svg>
-      </button>
-    </div>
-    <div class="row2">
-      <ul class="autolist"></ul>
-    </div>
-  </form>
-  <section class="categories">
-    <div class="categories-header">
-      <h2 class="categories-title">Explore Topics</h2>
-      <p class="categories-subtitle">Discover articles across various sustainability and lifestyle categories</p>
-    </div>
-    <div class="categories-container">
-      <ul id="categories">
-        <li>
-          <a class="active" id="Recent" href="/">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Recent
-          </a>
-        </li>
-        <li>
-          <a id="Environment" href="/category/Environment">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Environment
-          </a>
-        </li>
-        <li>
-          <a id="Technology" href="/category/Technology">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Technology
-          </a>
-        </li>
-        <li>
-          <a id="Agriculture" href="/category/Agriculture">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            Agriculture
-          </a>
-        </li>
-        <li>
-          <a id="Life-style" href="/category/Life-style">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            Lifestyle
-          </a>
-        </li>
-        <li>
-          <a id="Fashion" href="/category/Fashion">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4 4 4 0 004-4V5z" />
-            </svg>
-            Fashion
-          </a>
-        </li>
-        <li>
-          <a id="Food" href="/category/Food">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-            Food
-          </a>
-        </li>
-        <li>
-          <a id="Education" href="/category/Education">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-            Education
-          </a>
-        </li>
-        <li>
-          <a id="News" href="/category/News">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-            </svg>
-            News
-          </a>
-        </li>
-        <li>
-          <a id="DIY" href="/category/DIY">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            DIY
-          </a>
-        </li>
-        <li>
-          <a id="Travel" href="/category/Travel">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            Travel
-          </a>
-        </li>
-        <li>
-          <a id="Case-Studies" href="/category/Case-Studies">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Case Studies
-          </a>
-        </li>
-        <li>
-          <a id="Others" href="/category/Others">
-            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z" />
-            </svg>
-            Others
-          </a>
-        </li>
-      </ul>
-    </div>
-  </section>
-  <div class="content" {% if page_blog.has_previous %} x-data="{ moreblogs: true }" {% else %}
-    x-data="{ moreblogs: false }" {% endif %}>
-    <div class="mainblog" style="background-image: url('{{main.image.url}}')">
-      <a href="/blog/{{ main.url }}">
-        <div class="heading">
-          <h1>{{ main.Title }}</h1>
-        </div>
-      </a>
-    </div>
-    <div class="recentblog">
-      {% for blog in recent %}
-      <div class="blog" style="background: url('{{blog.image.url}}')">
-        <a href="/blog/{{ blog.url }}">
-          <div class="bloghead">
-            <span><b>{{ blog.Title }}</b></span>
-          </div>
-        </a>
-      </div>
-      {% endfor %}
-      <div class="more" id="moretxt" @click="moreblogs = true" x-show="!moreblogs">More Blogs</div>
-    </div>
-    <div class="moreblog" id="moreblog" x-show="moreblogs">
-      {% for blog in blogs %}
-      <div class="blog" style="background: url('{{blog.image.url}}')">
-        <a href="/blog/{{ blog.url }}">
-          <div class="bloghead">
-            <span><b>{{ blog.Title }}</b></span>
-          </div>
-        </a>
-      </div>
-      {% endfor %}
-      {% if page_blog.has_previous or page_blog.has_next %}
-      <div class="pagination">
-        {% if page_blog.has_previous %}
-        <a class="pagination-btn link-active backward" href="?page={{ page_blog.previous_page_number }}">Prev</a>
-        {% else %}
-        <span class="pagination-btn">Prev</span>
-        {% endif %}
-
-        <span class="center">Page {{ page_blog.number }} of {{ page_blog.paginator.num_pages }}</span>
-
-        {% if page_blog.has_next %}
-        <a class="pagination-btn link-active forward" href="?page={{ page_blog.next_page_number }}">Next</a>
-        {% else %}
-        <span class="pagination-btn">Next</span>
-        {% endif %}
-      </div>
-      {% endif %}
-    </div>
-  </div>
-</main>
-{% endblock %}
-
-{% block page_script %}
-<script type="text/javascript" src="{% static 'js/index.js' %}" defer>
-</script>
-{% if category %}
-<script type="text/javascript" src="{% static 'js/category.js' %}" defer>
-</script>
-{% endif %}
-<script src="https://unpkg.com/@trevoreyre/autocomplete-js" defer></script>
-<script type="text/javascript" src="{% static 'js/autocomplete.js' %}" defer></script>
 {% endblock %}
