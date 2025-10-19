@@ -48,7 +48,7 @@
                     <div class="notice-icon">🔒</div>
                     <div class="notice-content">
                         <h3>Private Channel Access</h3>
-                        <p>Our blog writers work in a <strong>private Discord channel</strong>. Access is granted only after we review your application and may include follow-up tasks to ensure the best fit for our community standards.</p>
+                        <p>Our blog writers work in a <strong>private Discord channel</strong>. Access is granted only after we review your application to ensure the best fit for our community standards.</p>
                     </div>
                 </div>
                 
@@ -60,7 +60,7 @@
                             <div class="step-number">1</div>
                             <div class="step-content">
                                 <h3>Application Review</h3>
-                                <p>Our team will review your application within 3-5 business days. We may send follow-up questions or tasks to better understand your expertise.</p>
+                                <p>Our team will review your application within 3-5 business days and revert back to you with further process</p>
                             </div>
                         </div>
                         
@@ -68,7 +68,7 @@
                             <div class="step-number">2</div>
                             <div class="step-content">
                                 <h3>Follow-up Process</h3>
-                                <p>If we like your application, you may receive additional tasks or questions to complete before gaining access to our private writer channel.</p>
+                                <p>If your application is aligned, you may receive additional tasks or questions to complete before gaining access to our private writer channel.</p>
                             </div>
                         </div>
                         
@@ -112,18 +112,7 @@
                         </a>
                     </div>
                 </div>
-                
-                <!-- Community Stats -->
-                <div class="community-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">Articles Published</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">1K+</div>
-                        <div class="stat-label">Monthly Readers</div>
-                    </div>
-                </div>
+
                 
             {% else %}
                 <!-- Default Thank You -->
@@ -136,9 +125,6 @@
             
             <div class="action-buttons">
                 <a href="/" class="btn btn-primary">Back to Home</a>
-                {% if request.GET.community %}
-                    <a href="mailto:hello@circularblogs.com" class="btn btn-secondary">Contact Us</a>
-                {% endif %}
             </div>
         </div>
     </section>

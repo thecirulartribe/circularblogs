@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: var(--color-bg-primary);
+    background-color: var(--color-bg-secondary);
     overflow-x: hidden;
 }
 
@@ -369,7 +369,6 @@ body {
 /* What We Do Section */
 .what-we-do {
     padding: var(--spacing-12) 0;
-    background: linear-gradient(135deg, #f8fdf8 0%, #f0f9f0 100%);
 }
 
 .activities-grid {
