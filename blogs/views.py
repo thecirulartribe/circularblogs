@@ -16,20 +16,31 @@ from accounts.models import CustomUser
 def index(request):
   """ Renders the homepage with cached blog data """
   all_blogs = cache.get('blog_list')
+  main_blog, recent, blogs = {}, {}, {}
   if not all_blogs:
-    blogs_queryset = Blog.objects.filter(published=True).order_by('-pk')
-    sponsored_main = list(Blog.objects.filter(sponsored=True, show_blog_at='Main', published=True).order_by('-pk'))
-    sponsored_side = list(Blog.objects.filter(sponsored=True, show_blog_at='Side', published=True).order_by('-pk'))
-    unsponsored = list(Blog.objects.filter(sponsored=False, published=True).order_by('-pk'))
-    all_blogs = sponsored_main + sponsored_side + unsponsored if sponsored_main or sponsored_side else blogs_queryset
+    blogs_queryset = list(Blog.objects.filter(published=True).order_by('-pk'))
+    sponsored_main = [b for b in blogs_queryset if b.sponsored and b.show_blog_at == 'Main']
+    sponsored_side = [b for b in blogs_queryset if b.sponsored and b.show_blog_at == 'Side']
+    remaining = [b for b in blogs_queryset if not ((b.sponsored and  b.show_blog_at == 'Main') or (b.sponsored and b.show_blog_at == 'Side'))]
+    if sponsored_main:
+      # main sponsored(s) first, then side sponsored, then the rest
+      all_blogs = sponsored_main + sponsored_side + remaining
+    else:
+      # no main sponsor → promote the newest remaining to the main slot
+      head = remaining[:1]  # [] if empty, safe
+      tail = remaining[1:]
+      all_blogs = head + sponsored_side + tail
     cache.set('blog_list', all_blogs, timeout=3600)  # Cache for 1 hour
 
   # Implement pagination
-  paginator = Paginator(all_blogs, 10)  # Show 10 blogs per page
+  paginator = Paginator(all_blogs, 12)  # Show 10 blogs per page
   page_number = request.GET.get("page")
   page_blog = paginator.get_page(page_number)
 
-  main_blog, recent, blogs = categorize_blogs(page_blog)
+  if not page_number or int(page_number) == 1:
+    main_blog, recent, blogs = categorize_blogs(page_blog)
+  else:
+    blogs = page_blog
 
   # Handle Search Query
   search_title = request.GET.get('search')
@@ -96,11 +107,15 @@ def categories(request, category):
     blogs_queryset = Blog.objects.filter(category=category, published=True).order_by('-pk')
     cache.set(cache_key, blogs_queryset, timeout=3600)
 
-  main_blog, recent, blogs = categorize_blogs(blogs_queryset)
+  paginator = Paginator(blogs_queryset, 12)  # Show 10 blogs per page
+  page_number = request.GET.get("page")
+  page_blog = paginator.get_page(page_number)
+
+  main_blog, recent, blogs = categorize_blogs(page_blog)
   submission, subscribed = handle_subscription(request)
-  return render(request, 'index.html', {
-    'main': main_blog, 'recent': recent, 'blogs': blogs,
-    'category': True,
+  return render(request, 'categories.html', {
+    'main': main_blog, 'recent': recent, 'blogs': blogs, 'page_blog': page_blog,
+    'category': category,
   'submission':submission, 'subscribed': subscribed})
 
 # Blog Search API
