@@ -11,7 +11,7 @@
 <main>
   <section class="feedback-section">
     <div class="container">
-      <h1 class="heading">We Value Your Feedback</h1>
+      <h1 class="heading">We Value Your Feedback!</h1>
       <p class="description">Your feedback helps us improve and serve you better. Whether you have suggestions, blog ideas, or collaboration proposals, we'd love to hear from you.</p>
       <form class="feedback-form" method="POST" id="feedbackForm">
         {% csrf_token %}
@@ -28,9 +28,9 @@
         </div>
 
         <div class="form-group">
-          <label for="topic" class="form-label">Topic</label>
+          <label for="topic" class="form-label">Subject</label>
           <select id="topic" name="topic" class="form-input form-select" required>
-            <option value="">Select a topic</option>
+            <option value="">Select a subject</option>
             <option value="Feedback">General Feedback</option>
             <option value="Blog Idea">Blog Idea</option>
             <option value="Collaboration">Collaboration Proposal</option>

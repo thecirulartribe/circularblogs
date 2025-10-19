@@ -78,12 +78,31 @@ navbar {
     text-decoration: none;
     color: var(--color-primary-900);
     transition: var(--transition-base);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-lg);
+    position: relative;
 }
 
 .navigation ul li a:hover {
     color: var(--color-accent-500);
     font-size: 1.5rem;
     transform: translateY(-2px);
+    background-color: var(--color-primary-50);
+}
+
+/* Active state for navigation links */
+.navigation ul li a.active {
+    color: var(--color-primary-600);
+    background-color: var(--color-primary-100);
+    font-weight: var(--font-weight-semibold);
+    position: relative;
+}
+
+.navigation ul li a.active:hover {
+    color: var(--color-primary-700);
+    background-color: var(--color-primary-200);
+    font-size: inherit;
+    transform: none;
 }
 
 /* Dropdown Styles */
@@ -144,6 +163,8 @@ navbar {
     transition: var(--transition-fast);
     border-bottom: 1px solid transparent;
     width: 50%;
+    border-radius: var(--radius-md);
+    position: relative;
 }
 
 .dropdown-menu a:hover {
@@ -151,7 +172,19 @@ navbar {
     color: var(--color-accent-500);
     font-size: 1rem !important;
     border-bottom-color: var(--color-primary-100);
-    border-radius: var(--radius-md);
+}
+
+/* Active state for dropdown menu items */
+.dropdown-menu a.active {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-700);
+    font-weight: var(--font-weight-semibold);
+    border-left: 3px solid var(--color-primary-500);
+}
+
+.dropdown-menu a.active:hover {
+    background-color: var(--color-primary-200);
+    color: var(--color-primary-800);
 }
 
 .subscribe {
@@ -1302,5 +1335,27 @@ navbar {
 
     .social-link:hover {
         transform: none;
+    }
+}/*
+ Active state styles for mobile dropdown */
+@media screen and (max-width: 940px) {
+    .navshow .dropdown-menu a.active {
+        background-color: var(--color-primary-100);
+        color: var(--color-primary-700);
+        font-weight: var(--font-weight-semibold);
+        border-left: 3px solid var(--color-primary-500);
+    }
+
+    .navshow .dropdown-menu a.active:hover {
+        background-color: var(--color-primary-200);
+        color: var(--color-primary-800);
+    }
+
+    /* Active state for main nav links on mobile */
+    .navshow .navigation ul li a.active {
+        background-color: var(--color-primary-100);
+        color: var(--color-primary-700);
+        font-weight: var(--font-weight-semibold);
+        border-radius: var(--radius-lg);
     }
 }
