@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from django.conf.global_settings import INTERNAL_IPS, STATIC_ROOT, DEFAULT_FILE_STORAGE
 import dotenv
 import os
 import dj_database_url
@@ -160,7 +159,8 @@ if ENVIRONMENT=='production' or POSTGRES_localally or Cloud_local:
             'LOCATION': 'cache_table',
             'TIMEOUT': 3600,
             'OPTIONS': {
-                'MAX_ENTRIES': 10000,
+                'MAX_ENTRIES': 50000,
+                'CULL_FREQUENCY': 3,  # Delete 1/3 of entries when MAX_ENTRIES reached
             },
         }
     }

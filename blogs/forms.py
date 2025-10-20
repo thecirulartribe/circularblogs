@@ -1,9 +1,10 @@
 from django import forms
-from .models import Blog, service
-from PIL import Image
-import bleach
+#from django.core.exceptions import ValidationError
+from .models import service
+#from PIL import Image
+#import bleach
 
-
+'''
 def validate_image(image):
   valid_extensions = ['.webp', '.jpeg', '.jpg', '.png']
   if not any(image.name.lower().endswith(ext) for ext in valid_extensions):
@@ -70,23 +71,25 @@ class BlogForm(forms.ModelForm):
     if category not in valid_categories:
       raise forms.ValidationError("Invalid category selected. Please choose a valid category.")
     return category
-
+'''
 
 class CommunityApplicationForm(forms.ModelForm):
   class Meta:
     model = service
     fields = ['name', 'email', 'message']
-    
+
     widgets = {
       'name': forms.TextInput(attrs={
         'class': 'form-input',
         'placeholder': 'Enter your full name',
-        'required': True
+        'required': True,
+        'autocomplete': 'on'
       }),
       'email': forms.EmailInput(attrs={
         'class': 'form-input',
         'placeholder': 'Enter your email address',
-        'required': True
+        'required': True,
+        'autocomplete': 'email'
       }),
       'message': forms.Textarea(attrs={
         'class': 'form-input form-textarea',
@@ -95,19 +98,19 @@ class CommunityApplicationForm(forms.ModelForm):
         'required': True
       })
     }
-    
+
     error_messages = {
       'name': {'required': 'Please enter your full name.'},
       'email': {'required': 'Please enter a valid email address.'},
       'message': {'required': 'Please tell us about yourself.'}
     }
-  
+
   def clean_name(self):
     name = self.cleaned_data.get('name', '').strip()
     if len(name) < 2:
       raise forms.ValidationError('Name must be at least 2 characters long.')
     return name
-  
+
   def clean_message(self):
     message = self.cleaned_data.get('message', '').strip()
     if len(message) < 50:

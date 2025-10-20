@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .forms import BlogForm, CommunityApplicationForm
+from .forms import CommunityApplicationForm
 from django.http import JsonResponse
 from django.core.cache import cache
 from .models import Blog, service, suggestions, BlogView
 from .utils import get_client_ip, categorize_blogs, handle_subscription, is_bot, url_creater
 from django.core.paginator import Paginator
-from django.core.mail import send_mail
-from django.conf import settings
 import random
 import time
 from accounts.models import CustomUser
@@ -18,16 +15,25 @@ def index(request):
   all_blogs = cache.get('blog_list')
   main_blog, recent, blogs = {}, {}, {}
   if not all_blogs:
-    blogs_queryset = list(Blog.objects.filter(published=True).order_by('-pk'))
-    sponsored_main = [b for b in blogs_queryset if b.sponsored and b.show_blog_at == 'Main']
-    sponsored_side = [b for b in blogs_queryset if b.sponsored and b.show_blog_at == 'Side']
-    remaining = [b for b in blogs_queryset if not ((b.sponsored and  b.show_blog_at == 'Main') or (b.sponsored and b.show_blog_at == 'Side'))]
+    # Use separate optimized queries instead of filtering in Python
+    sponsored_main = list(Blog.objects.select_related('author_user').filter(
+      published=True, sponsored=True, show_blog_at='Main'
+    ).order_by('-pk'))
+
+    sponsored_side = list(Blog.objects.select_related('author_user').filter(
+      published=True, sponsored=True, show_blog_at='Side'
+    ).order_by('-pk'))
+
+    remaining = list(Blog.objects.select_related('author_user').filter(
+      published=True
+    ).exclude(
+      sponsored=True, show_blog_at__in=['Main', 'Side']
+    ).order_by('-pk'))
+
     if sponsored_main:
-      # main sponsored(s) first, then side sponsored, then the rest
       all_blogs = sponsored_main + sponsored_side + remaining
     else:
-      # no main sponsor → promote the newest remaining to the main slot
-      head = remaining[:1]  # [] if empty, safe
+      head = remaining[:1]
       tail = remaining[1:]
       all_blogs = head + sponsored_side + tail
     cache.set('blog_list', all_blogs, timeout=3600)  # Cache for 1 hour
@@ -62,7 +68,7 @@ def blog(request, url):
   cache_key = f'blog_{url}'
   blog_post = cache.get(cache_key)
   if blog_post is None:
-    blog_post = get_object_or_404(Blog, url=url, published=True)
+    blog_post = get_object_or_404(Blog.objects.select_related('author_user'), url=url, published=True)
     cache.set(cache_key, blog_post, timeout=3600)  # Cache blog content for 1 hour
 
   user_ip = get_client_ip(request)
@@ -73,21 +79,34 @@ def blog(request, url):
   if not last_visit or (current_time - last_visit) >= 60:
     request.session[f'blog_view_{blog_post.id}'] = current_time  # Update session timestamp
     if not is_bot(request):
-      if not BlogView.objects.filter(blog=blog_post, ip_address=user_ip).exists():
-        BlogView.objects.create(blog=blog_post, ip_address=user_ip)
-        blog_post.views += 1
-        blog_post.save(update_fields=['views'])
+      # Use get_or_create to avoid duplicate check
+      blog_view, created = BlogView.objects.get_or_create(
+        blog=blog_post,
+        ip_address=user_ip
+      )
+      if created:
+        # Use F() expression to avoid race conditions
+        from django.db.models import F
+        Blog.objects.filter(pk=blog_post.pk).update(views=F('views') + 1)
 
+  # Author is already loaded via select_related
   if blog_post.author_user:
-    author_name = CustomUser.objects.filter(username=blog_post.author_user).first()
+    author_name = blog_post.author_user
   else:
     author_name = {
       "first_name": "Tribal",
       "last_name": "member"
     }
-  related_blogs = list(Blog.objects.filter(category=blog_post.category, published=True).exclude(pk=blog_post.pk))
-  random.shuffle(related_blogs)
-  related_blogs = related_blogs[:3]  # Select 3 random related blogs
+
+  # Cache related blogs separately and limit query
+  related_cache_key = f'related_blogs_{blog_post.category}_{blog_post.pk}'
+  related_blogs = cache.get(related_cache_key)
+  if related_blogs is None:
+    related_blogs = list(Blog.objects.filter(
+      category=blog_post.category,
+      published=True
+    ).exclude(pk=blog_post.pk).order_by('?')[:3])  # Use database randomization
+    cache.set(related_cache_key, related_blogs, timeout=1800)  # 30 min cache
   submission, subscribed = handle_subscription(request)
   return render(request, 'Blogs.html', {
     'content': [blog_post], 'description': blog_post.meta_description, 'toc': blog_post.table_of_content,
@@ -104,7 +123,9 @@ def categories(request, category):
   blogs_queryset = cache.get(cache_key)
 
   if not blogs_queryset:
-    blogs_queryset = Blog.objects.filter(category=category, published=True).order_by('-pk')
+    blogs_queryset = Blog.objects.select_related('author_user').filter(
+      category=category, published=True
+    ).order_by('-pk')
     cache.set(cache_key, blogs_queryset, timeout=3600)
 
   paginator = Paginator(blogs_queryset, 12)  # Show 10 blogs per page
@@ -121,8 +142,17 @@ def categories(request, category):
 # Blog Search API
 def get_blog(request):
   """ Returns cached blog titles for search autocomplete """
-  search = request.GET.get('search')
-  payload = list(Blog.objects.filter(Title__icontains=search, published=True).values_list('Title', flat=True))
+  search = request.GET.get('search', '').strip()
+  if not search or len(search) < 3:
+    return JsonResponse({'status': True, 'payload': []})
+
+  cache_key = f'search_{search.lower()}'
+  payload = cache.get(cache_key)
+  if payload is None:
+    payload = list(Blog.objects.filter(
+      Title__icontains=search, published=True
+    ).values_list('Title', flat=True)[:10])  # Limit results
+    cache.set(cache_key, payload, timeout=900)  # 15 min cache
   return JsonResponse({'status': True, 'payload': payload})
 
 # Offer Page
@@ -153,32 +183,32 @@ def suggestion(request):
 def write_for_us(request):
   """ Handles write for us community applications """
   form = CommunityApplicationForm()
-  
+
   if request.method == "POST" and request.POST.get("community_application") == 'community_application':
     form = CommunityApplicationForm(request.POST)
-    
+
     if form.is_valid():
       email = form.cleaned_data['email']
-      
+
       # Check if user already exists with this email
       if service.objects.filter(email=email).exists():
         form.add_error('email', 'An application with this email address already exists. Please use a different email or contact us if you need assistance.')
         submission, subscribed = handle_subscription(request)
         return render(request, 'write-for-us.html', {
           'form': form,
-          'submission': submission, 
+          'submission': submission,
           'subscribed': subscribed
         })
-      
+
       # Save the application
-      application = form.save()
-      
+      form.save()
+
       return redirect('/thankyou?community=community')
-  
+
   submission, subscribed = handle_subscription(request)
   return render(request, 'write-for-us.html', {
     'form': form,
-    'submission': submission, 
+    'submission': submission,
     'subscribed': subscribed
   })
 

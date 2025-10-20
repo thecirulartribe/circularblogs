@@ -78,10 +78,12 @@ function showCopySuccess() {
 // Reading Progress Indicator
 function initReadingProgress() {
   document.addEventListener('DOMContentLoaded', function () {
+    const navbar = document.getElementById('navbar');
+    const navbarheight = navbar.offsetHeight;
     const progressBar = document.createElement('div');
     progressBar.style.cssText = `
       position: fixed;
-      top: 0;
+      top: ${navbarheight}px;
       left: 0;
       width: 0%;
       height: 3px;

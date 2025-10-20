@@ -221,21 +221,20 @@
 <!-- Backend-controlled link attributes -->
 <script>
   {% if sponsored %}
-  console.log('yes');
-  {% if nofollow %}
-  nofollow();
-  {% endif %}
-  {% if dofollow %}
-  dofollow();
-  {% endif %}
-  {% if noreferrer %}
-  noreferrer();
-  {% endif %}
-  {% if noopener %}
-  noopener();
-  {% endif %}
-  {% else %}
-  default_link();
+    {% if nofollow %}
+    nofollow();
+    {% endif %}
+    {% if dofollow %}
+    dofollow();
+    {% endif %}
+    {% if noreferrer %}
+    noreferrer();
+    {% endif %}
+    {% if noopener %}
+    noopener();
+    {% endif %}
+    {% else %}
+    default_link();
   {% endif %}
 </script>
 

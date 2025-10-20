@@ -749,7 +749,7 @@ navbar {
 .info-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--color-blue-500), var(--color-blue-600));
+    background: linear-gradient(135deg, var(--color-primary-300), var(--color-primary-500));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -761,7 +761,6 @@ navbar {
 .info-icon svg {
     width: 40px;
     height: 40px;
-    color: var(--color-primary-500);
     stroke-width: 2.5;
 }
 

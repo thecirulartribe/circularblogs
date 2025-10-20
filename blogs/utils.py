@@ -1,6 +1,7 @@
 from .models import Subscribe, BotIP
 from .variables import BOT_USER_AGENTS
 import re
+from django.core.cache import cache
 
 def categorize_blogs(queryset):
     """Categorize blogs into main, recent, and blog sections."""
@@ -38,11 +39,20 @@ def is_bot(request):
 
     # Check if User-Agent contains bot keywords (faster lookup using any() with "in")
     if any(bot in user_agent.lower() for bot in BOT_USER_AGENTS):
-        _, created = BotIP.objects.get_or_create(ip_address=user_ip)
+        # Cache bot IP check to avoid repeated database hits
+        cache_key = f'bot_ip_{user_ip}'
+        if not cache.get(cache_key):
+            _, created = BotIP.objects.get_or_create(ip_address=user_ip)
+            cache.set(cache_key, True, timeout=86400)  # Cache for 24 hours
         return True
 
-    # Directly check if the IP is already stored
-    return BotIP.objects.filter(ip_address=user_ip).exists()
+    # Cache IP lookup to reduce database queries
+    cache_key = f'bot_ip_{user_ip}'
+    is_bot_ip = cache.get(cache_key)
+    if is_bot_ip is None:
+        is_bot_ip = BotIP.objects.filter(ip_address=user_ip).exists()
+        cache.set(cache_key, is_bot_ip, timeout=86400)  # Cache for 24 hours
+    return is_bot_ip
 
 
 def url_creater(title):

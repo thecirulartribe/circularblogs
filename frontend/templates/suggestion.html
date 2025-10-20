@@ -16,7 +16,7 @@
       <form class="feedback-form" method="POST" id="feedbackForm">
         {% csrf_token %}
         <input type="hidden" name="suggestions" value="suggestions">
-        
+
         <div class="form-group">
           <label for="name" class="form-label">Your Name (Optional)</label>
           <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name">

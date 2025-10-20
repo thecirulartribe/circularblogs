@@ -155,19 +155,19 @@ style.textContent = `
         animation: spin 1s ease-in-out infinite;
         margin-right: 8px;
     }
-    
+
     @keyframes spin {
         to { transform: rotate(360deg); }
     }
-    
+
     .character-counter {
         transition: all 0.3s ease;
     }
-    
+
     .form-input.error {
         animation: shake 0.5s ease-in-out;
     }
-    
+
     @keyframes shake {
         0%, 100% { transform: translateX(0); }
         25% { transform: translateX(-5px); }

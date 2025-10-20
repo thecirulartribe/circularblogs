@@ -15,4 +15,3 @@ urlpatterns = [
     path('privacy-policy/', privacy_policy, name="privacy policy"),
     path('cookie-policy/', cookie_policy, name="cookie policy"),
 ]
-
