@@ -7,9 +7,9 @@ from bs4 import BeautifulSoup
 
 # Create your models here.
 class Blog(models.Model):
-  url = models.CharField(max_length=100, blank=True, null=True)
+  url = models.CharField(max_length=100, blank=True, null=True, db_index=True)
   author_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-  Title = models.CharField(max_length=100)
+  Title = models.CharField(max_length=100, db_index=True)
   image = ResizedImageField(size=[950,300], quality=80, force_format='WEBP', crop=['middle', 'center'])
   table_of_content = models.BooleanField(default=False)
   content = CKEditor5Field(config_name='extends', blank=True, null=True)
@@ -18,21 +18,28 @@ class Blog(models.Model):
                                        ('Agriculture', 'Agriculture'), ('Life-style', 'Life-style'),
                                        ('Fashion', 'Fashion'), ('Food', 'Food'), ('Education', 'Education'),
                                        ('DIY', 'DIY'), ('News', 'News'), ('Travel', 'Travel'),
-                                       ('Case-Studies', 'Case-Studies'), ('Others', 'Others')])
-  blog_date = models.DateTimeField(auto_now_add=True)
+                                       ('Case-Studies', 'Case-Studies'), ('Others', 'Others')], db_index=True)
+  blog_date = models.DateTimeField(auto_now_add=True, db_index=True)
   updated_at = models.DateTimeField(auto_now=True)
   meta_description = models.CharField(default="description", max_length=300)
-  sponsored = models.BooleanField(default=False)
+  sponsored = models.BooleanField(default=False, db_index=True)
   nofollow = models.BooleanField(default=False)
   dofollow = models.BooleanField(default=False)
   noreferrer = models.BooleanField(default=False)
   noopener = models.BooleanField(default=False)
-  show_blog_at = models.CharField(default=('None', 'None'), max_length=20, choices=[('None', 'None'), ('Main', 'Main'), ('Side', 'Side')])
-  published = models.BooleanField(default=False)
+  show_blog_at = models.CharField(default=('None', 'None'), max_length=20, choices=[('None', 'None'), ('Main', 'Main'), ('Side', 'Side')], db_index=True)
+  published = models.BooleanField(default=False, db_index=True)
   queued = models.BooleanField(default=False)
   revert = models.BooleanField(default=False)
   views = models.PositiveIntegerField(default=0)
   read_time = models.PositiveIntegerField(default=5)
+
+  class Meta:
+    indexes = [
+      models.Index(fields=['published', '-blog_date']),
+      models.Index(fields=['category', 'published']),
+      models.Index(fields=['sponsored', 'show_blog_at', 'published']),
+    ]
 
   def save(self, *args, **kwargs):
     self.calculate_read_time()
@@ -90,8 +97,14 @@ class suggestions(models.Model):
 
 class BlogView(models.Model):
   blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_views')
-  ip_address = models.GenericIPAddressField()
+  ip_address = models.GenericIPAddressField(db_index=True)
   timestamp = models.DateTimeField(auto_now_add=True)
+
+  class Meta:
+    indexes = [
+      models.Index(fields=['blog', 'ip_address']),
+    ]
+    unique_together = ['blog', 'ip_address']
 
   def __str__(self):
     return f"{self.blog.Title} - {self.ip_address}"

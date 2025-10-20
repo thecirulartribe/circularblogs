@@ -160,7 +160,8 @@ if ENVIRONMENT=='production' or POSTGRES_localally or Cloud_local:
             'LOCATION': 'cache_table',
             'TIMEOUT': 3600,
             'OPTIONS': {
-                'MAX_ENTRIES': 10000,
+                'MAX_ENTRIES': 50000,
+                'CULL_FREQUENCY': 3,  # Delete 1/3 of entries when MAX_ENTRIES reached
             },
         }
     }

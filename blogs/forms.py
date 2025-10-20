@@ -1,9 +1,10 @@
 from django import forms
-from .models import Blog, service
-from PIL import Image
-import bleach
+#from django.core.exceptions import ValidationError
+from .models import service
+#from PIL import Image
+#import bleach
 
-
+'''
 def validate_image(image):
   valid_extensions = ['.webp', '.jpeg', '.jpg', '.png']
   if not any(image.name.lower().endswith(ext) for ext in valid_extensions):
@@ -70,7 +71,7 @@ class BlogForm(forms.ModelForm):
     if category not in valid_categories:
       raise forms.ValidationError("Invalid category selected. Please choose a valid category.")
     return category
-
+'''
 
 class CommunityApplicationForm(forms.ModelForm):
   class Meta:
@@ -81,12 +82,14 @@ class CommunityApplicationForm(forms.ModelForm):
       'name': forms.TextInput(attrs={
         'class': 'form-input',
         'placeholder': 'Enter your full name',
-        'required': True
+        'required': True,
+        'autocomplete': 'on'
       }),
       'email': forms.EmailInput(attrs={
         'class': 'form-input',
         'placeholder': 'Enter your email address',
-        'required': True
+        'required': True,
+        'autocomplete': 'email'
       }),
       'message': forms.Textarea(attrs={
         'class': 'form-input form-textarea',
