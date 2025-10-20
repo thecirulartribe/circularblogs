@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from django.conf.global_settings import INTERNAL_IPS, STATIC_ROOT, DEFAULT_FILE_STORAGE
 import dotenv
 import os
 import dj_database_url

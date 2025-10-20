@@ -20,9 +20,14 @@ def minify_css(css_content):
 
 
 # Loop through files in input folder
+overall_difference = 0
+total_input_size = 0
+total_output_size = 0
 for filename in os.listdir(input_folder):
   if filename.endswith(".css"):
     input_path = os.path.join(input_folder, filename)
+    input_filesize = os.path.getsize(input_path) / 1024
+    total_input_size += input_filesize
 
     with open(input_path, "r", encoding="utf-8") as f:
       css_content = f.read()
@@ -38,3 +43,10 @@ for filename in os.listdir(input_folder):
       f.write(minified)
 
     print(f"Minified: {filename} -> {output_filename}")
+    filesize = os.path.getsize(output_path) / 1024
+    total_output_size += filesize
+
+overall_difference = total_input_size - total_output_size
+print("Before compression: ", total_input_size, "kb")
+print("After compression: ", total_output_size, "kb")
+print("compression: ", overall_difference, "kb")
