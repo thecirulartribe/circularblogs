@@ -855,18 +855,18 @@ a {
         grid-template-columns: 1fr;
         gap: var(--spacing-6);
     }
-    
+
     .toc-sidebar {
         position: static;
         order: -1;
         max-height: 300px;
         margin-bottom: var(--spacing-6);
     }
-    
+
     .toc-toggle {
         display: block;
     }
-    
+
     .related-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: var(--spacing-6);
@@ -881,21 +881,21 @@ a {
     .blog-main {
         margin-top: 50px;
     }
-    
+
     .blog-hero {
         padding: var(--spacing-8) 0 var(--spacing-10);
     }
-    
+
     .hero-container,
     .article-container,
     .related-container {
         padding: 0 var(--spacing-4);
     }
-    
+
     .article-section {
         padding: var(--spacing-10) 0;
     }
-    
+
     .related-section {
         padding: var(--spacing-10) 0;
     }
@@ -906,55 +906,55 @@ a {
         gap: var(--spacing-4);
         justify-content: center;
     }
-    
+
     .meta-item {
         font-size: var(--font-size-xs);
     }
-    
+
     .breadcrumbs {
         flex-wrap: wrap;
         gap: var(--spacing-1);
     }
-    
+
     .breadcrumb-current {
         max-width: calc(100vw - var(--spacing-2));
         padding-left: var(--spacing-2);
     }
-    
+
     .hero-image {
         margin-top: var(--spacing-6);
     }
-    
+
     .featured-image {
         height: 250px;
     }
-    
+
     .content-wrapper {
         padding: var(--spacing-6);
         font-size: var(--font-size-base);
     }
-    
+
     .content-wrapper h2::before {
         left: -15px;
         width: 3px;
         height: 20px;
     }
-    
+
     .article-footer {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--spacing-4);
     }
-    
+
     .share-buttons {
         justify-content: flex-start;
     }
-    
+
     .related-grid {
         grid-template-columns: 1fr;
         gap: var(--spacing-6);
     }
-    
+
     .section-title {
         font-size: var(--font-size-3xl);
     }
@@ -966,113 +966,113 @@ a {
     .related-container {
         padding: 0 var(--spacing-3);
     }
-    
+
     .blog-hero {
         padding: var(--spacing-6) 0 var(--spacing-8);
     }
-    
+
     .breadcrumbs {
         font-size: var(--font-size-xs);
         margin-bottom: var(--spacing-6);
     }
-    
+
     .breadcrumb-icon {
         width: 14px;
         height: 14px;
     }
-    
+
     .category-badge {
         font-size: var(--font-size-xs);
         padding: var(--spacing-1) var(--spacing-3);
     }
-    
+
     .category-icon {
         width: 14px;
         height: 14px;
     }
-    
+
     .blog-title {
         font-size: clamp(1.5rem, 8vw, 2.5rem);
         margin-bottom: var(--spacing-4);
     }
-    
+
     .blog-meta {
         gap: var(--spacing-2);
         flex-direction: column;
     }
-    
+
     .meta-item {
         font-size: var(--font-size-xs);
     }
-    
+
     .meta-icon {
         width: 16px;
         height: 16px;
     }
-    
+
     .featured-image {
         height: 200px;
     }
-    
+
     .toc-sidebar {
         padding: var(--spacing-4);
         margin-bottom: var(--spacing-4);
     }
-    
+
     .content-wrapper {
         padding: var(--spacing-4);
     }
-    
+
     .content-wrapper h1 {
         font-size: var(--font-size-2xl);
     }
-    
+
     .content-wrapper h2 {
         font-size: var(--font-size-xl);
     }
-    
+
     .content-wrapper h2::before {
         display: none;
     }
-    
+
     .content-wrapper h3 {
         font-size: var(--font-size-lg);
     }
-    
+
     .content-wrapper p {
         text-align: left;
     }
-    
+
     .article-footer {
         padding: var(--spacing-4);
     }
-    
+
     .share-buttons {
         flex-direction: column;
         gap: var(--spacing-2);
     }
-    
+
     .share-btn {
         justify-content: center;
         width: 100%;
     }
-    
+
     .section-title {
         font-size: var(--font-size-2xl);
     }
-    
+
     .section-subtitle {
         font-size: var(--font-size-base);
     }
-    
+
     .related-grid {
         gap: var(--spacing-4);
     }
-    
+
     .card-content {
         padding: var(--spacing-4);
     }
-    
+
     .card-title a {
         font-size: var(--font-size-lg);
     }
@@ -1084,15 +1084,15 @@ a {
     .related-container {
         padding: 0 var(--spacing-2);
     }
-    
+
     .content-wrapper {
         padding: var(--spacing-3);
     }
-    
+
     .article-footer {
         padding: var(--spacing-3);
     }
-    
+
     .card-content {
         padding: var(--spacing-3);
     }

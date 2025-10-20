@@ -33,8 +33,8 @@ The redesign will implement a cohesive design system using Tailwind CSS:
 <section class="bg-green-50 border border-green-100 rounded-lg mx-4 my-6 p-6 md:p-8">
   <div class="max-w-4xl mx-auto text-center">
     <p class="text-green-900 text-lg md:text-xl leading-relaxed mb-6">
-      We're a small group of writers and tech enthusiasts sharing insights on 
-      sustainability, innovation, and technology. CircularBlogs isn't a company — 
+      We're a small group of writers and tech enthusiasts sharing insights on
+      sustainability, innovation, and technology. CircularBlogs isn't a company —
       it's a collaborative, part-time effort to share knowledge and awareness.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">

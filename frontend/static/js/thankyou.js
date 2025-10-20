@@ -3,21 +3,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add confetti effect for community applications
     const urlParams = new URLSearchParams(window.location.search);
     const isCommunityThankYou = urlParams.get('community');
-    
+
     if (isCommunityThankYou) {
         // Create confetti effect
         createConfetti();
-        
+
         // Add email reminder after 5 seconds
         setTimeout(showEmailReminder, 5000);
-        
+
         // Add contact link tracking
         trackContactClicks();
     }
-    
+
     // Add smooth scroll animations
     addScrollAnimations();
-    
+
     // Add application status feature
     addApplicationStatusFeature();
 });
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function createConfetti() {
     const colors = ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'];
     const confettiCount = 50;
-    
+
     for (let i = 0; i < confettiCount; i++) {
         setTimeout(() => {
             createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
@@ -47,9 +47,9 @@ function createConfettiPiece(color) {
         border-radius: 50%;
         animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
     `;
-    
+
     document.body.appendChild(confetti);
-    
+
     // Remove confetti after animation
     setTimeout(() => {
         confetti.remove();
@@ -68,7 +68,7 @@ function showEmailReminder() {
             <button class="reminder-close" onclick="this.parentElement.parentElement.remove()">×</button>
         </div>
     `;
-    
+
     reminder.style.cssText = `
         position: fixed;
         top: 20px;
@@ -82,9 +82,9 @@ function showEmailReminder() {
         max-width: 300px;
         animation: slideInRight 0.5s ease-out;
     `;
-    
+
     document.body.appendChild(reminder);
-    
+
     // Auto-remove after 10 seconds
     setTimeout(() => {
         if (reminder.parentNode) {
@@ -100,7 +100,7 @@ function trackContactClicks() {
         link.addEventListener('click', function() {
             // Track contact link clicks
             console.log('Contact link clicked');
-            
+
             // Show success message
             showToast('Opening email client... We\'ll respond within 24 hours! 📧');
         });
@@ -112,7 +112,7 @@ function addScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -121,7 +121,7 @@ function addScrollAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe elements that should animate on scroll
     const animateElements = document.querySelectorAll('.step-item, .link-card, .stat-item');
     animateElements.forEach(el => {
@@ -144,7 +144,7 @@ function addApplicationStatusFeature() {
             </div>
         </div>
     `;
-    
+
     statusReminder.style.cssText = `
         background: var(--color-primary-50);
         border: 2px solid var(--color-primary-200);
@@ -153,7 +153,7 @@ function addApplicationStatusFeature() {
         margin: var(--spacing-6) 0;
         animation: fadeInUp 0.8s ease-out 1.4s both;
     `;
-    
+
     const container = document.querySelector('.container');
     const actionButtons = document.querySelector('.action-buttons');
     if (container && actionButtons) {
@@ -179,9 +179,9 @@ function showToast(message) {
         font-weight: 500;
         animation: toastSlideUp 0.3s ease-out;
     `;
-    
+
     document.body.appendChild(toast);
-    
+
     setTimeout(() => {
         toast.style.animation = 'toastSlideDown 0.3s ease-out forwards';
         setTimeout(() => toast.remove(), 300);
@@ -197,7 +197,7 @@ style.textContent = `
             opacity: 0;
         }
     }
-    
+
     @keyframes slideInRight {
         from {
             transform: translateX(100%);
@@ -208,7 +208,7 @@ style.textContent = `
             opacity: 1;
         }
     }
-    
+
     @keyframes slideOutRight {
         from {
             transform: translateX(0);
@@ -219,7 +219,7 @@ style.textContent = `
             opacity: 0;
         }
     }
-    
+
     @keyframes toastSlideUp {
         from {
             transform: translateX(-50%) translateY(100%);
@@ -230,7 +230,7 @@ style.textContent = `
             opacity: 1;
         }
     }
-    
+
     @keyframes toastSlideDown {
         from {
             transform: translateX(-50%) translateY(0);
@@ -241,24 +241,24 @@ style.textContent = `
             opacity: 0;
         }
     }
-    
+
     .reminder-content {
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    
+
     .reminder-icon {
         font-size: 24px;
         flex-shrink: 0;
     }
-    
+
     .reminder-text {
         flex: 1;
         font-size: 14px;
         line-height: 1.4;
     }
-    
+
     .reminder-close {
         background: none;
         border: none;
@@ -274,22 +274,22 @@ style.textContent = `
         border-radius: 50%;
         transition: background 0.3s ease;
     }
-    
+
     .reminder-close:hover {
         background: rgba(0,0,0,0.1);
     }
-    
+
     .status-content {
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    
+
     .status-icon {
         font-size: 24px;
         flex-shrink: 0;
     }
-    
+
     .status-text {
         flex: 1;
         font-size: 14px;

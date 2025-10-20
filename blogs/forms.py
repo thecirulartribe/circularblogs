@@ -77,7 +77,7 @@ class CommunityApplicationForm(forms.ModelForm):
   class Meta:
     model = service
     fields = ['name', 'email', 'message']
-    
+
     widgets = {
       'name': forms.TextInput(attrs={
         'class': 'form-input',
@@ -98,19 +98,19 @@ class CommunityApplicationForm(forms.ModelForm):
         'required': True
       })
     }
-    
+
     error_messages = {
       'name': {'required': 'Please enter your full name.'},
       'email': {'required': 'Please enter a valid email address.'},
       'message': {'required': 'Please tell us about yourself.'}
     }
-  
+
   def clean_name(self):
     name = self.cleaned_data.get('name', '').strip()
     if len(name) < 2:
       raise forms.ValidationError('Name must be at least 2 characters long.')
     return name
-  
+
   def clean_message(self):
     message = self.cleaned_data.get('message', '').strip()
     if len(message) < 50:

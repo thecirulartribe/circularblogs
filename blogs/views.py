@@ -19,17 +19,17 @@ def index(request):
     sponsored_main = list(Blog.objects.select_related('author_user').filter(
       published=True, sponsored=True, show_blog_at='Main'
     ).order_by('-pk'))
-    
+
     sponsored_side = list(Blog.objects.select_related('author_user').filter(
       published=True, sponsored=True, show_blog_at='Side'
     ).order_by('-pk'))
-    
+
     remaining = list(Blog.objects.select_related('author_user').filter(
       published=True
     ).exclude(
       sponsored=True, show_blog_at__in=['Main', 'Side']
     ).order_by('-pk'))
-    
+
     if sponsored_main:
       all_blogs = sponsored_main + sponsored_side + remaining
     else:
@@ -81,7 +81,7 @@ def blog(request, url):
     if not is_bot(request):
       # Use get_or_create to avoid duplicate check
       blog_view, created = BlogView.objects.get_or_create(
-        blog=blog_post, 
+        blog=blog_post,
         ip_address=user_ip
       )
       if created:
@@ -97,13 +97,13 @@ def blog(request, url):
       "first_name": "Tribal",
       "last_name": "member"
     }
-  
+
   # Cache related blogs separately and limit query
   related_cache_key = f'related_blogs_{blog_post.category}_{blog_post.pk}'
   related_blogs = cache.get(related_cache_key)
   if related_blogs is None:
     related_blogs = list(Blog.objects.filter(
-      category=blog_post.category, 
+      category=blog_post.category,
       published=True
     ).exclude(pk=blog_post.pk).order_by('?')[:3])  # Use database randomization
     cache.set(related_cache_key, related_blogs, timeout=1800)  # 30 min cache
@@ -145,7 +145,7 @@ def get_blog(request):
   search = request.GET.get('search', '').strip()
   if not search or len(search) < 3:
     return JsonResponse({'status': True, 'payload': []})
-  
+
   cache_key = f'search_{search.lower()}'
   payload = cache.get(cache_key)
   if payload is None:
@@ -183,32 +183,32 @@ def suggestion(request):
 def write_for_us(request):
   """ Handles write for us community applications """
   form = CommunityApplicationForm()
-  
+
   if request.method == "POST" and request.POST.get("community_application") == 'community_application':
     form = CommunityApplicationForm(request.POST)
-    
+
     if form.is_valid():
       email = form.cleaned_data['email']
-      
+
       # Check if user already exists with this email
       if service.objects.filter(email=email).exists():
         form.add_error('email', 'An application with this email address already exists. Please use a different email or contact us if you need assistance.')
         submission, subscribed = handle_subscription(request)
         return render(request, 'write-for-us.html', {
           'form': form,
-          'submission': submission, 
+          'submission': submission,
           'subscribed': subscribed
         })
-      
+
       # Save the application
       form.save()
-      
+
       return redirect('/thankyou?community=community')
-  
+
   submission, subscribed = handle_subscription(request)
   return render(request, 'write-for-us.html', {
     'form': form,
-    'submission': submission, 
+    'submission': submission,
     'subscribed': subscribed
   })
 

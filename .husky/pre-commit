@@ -1,3 +1,0 @@
-echo "Minifying css"
-exec cd ./utitlites
-exec python minify-css.py

@@ -10,7 +10,7 @@ function generateTOC() {
         if (tocContent && contentWrapper) {
           // Clear any existing content first to prevent duplication
           tocContent.innerHTML = '';
-          
+
           const headings = contentWrapper.querySelectorAll('h1, h2, h3, h4, h5, h6');
 
           if (headings.length > 0) {
