@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add smooth scroll animations
     addScrollAnimations();
 
-    // Add application status feature
-    addApplicationStatusFeature();
 });
 
 function createConfetti() {
@@ -130,35 +128,6 @@ function addScrollAnimations() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-}
-
-function addApplicationStatusFeature() {
-    // Add application status reminder
-    const statusReminder = document.createElement('div');
-    statusReminder.className = 'status-reminder';
-    statusReminder.innerHTML = `
-        <div class="status-content">
-            <div class="status-icon">⏰</div>
-            <div class="status-text">
-                <strong>Application Timeline:</strong> We typically review applications within 3-5 business days. Keep an eye on your email for updates!
-            </div>
-        </div>
-    `;
-
-    statusReminder.style.cssText = `
-        background: var(--color-primary-50);
-        border: 2px solid var(--color-primary-200);
-        border-radius: var(--radius-xl);
-        padding: var(--spacing-4);
-        margin: var(--spacing-6) 0;
-        animation: fadeInUp 0.8s ease-out 1.4s both;
-    `;
-
-    const container = document.querySelector('.container');
-    const actionButtons = document.querySelector('.action-buttons');
-    if (container && actionButtons) {
-        container.insertBefore(statusReminder, actionButtons);
-    }
 }
 
 function showToast(message) {
