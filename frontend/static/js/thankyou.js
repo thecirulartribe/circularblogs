@@ -61,7 +61,7 @@ function showEmailReminder() {
         <div class="reminder-content">
             <div class="reminder-icon">📧</div>
             <div class="reminder-text">
-                <strong>Don't forget!</strong> Check your email for Discord access and next steps.
+                <strong>Don't forget!</strong> Check your email for next steps.
             </div>
             <button class="reminder-close" onclick="this.parentElement.parentElement.remove()">×</button>
         </div>

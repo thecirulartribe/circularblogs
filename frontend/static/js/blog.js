@@ -1,12 +1,12 @@
 
 // Share Functionality (global functions)
-window.shareOnTwitter = function() {
+window.shareOnX = function() {
   try {
     const url = encodeURIComponent(window.location.href);
     const text = encodeURIComponent(document.title);
-    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+    window.open(`https://x.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
   } catch (error) {
-    console.warn('Twitter share failed:', error);
+    console.warn('X share failed:', error);
   }
 }
 
