@@ -637,17 +637,17 @@ navbar {
     color: var(--color-white);
 }
 
-.social-link.youtube:hover {
-    background: linear-gradient(135deg, #FF0000, #CC0000);
-    border-color: #FF0000;
+.social-link.discord:hover {
+    background: linear-gradient(135deg, #5865F2, #4752C4);
+    border-color: #5865F2;
 }
 
-.social-link.youtube:hover .social-icon {
+.social-link.discord:hover .social-icon {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.social-link.youtube:hover .social-icon svg,
-.social-link.youtube:hover .social-text {
+.social-link.discord:hover .social-icon svg,
+.social-link.discord:hover .social-text {
     color: var(--color-white);
 }
 
@@ -684,8 +684,8 @@ navbar {
     color: #E4405F;
 }
 
-.social-link.youtube .social-icon svg {
-    color: #FF0000;
+.social-link.discord .social-icon svg {
+    color: #5865F2;
 }
 
 .social-link.facebook .social-icon svg {

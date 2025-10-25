@@ -5,8 +5,12 @@ from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 admin.site.register(Subscribe, ImportExportModelAdmin)
 admin.site.register(service, ImportExportModelAdmin)
-admin.site.register(suggestions, ImportExportModelAdmin)
 admin.site.register(BlogView)
+
+@admin.register(suggestions)
+class Suggestion(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ('topic', 'email', 'name')
+    search_fields = ['topic', 'suggestion']
 
 @admin.register(Blog)
 class BlogAdmin(ImportExportModelAdmin, admin.ModelAdmin):

@@ -584,13 +584,13 @@ h1, h2, h3, h4, h5, h6 {
     height: 16px;
 }
 
-.share-btn.twitter {
-    background: #1da1f2;
+.share-btn.x {
+    background: #000000;
     color: white;
 }
 
-.share-btn.twitter:hover {
-    background: #1a91da;
+.share-btn.x:hover {
+    background: #333333;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(29, 161, 242, 0.3);
 }
